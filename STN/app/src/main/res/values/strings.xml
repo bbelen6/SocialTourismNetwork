@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SocialTourismNetwork</string>
+
+    <string name="email">Email</string>
+    <string name="password">Contaseña</string>
+    <string name="register">Registrarse</string>
+    <string name="login">Acceder</string>
+    <string name="provider">Proveedor</string>
+    <string name="close_session">Cerrar sesión</string>
 </resources>
