@@ -1,4 +1,4 @@
-package com.miwfem.socialtourismnetwork.ui.main
+package com.miwfem.socialtourismnetwork.ui.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.miwfem.socialtourismnetwork.R
+import com.miwfem.socialtourismnetwork.ui.home.HomeActivity
+import com.miwfem.socialtourismnetwork.ui.home.ProviderType
 import com.miwfem.socialtourismnetwork.utils.EMAIL
 import com.miwfem.socialtourismnetwork.utils.PROVIDER
 import kotlinx.android.synthetic.main.activity_auth.*

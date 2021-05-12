@@ -1,4 +1,4 @@
-package com.miwfem.socialtourismnetwork.ui.main
+package com.miwfem.socialtourismnetwork.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -7,4 +7,6 @@
     <string name="login">Acceder</string>
     <string name="provider">Proveedor</string>
     <string name="close_session">Cerrar sesión</string>
+    <string name="suggestions">Sugerencias</string>
+
 </resources>
