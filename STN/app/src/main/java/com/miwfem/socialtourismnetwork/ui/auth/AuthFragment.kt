@@ -1,29 +1,42 @@
 package com.miwfem.socialtourismnetwork.ui.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.miwfem.socialtourismnetwork.R
-import com.miwfem.socialtourismnetwork.ui.home.HomeActivity
-import com.miwfem.socialtourismnetwork.ui.home.ProviderType
+import com.miwfem.socialtourismnetwork.ui.home.HomeFragment
+import com.miwfem.socialtourismnetwork.ui.main.MainActivity
 import com.miwfem.socialtourismnetwork.utils.EMAIL
 import com.miwfem.socialtourismnetwork.utils.PROVIDER
-import kotlinx.android.synthetic.main.activity_auth.*
+import com.miwfem.socialtourismnetwork.utils.TAG_HOME
+import kotlinx.android.synthetic.main.fragment_auth.*
 
-class AuthActivity : AppCompatActivity() {
+class AuthFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
+        //GET BUNDLE EXTRA
+    }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_auth, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         setUpView()
     }
 
     private fun setUpView() {
-        title = "Autenticación"
-
         sing_up_button.setOnClickListener {
             if (email_edit_text.text.isNotEmpty() && password_edit_text.text.isNotEmpty()) {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(
@@ -32,7 +45,7 @@ class AuthActivity : AppCompatActivity() {
                 )
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                            showHome(it.result?.user?.email ?: "", "HOME")
                         } else {
                             showAlert()
                         }
@@ -48,7 +61,7 @@ class AuthActivity : AppCompatActivity() {
                 )
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                            showHome(it.result?.user?.email ?: "", "Home")
                         } else {
                             showAlert()
                         }
@@ -58,7 +71,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun showAlert() {
-        val builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Error")
             .setMessage("Se ha producido un error en la autenticación del usuario")
             .setPositiveButton("Aceptar", null)
@@ -66,11 +79,18 @@ class AuthActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showHome(email: String, provider: ProviderType) {
-        val homeIntent = Intent(this, HomeActivity::class.java).apply {
-            putExtra(EMAIL, email)
-            putExtra(PROVIDER, provider.name)
-        }
-        startActivity(homeIntent)
+    private fun showHome(email: String, provider: String) {
+        (requireActivity() as? MainActivity)?.replaceFragment(
+            HomeFragment.newInstance(
+                email,
+                provider
+            ), R.id.fragmentComplete, TAG_HOME
+        )
+    }
+
+    companion object {
+        fun newInstance() =
+            AuthFragment().apply {
+            }
     }
 }
