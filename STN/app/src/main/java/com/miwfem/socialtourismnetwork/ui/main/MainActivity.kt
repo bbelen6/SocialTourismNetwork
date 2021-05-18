@@ -1,6 +1,8 @@
 package com.miwfem.socialtourismnetwork.ui.main
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.miwfem.socialtourismnetwork.R
@@ -18,8 +20,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        replaceFragment(AuthFragment.newInstance(), R.id.fragmentComplete, TAG_AUTH)
+        replaceFragment(HomeFragment.newInstance("", ""), R.id.fragmentComplete, TAG_HOME)
         bottomNavigation()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_navigation, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_login -> {
+                fragmentNavigation(AuthFragment.newInstance(), TAG_AUTH)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun replaceFragment(fragment: Fragment, layout: Int, tag: String) {
