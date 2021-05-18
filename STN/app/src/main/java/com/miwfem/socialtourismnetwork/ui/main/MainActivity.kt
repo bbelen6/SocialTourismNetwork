@@ -1,11 +1,16 @@
 package com.miwfem.socialtourismnetwork.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.miwfem.socialtourismnetwork.R
+import com.miwfem.socialtourismnetwork.ui.addPost.AddPostFragment
 import com.miwfem.socialtourismnetwork.ui.auth.AuthFragment
-import com.miwfem.socialtourismnetwork.utils.TAG_AUTH
+import com.miwfem.socialtourismnetwork.ui.home.HomeFragment
+import com.miwfem.socialtourismnetwork.ui.profile.ProfileFragment
+import com.miwfem.socialtourismnetwork.ui.settings.SettingsFragment
+import com.miwfem.socialtourismnetwork.utils.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,18 +19,68 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         replaceFragment(AuthFragment.newInstance(), R.id.fragmentComplete, TAG_AUTH)
+        bottomNavigation()
     }
 
-    fun replaceFragment(fragment: Fragment, layout: Int, tag: String) {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(layout, fragment, tag)
-        fragmentTransaction.commit()
+    private fun replaceFragment(fragment: Fragment, layout: Int, tag: String) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(layout, fragment, tag)
+            commit()
+        }
     }
 
     fun addFragment(fragment: Fragment, layout: Int, tag: String) {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.add(layout, fragment, tag)
-        fragmentTransaction.addToBackStack(fragment::class.java.name)
-        fragmentTransaction.commit()
+        supportFragmentManager.beginTransaction().apply {
+            add(layout, fragment, tag)
+            addToBackStack(fragment::class.java.name)
+            commit()
+        }
+    }
+
+    private fun showFragment(tag: String) {
+        with(supportFragmentManager) {
+            findFragmentByTag(tag)?.let { fragment ->
+                beginTransaction().show(fragment).commit()
+            }
+        }
+    }
+
+    private fun bottomNavigation() {
+        bottom_navigation.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    fragmentNavigation(HomeFragment.newInstance("", ""), TAG_HOME)
+                }
+                R.id.nav_add -> {
+                    fragmentNavigation(AddPostFragment.newInstance("", ""), TAG_ADD_POST)
+                }
+                R.id.nav_profile -> {
+                    fragmentNavigation(ProfileFragment.newInstance("", ""), TAG_PROFILE)
+                }
+                R.id.nav_settings -> {
+                    fragmentNavigation(SettingsFragment.newInstance("", ""), TAG_SETTINGS)
+                }
+            }
+            true
+        }
+    }
+
+    private fun fragmentNavigation(selectedFragment: Fragment, tag: String) {
+        supportFragmentManager.findFragmentByTag(tag)?.let { fragment ->
+            when (tag) {
+                TAG_HOME -> {
+                }
+                TAG_ADD_POST -> {
+                }
+                TAG_PROFILE -> {
+                }
+                TAG_SETTINGS -> {
+                }
+                else -> {
+                }
+            }
+            //supportFragmentManager.beginTransaction().show(fragment).commit()
+            replaceFragment(fragment, R.id.fragmentComplete, tag)
+        } ?: addFragment(selectedFragment, R.id.fragmentComplete, tag)
     }
 }

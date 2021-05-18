@@ -4,43 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeActivity">
+    tools:context=".ui.home.HomeFragment"
+    android:background="@color/white">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical"
-        android:layout_marginVertical="@dimen/margin_8"
-        android:layout_marginHorizontal="@dimen/margin_8">
-
-        <TextView
-            android:id="@+id/email_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_40"
-            android:text="@string/email"/>
-
-        <TextView
-            android:id="@+id/provider_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_40"
-            android:layout_marginTop="@dimen/margin_20"
-            android:text="@string/provider"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/margin_20">
-
-            <Button
-                android:id="@+id/close_session_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/close_session" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="HOME FRAGMENT" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

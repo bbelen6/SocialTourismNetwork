@@ -1,18 +1,15 @@
 package com.miwfem.socialtourismnetwork.ui.auth
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.ui.home.HomeFragment
 import com.miwfem.socialtourismnetwork.ui.main.MainActivity
-import com.miwfem.socialtourismnetwork.utils.EMAIL
-import com.miwfem.socialtourismnetwork.utils.PROVIDER
 import com.miwfem.socialtourismnetwork.utils.TAG_HOME
 import kotlinx.android.synthetic.main.fragment_auth.*
 
@@ -80,7 +77,7 @@ class AuthFragment : Fragment() {
     }
 
     private fun showHome(email: String, provider: String) {
-        (requireActivity() as? MainActivity)?.replaceFragment(
+        (requireActivity() as? MainActivity)?.addFragment(
             HomeFragment.newInstance(
                 email,
                 provider
