@@ -34,7 +34,12 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_login -> {
-                fragmentNavigation(AuthFragment.newInstance(), TAG_AUTH)
+                supportFragmentManager.findFragmentByTag(TAG_AUTH)?.let { fragment ->
+                    if (!fragment.isVisible) fragmentNavigation(
+                        AuthFragment.newInstance(),
+                        TAG_AUTH
+                    )
+                } ?: fragmentNavigation(AuthFragment.newInstance(), TAG_AUTH)
             }
         }
         return super.onOptionsItemSelected(item)

@@ -1,9 +1,7 @@
 package com.miwfem.socialtourismnetwork.ui.auth
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.miwfem.socialtourismnetwork.R
@@ -27,14 +25,6 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
         bottomMenuVisibility(false)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_auth, container, false)
-    }
-
     override fun setUpDataBinding(view: View) {
         authBinding = FragmentAuthBinding.bind(view)
         setUpView()
@@ -42,7 +32,9 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     private fun setUpView() {
         with(authBinding) {
-            prueba.text = authViewModel.prueba
+            authClose.setOnClickListener {
+                (requireActivity() as? MainActivity)?.onBackPressed()
+            }
             singUpButton.setOnClickListener {
                 if (emailEditText.text.isNotEmpty() && password_edit_text.text.isNotEmpty()) {
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(
