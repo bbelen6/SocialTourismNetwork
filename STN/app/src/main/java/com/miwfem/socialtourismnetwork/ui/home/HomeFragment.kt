@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.miwfem.socialtourismnetwork.R
+import com.miwfem.socialtourismnetwork.ui.base.BaseFragment
 import com.miwfem.socialtourismnetwork.utils.EMAIL
 import com.miwfem.socialtourismnetwork.utils.PROVIDER
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
     private var email: String? = null
     private var provider: String? = null
 

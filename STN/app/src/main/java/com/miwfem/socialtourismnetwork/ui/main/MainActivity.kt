@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.ui.addPost.AddPostFragment
 import com.miwfem.socialtourismnetwork.ui.auth.AuthFragment
+import com.miwfem.socialtourismnetwork.ui.base.BaseFragment
 import com.miwfem.socialtourismnetwork.ui.home.HomeFragment
 import com.miwfem.socialtourismnetwork.ui.profile.ProfileFragment
 import com.miwfem.socialtourismnetwork.ui.settings.SettingsFragment
@@ -98,5 +100,22 @@ class MainActivity : AppCompatActivity() {
             //supportFragmentManager.beginTransaction().show(fragment).commit()
             replaceFragment(fragment, R.id.fragmentComplete, tag)
         } ?: addFragment(selectedFragment, R.id.fragmentComplete, tag)
+    }
+
+    fun hideBottomMenu() {
+        bottom_navigation.isVisible = false
+    }
+
+    fun showBottomMenu() {
+        bottom_navigation.isVisible = true
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.findFragmentById(R.id.fragmentComplete)?.let { fragment ->
+            if (fragment is BaseFragment) {
+                fragment.handleOnBackPressed()
+            }
+        }
+        super.onBackPressed()
     }
 }

@@ -5,23 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.data.viewmodel.AuthViewModel
+import com.miwfem.socialtourismnetwork.ui.base.BaseFragment
 import com.miwfem.socialtourismnetwork.ui.home.HomeFragment
 import com.miwfem.socialtourismnetwork.ui.main.MainActivity
 import com.miwfem.socialtourismnetwork.utils.TAG_HOME
 import kotlinx.android.synthetic.main.fragment_auth.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AuthFragment : Fragment() {
+class AuthFragment : BaseFragment() {
 
     private val authViewModel: AuthViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //GET BUNDLE EXTRA
+        bottomMenuVisibility(false)
     }
 
     override fun onCreateView(
@@ -86,6 +87,11 @@ class AuthFragment : Fragment() {
                 provider
             ), R.id.fragmentComplete, TAG_HOME
         )
+    }
+
+    override fun handleOnBackPressed(): Boolean {
+        bottomMenuVisibility(true)
+        return true
     }
 
     companion object {
