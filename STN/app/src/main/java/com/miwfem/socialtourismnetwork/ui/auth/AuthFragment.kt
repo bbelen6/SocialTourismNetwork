@@ -8,12 +8,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.miwfem.socialtourismnetwork.R
+import com.miwfem.socialtourismnetwork.data.viewmodel.AuthViewModel
 import com.miwfem.socialtourismnetwork.ui.home.HomeFragment
 import com.miwfem.socialtourismnetwork.ui.main.MainActivity
 import com.miwfem.socialtourismnetwork.utils.TAG_HOME
 import kotlinx.android.synthetic.main.fragment_auth.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AuthFragment : Fragment() {
+
+    private val authViewModel: AuthViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,25 +32,25 @@ class AuthFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_auth, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setUpView()
     }
 
     private fun setUpView() {
+        prueba.text = authViewModel.prueba
         sing_up_button.setOnClickListener {
             if (email_edit_text.text.isNotEmpty() && password_edit_text.text.isNotEmpty()) {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(
                     email_edit_text.text.toString(),
                     password_edit_text.text.toString()
-                )
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            showHome(it.result?.user?.email ?: "", "HOME")
-                        } else {
-                            showAlert()
-                        }
+                ).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        showHome(it.result?.user?.email ?: "", "HOME")
+                    } else {
+                        showAlert()
                     }
+                }
             }
         }
 
@@ -55,14 +59,13 @@ class AuthFragment : Fragment() {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(
                     email_edit_text.text.toString(),
                     password_edit_text.text.toString()
-                )
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            showHome(it.result?.user?.email ?: "", "Home")
-                        } else {
-                            showAlert()
-                        }
+                ).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        showHome(it.result?.user?.email ?: "", "Home")
+                    } else {
+                        showAlert()
                     }
+                }
             }
         }
     }

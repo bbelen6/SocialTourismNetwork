@@ -3,6 +3,7 @@
     package="com.miwfem.socialtourismnetwork">
 
     <application
+        android:name=".data.di.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
