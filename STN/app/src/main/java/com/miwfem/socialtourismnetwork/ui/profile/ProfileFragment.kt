@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.miwfem.socialtourismnetwork.R
+import com.miwfem.socialtourismnetwork.databinding.FragmentProfileBinding
 import com.miwfem.socialtourismnetwork.ui.base.BaseFragment
 
 // TODO: Rename parameter arguments, choose names that match
@@ -18,7 +19,10 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
+
+    private lateinit var profileBinding: FragmentProfileBinding
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,6 +41,10 @@ class ProfileFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
+
+    override fun setUpDataBinding(view: View) {
+        profileBinding = FragmentProfileBinding.bind(view)
     }
 
     companion object {

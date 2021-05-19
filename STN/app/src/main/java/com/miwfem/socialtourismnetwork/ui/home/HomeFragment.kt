@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.miwfem.socialtourismnetwork.R
+import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
 import com.miwfem.socialtourismnetwork.ui.base.BaseFragment
 import com.miwfem.socialtourismnetwork.utils.EMAIL
 import com.miwfem.socialtourismnetwork.utils.PROVIDER
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(R.layout.fragment_home) {
+
+    private lateinit var homeBinding: FragmentHomeBinding
+
     private var email: String? = null
     private var provider: String? = null
 
@@ -27,6 +31,10 @@ class HomeFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun setUpDataBinding(view: View) {
+        homeBinding = FragmentHomeBinding.bind(view)
     }
 
     companion object {

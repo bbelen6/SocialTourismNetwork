@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.data.viewmodel.AuthViewModel
+import com.miwfem.socialtourismnetwork.databinding.FragmentAuthBinding
 import com.miwfem.socialtourismnetwork.ui.base.BaseFragment
 import com.miwfem.socialtourismnetwork.ui.home.HomeFragment
 import com.miwfem.socialtourismnetwork.ui.main.MainActivity
@@ -15,9 +16,10 @@ import com.miwfem.socialtourismnetwork.utils.TAG_HOME
 import kotlinx.android.synthetic.main.fragment_auth.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AuthFragment : BaseFragment() {
+class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     private val authViewModel: AuthViewModel by viewModel()
+    private lateinit var authBinding: FragmentAuthBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,38 +35,40 @@ class AuthFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_auth, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setUpDataBinding(view: View) {
+        authBinding = FragmentAuthBinding.bind(view)
         setUpView()
     }
 
     private fun setUpView() {
-        prueba.text = authViewModel.prueba
-        sing_up_button.setOnClickListener {
-            if (email_edit_text.text.isNotEmpty() && password_edit_text.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                    email_edit_text.text.toString(),
-                    password_edit_text.text.toString()
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showHome(it.result?.user?.email ?: "", "HOME")
-                    } else {
-                        showAlert()
+        with(authBinding) {
+            prueba.text = authViewModel.prueba
+            singUpButton.setOnClickListener {
+                if (emailEditText.text.isNotEmpty() && password_edit_text.text.isNotEmpty()) {
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                        emailEditText.text.toString(),
+                        passwordEditText.text.toString()
+                    ).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            showHome(it.result?.user?.email ?: "", "HOME")
+                        } else {
+                            showAlert()
+                        }
                     }
                 }
             }
-        }
 
-        login_button.setOnClickListener {
-            if (email_edit_text.text.isNotEmpty() && password_edit_text.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(
-                    email_edit_text.text.toString(),
-                    password_edit_text.text.toString()
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showHome(it.result?.user?.email ?: "", "Home")
-                    } else {
-                        showAlert()
+            loginButton.setOnClickListener {
+                if (emailEditText.text.isNotEmpty() && password_edit_text.text.isNotEmpty()) {
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                        emailEditText.text.toString(),
+                        passwordEditText.text.toString()
+                    ).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            showHome(it.result?.user?.email ?: "", "Home")
+                        } else {
+                            showAlert()
+                        }
                     }
                 }
             }
