@@ -1,27 +1,17 @@
 package com.miwfem.socialtourismnetwork.data.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
 class AuthViewModel : ViewModel() {
 
-    fun singUp(email: String, password: String): Boolean {
-        var resultSingUp = false
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-            email, password
-        ).addOnCompleteListener {
-            resultSingUp = it.isSuccessful
-        }
-        return resultSingUp
+    fun singUp(email: String, password: String): Task<AuthResult> {
+        return FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
     }
 
-    fun login(email: String, password: String): Boolean {
-        var resultLogin = false
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(
-            email, password
-        ).addOnCompleteListener {
-            resultLogin = it.isSuccessful
-        }
-        return resultLogin
+    fun login(email: String, password: String): Task<AuthResult> {
+        return FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
     }
 }

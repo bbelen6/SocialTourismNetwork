@@ -33,18 +33,22 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
             }
             singUpButton.setOnClickListener {
                 if (emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()) {
-                    if (authViewModel.singUp(
-                            emailEditText.text.toString(),
-                            passwordEditText.text.toString()
-                        )
-                    ) {
-                        (requireActivity() as? MainActivity)?.onBackPressed()
-                    } else {
-                        showAlert(
-                            title = getString(R.string.error),
-                            message = getString(R.string.sing_up_error),
-                            positiveButton = getString(R.string.accept)
-                        )
+                    authViewModel.singUp(
+                        emailEditText.text.toString(),
+                        passwordEditText.text.toString()
+                    ).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            (requireActivity() as? MainActivity)?.let { activity ->
+                                activity.onBackPressed()
+                                activity.changeTopIcon(true)
+                            }
+                        } else {
+                            showAlert(
+                                title = getString(R.string.error),
+                                message = getString(R.string.sing_up_error),
+                                positiveButton = getString(R.string.accept)
+                            )
+                        }
                     }
                 } else {
                     showAlert(
@@ -55,18 +59,22 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
             }
             loginButton.setOnClickListener {
                 if (emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()) {
-                    if (authViewModel.login(
-                            emailEditText.text.toString(),
-                            passwordEditText.text.toString()
-                        )
-                    ) {
-                        (requireActivity() as? MainActivity)?.onBackPressed()
-                    } else {
-                        showAlert(
-                            title = getString(R.string.error),
-                            message = getString(R.string.login_error),
-                            positiveButton = getString(R.string.accept)
-                        )
+                    authViewModel.login(
+                        emailEditText.text.toString(),
+                        passwordEditText.text.toString()
+                    ).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            (requireActivity() as? MainActivity)?.let { activity ->
+                                activity.onBackPressed()
+                                activity.changeTopIcon(true)
+                            }
+                        } else {
+                            showAlert(
+                                title = getString(R.string.error),
+                                message = getString(R.string.login_error),
+                                positiveButton = getString(R.string.accept)
+                            )
+                        }
                     }
                 } else {
                     showAlert(

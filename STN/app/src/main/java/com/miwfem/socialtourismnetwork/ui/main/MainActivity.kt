@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var topMenu: Menu
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu?.let { topMenu = menu }
         menuInflater.inflate(R.menu.top_navigation, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -53,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun addFragment(fragment: Fragment, layout: Int, tag: String) {
+    private fun addFragment(fragment: Fragment, layout: Int, tag: String) {
         supportFragmentManager.beginTransaction().apply {
             add(layout, fragment, tag)
             addToBackStack(fragment::class.java.name)
@@ -112,5 +115,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
         super.onBackPressed()
+    }
+
+    fun changeTopIcon(log: Boolean) {
+        topMenu.findItem(R.id.nav_login)?.setIcon(
+            if (log) R.drawable.ic_baseline_logout_24
+            else R.drawable.ic_baseline_login_24
+        )
     }
 }
