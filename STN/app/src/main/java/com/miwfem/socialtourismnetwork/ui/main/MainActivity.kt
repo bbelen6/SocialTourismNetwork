@@ -35,11 +35,12 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.nav_login -> {
                 supportFragmentManager.findFragmentByTag(TAG_AUTH)?.let { fragment ->
-                    if (!fragment.isVisible) fragmentNavigation(
+                    if (!fragment.isVisible) addFragment(
                         AuthFragment.newInstance(),
+                        R.id.fragmentComplete,
                         TAG_AUTH
                     )
-                } ?: fragmentNavigation(AuthFragment.newInstance(), TAG_AUTH)
+                } ?: addFragment(AuthFragment.newInstance(), R.id.fragmentComplete, TAG_AUTH)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -60,51 +61,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showFragment(tag: String) {
-        with(supportFragmentManager) {
-            findFragmentByTag(tag)?.let { fragment ->
-                beginTransaction().show(fragment).commit()
-            }
-        }
-    }
-
     private fun bottomNavigation() {
         bottom_navigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    fragmentNavigation(HomeFragment.newInstance("", ""), TAG_HOME)
+                    replaceFragment(
+                        HomeFragment.newInstance("", ""),
+                        R.id.fragmentComplete,
+                        TAG_HOME
+                    )
                 }
                 R.id.nav_add -> {
-                    fragmentNavigation(AddPostFragment.newInstance("", ""), TAG_ADD_POST)
+                    replaceFragment(
+                        AddPostFragment.newInstance("", ""),
+                        R.id.fragmentComplete,
+                        TAG_ADD_POST
+                    )
                 }
                 R.id.nav_profile -> {
-                    fragmentNavigation(ProfileFragment.newInstance("", ""), TAG_PROFILE)
+                    replaceFragment(
+                        ProfileFragment.newInstance("", ""),
+                        R.id.fragmentComplete,
+                        TAG_PROFILE
+                    )
                 }
                 R.id.nav_settings -> {
-                    fragmentNavigation(SettingsFragment.newInstance("", ""), TAG_SETTINGS)
+                    replaceFragment(
+                        SettingsFragment.newInstance("", ""),
+                        R.id.fragmentComplete,
+                        TAG_SETTINGS
+                    )
                 }
             }
             true
         }
-    }
-
-    private fun fragmentNavigation(selectedFragment: Fragment, tag: String) {
-        supportFragmentManager.findFragmentByTag(tag)?.let { fragment ->
-            when (tag) {
-                TAG_HOME -> {
-                }
-                TAG_ADD_POST -> {
-                }
-                TAG_PROFILE -> {
-                }
-                TAG_SETTINGS -> {
-                }
-                else -> {
-                }
-            }
-            //supportFragmentManager.beginTransaction().show(fragment).commit()
-            replaceFragment(fragment, R.id.fragmentComplete, tag)
-        } ?: addFragment(selectedFragment, R.id.fragmentComplete, tag)
     }
 
     fun hideBottomMenu() {
