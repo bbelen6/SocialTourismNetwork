@@ -28,8 +28,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         replaceFragment(HomeFragment.newInstance("", ""), R.id.fragmentComplete, TAG_HOME)
-        bottomNavigation()
         sharedPreferences = getSharedPreferences(PREFERENCES_FILE, MODE_PRIVATE)
+        bottomNavigation()
+        setBottomOptions(sharedPreferences.getString(EMAIL, null))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_login -> {
                 val user = sharedPreferences.getString(EMAIL, null)
                 user?.let {
-                    showAlert()
+                    showCloseSessionAlert()
                 } ?: kotlin.run {
                     supportFragmentManager.findFragmentByTag(TAG_AUTH)?.let { fragment ->
                         if (!fragment.isVisible) addFragment(
@@ -74,6 +75,20 @@ class MainActivity : AppCompatActivity() {
             add(layout, fragment, tag)
             addToBackStack(fragment::class.java.name)
             commit()
+        }
+    }
+
+    fun setBottomOptions(user: String? = null) {
+        bottom_navigation.menu.apply {
+            user?.let {
+                findItem(R.id.nav_settings).isVisible = true
+                findItem(R.id.nav_add).isVisible = true
+                findItem(R.id.nav_profile).isVisible = true
+            } ?: kotlin.run {
+                findItem(R.id.nav_settings).isVisible = false
+                findItem(R.id.nav_add).isVisible = false
+                findItem(R.id.nav_profile).isVisible = false
+            }
         }
     }
 
@@ -144,11 +159,14 @@ class MainActivity : AppCompatActivity() {
         sharedEdit.apply()
     }
 
-    private fun showAlert() {
+    private fun showCloseSessionAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("")
             .setMessage(R.string.logout_message)
-            .setPositiveButton(getString(R.string.accept)) { _, _ -> closeSession() }
+            .setPositiveButton(getString(R.string.accept)) { _, _ ->
+                closeSession()
+                setBottomOptions()
+            }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
         val dialog = builder.create()
         dialog.show()

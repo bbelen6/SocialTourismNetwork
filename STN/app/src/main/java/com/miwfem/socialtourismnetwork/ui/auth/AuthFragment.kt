@@ -114,6 +114,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
             val sharedEdit = sharedPreferences.edit()
             sharedEdit?.putString(EMAIL, email)
             sharedEdit.apply()
+            activity.setBottomOptions(email)
         }
     }
 
