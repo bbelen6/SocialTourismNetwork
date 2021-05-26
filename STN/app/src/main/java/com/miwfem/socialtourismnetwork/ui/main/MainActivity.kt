@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -34,6 +35,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.let { topMenu = menu }
         menuInflater.inflate(R.menu.top_navigation, menu)
+        val user = sharedPreferences.getString(EMAIL, null)
+        user?.let {
+            changeTopIcon(true)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -42,10 +47,7 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_login -> {
                 val user = sharedPreferences.getString(EMAIL, null)
                 user?.let {
-                    changeTopIcon(false)
-                    val sharedEdit = sharedPreferences.edit()
-                    sharedEdit.remove(EMAIL)
-                    sharedEdit.apply()
+                    showAlert()
                 } ?: kotlin.run {
                     supportFragmentManager.findFragmentByTag(TAG_AUTH)?.let { fragment ->
                         if (!fragment.isVisible) addFragment(
@@ -133,5 +135,22 @@ class MainActivity : AppCompatActivity() {
             if (log) R.drawable.ic_baseline_logout_24
             else R.drawable.ic_baseline_login_24
         )
+    }
+
+    private fun closeSession() {
+        changeTopIcon(false)
+        val sharedEdit = sharedPreferences.edit()
+        sharedEdit.remove(EMAIL)
+        sharedEdit.apply()
+    }
+
+    private fun showAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("")
+            .setMessage(R.string.logout_message)
+            .setPositiveButton(getString(R.string.accept)) { _, _ -> closeSession() }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+        val dialog = builder.create()
+        dialog.show()
     }
 }
