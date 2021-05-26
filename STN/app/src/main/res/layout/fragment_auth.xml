@@ -15,7 +15,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_baseline_close_24"
             android:contentDescription="close"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:layout_margin="@dimen/margin_8" />
 
         <LinearLayout
             android:id="@+id/container"
