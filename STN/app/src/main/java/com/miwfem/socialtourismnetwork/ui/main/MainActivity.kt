@@ -1,5 +1,6 @@
 package com.miwfem.socialtourismnetwork.ui.main
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -18,7 +19,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var topMenu: Menu
+    private lateinit var topMenu: Menu
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         replaceFragment(HomeFragment.newInstance("", ""), R.id.fragmentComplete, TAG_HOME)
         bottomNavigation()
+        sharedPreferences = getSharedPreferences(PREFERENCES_FILE, MODE_PRIVATE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -37,13 +40,21 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_login -> {
-                supportFragmentManager.findFragmentByTag(TAG_AUTH)?.let { fragment ->
-                    if (!fragment.isVisible) addFragment(
-                        AuthFragment.newInstance(),
-                        R.id.fragmentComplete,
-                        TAG_AUTH
-                    )
-                } ?: addFragment(AuthFragment.newInstance(), R.id.fragmentComplete, TAG_AUTH)
+                val user = sharedPreferences.getString(EMAIL, null)
+                user?.let {
+                    changeTopIcon(false)
+                    val sharedEdit = sharedPreferences.edit()
+                    sharedEdit.remove(EMAIL)
+                    sharedEdit.apply()
+                } ?: kotlin.run {
+                    supportFragmentManager.findFragmentByTag(TAG_AUTH)?.let { fragment ->
+                        if (!fragment.isVisible) addFragment(
+                            AuthFragment.newInstance(),
+                            R.id.fragmentComplete,
+                            TAG_AUTH
+                        )
+                    } ?: addFragment(AuthFragment.newInstance(), R.id.fragmentComplete, TAG_AUTH)
+                }
             }
         }
         return super.onOptionsItemSelected(item)
