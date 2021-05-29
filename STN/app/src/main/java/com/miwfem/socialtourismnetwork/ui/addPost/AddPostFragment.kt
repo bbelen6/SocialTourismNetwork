@@ -1,20 +1,34 @@
 package com.miwfem.socialtourismnetwork.ui.addPost
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.miwfem.socialtourismnetwork.R
+import com.miwfem.socialtourismnetwork.databinding.FragmentAddPostBinding
+import com.miwfem.socialtourismnetwork.ui.base.BaseFragment
 
-class AddPostFragment : Fragment() {
+class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_post, container, false)
+    private lateinit var addPostBinding: FragmentAddPostBinding
+    private var user: String? = null
+
+    override fun setUpDataBinding(view: View) {
+        addPostBinding = FragmentAddPostBinding.bind(view)
+    }
+
+    override fun getBundleExtras() {
+        arguments?.let {
+            user = it.getString(USER)
+        }
+    }
+
+    companion object {
+        fun newInstance(user: String?) = AddPostFragment().apply {
+            arguments = Bundle().apply {
+                putString(USER, user)
+            }
+        }
+
+        private const val USER = "user"
     }
 
 }

@@ -20,9 +20,16 @@ abstract class BaseFragment(@LayoutRes private val layout: Int) : Fragment() {
         return view
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getBundleExtras()
+    }
+
     abstract fun setUpDataBinding(view: View)
 
     open fun handleOnBackPressed(): Boolean = false
+
+    protected abstract fun getBundleExtras()
 
     fun bottomMenuVisibility(isVisible: Boolean) {
         (requireActivity() as? MainActivity)?.let { activity ->

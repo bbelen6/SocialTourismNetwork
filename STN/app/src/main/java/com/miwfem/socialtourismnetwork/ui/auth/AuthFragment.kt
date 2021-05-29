@@ -22,7 +22,6 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //GET BUNDLE EXTRA
         bottomMenuVisibility(false)
     }
 
@@ -107,6 +106,10 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
         return true
     }
 
+    override fun getBundleExtras() {
+        //TODO("Not yet implemented")
+    }
+
     private fun authSuccess(email: String) {
         (requireActivity() as? MainActivity)?.let { activity ->
             activity.onBackPressed()
@@ -119,8 +122,6 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
     }
 
     companion object {
-        fun newInstance() =
-            AuthFragment().apply {
-            }
+        fun newInstance() = AuthFragment()
     }
 }

@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        replaceFragment(HomeFragment.newInstance("", ""), R.id.fragmentComplete, TAG_HOME)
+        replaceFragment(HomeFragment.newInstance(), R.id.fragmentComplete, TAG_HOME)
         sharedPreferences = getSharedPreferences(PREFERENCES_FILE, MODE_PRIVATE)
         bottomNavigation()
         setBottomOptions(sharedPreferences.getString(EMAIL, null))
@@ -97,28 +97,28 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.nav_home -> {
                     replaceFragment(
-                        HomeFragment.newInstance("", ""),
+                        HomeFragment.newInstance(),
                         R.id.fragmentComplete,
                         TAG_HOME
                     )
                 }
                 R.id.nav_add -> {
                     replaceFragment(
-                        AddPostFragment.newInstance("", ""),
+                        AddPostFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
                         R.id.fragmentComplete,
                         TAG_ADD_POST
                     )
                 }
                 R.id.nav_profile -> {
                     replaceFragment(
-                        ProfileFragment.newInstance("", ""),
+                        ProfileFragment.newInstance(),
                         R.id.fragmentComplete,
                         TAG_PROFILE
                     )
                 }
                 R.id.nav_settings -> {
                     replaceFragment(
-                        SettingsFragment.newInstance("", ""),
+                        SettingsFragment.newInstance(),
                         R.id.fragmentComplete,
                         TAG_SETTINGS
                     )
