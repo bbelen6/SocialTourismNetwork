@@ -12,6 +12,7 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
     private lateinit var addPostBinding: FragmentAddPostBinding
     private var user: String? = null
     private val categories = listOf("Restaurantes", "Eventos", "Cultura", "Otros")
+    private val locations = listOf("Madrid", "Getafe", "Leganes", "Alcalá")
 
     override fun setUpDataBinding(view: View) {
         addPostBinding = FragmentAddPostBinding.bind(view).apply {
@@ -20,7 +21,12 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
                 android.R.layout.simple_spinner_item,
                 categories
             )
-            categorySelector.prompt = getString(R.string.categories)
+            locationSelector.adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                locations
+            )
+            locationSelector.setTitle(getString(R.string.location))
         }
     }
 

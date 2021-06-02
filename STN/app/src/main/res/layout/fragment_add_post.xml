@@ -9,21 +9,18 @@
         android:background="@color/white"
         tools:context=".ui.addPost.AddPostFragment">
 
-        <EditText
-            android:id="@+id/location_edit"
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/location_selector"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_40"
-            android:autofillHints=""
-            android:hint="@string/location"
-            android:inputType="text"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/category_selector"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_40"
-            app:layout_constraintTop_toBottomOf="@id/location_edit"
-            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@id/location_selector"
+            android:spinnerMode="dialog"
             android:layout_centerInParent="true"
             android:prompt="@string/categories" />
 
