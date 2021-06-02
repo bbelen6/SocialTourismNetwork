@@ -14,7 +14,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_baseline_close_24"
-            android:contentDescription="close"
+            android:contentDescription="@string/close"
             android:background="@color/white"
             android:layout_margin="@dimen/margin_8" />
 
@@ -31,7 +31,8 @@
                 android:id="@+id/email_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email" />
+                android:hint="@string/email"
+                android:autofillHints="username" />
 
             <EditText
                 android:id="@+id/password_edit_text"

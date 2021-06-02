@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:context=".ui.addPost.AddPostFragment">
 
-        <TextView
+        <EditText
+            android:id="@+id/location_edit"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="ADD POST FRAGMENT" />
+            android:layout_height="@dimen/margin_40"
+            android:autofillHints=""
+            android:hint="@string/location"
+            android:inputType="text"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+        <Spinner
+            android:id="@+id/category_selector"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_40"
+            app:layout_constraintTop_toBottomOf="@id/location_edit"
+            android:spinnerMode="dropdown"
+            android:layout_centerInParent="true"
+            android:prompt="@string/categories" />
+
+
+        <EditText
+            android:id="@+id/add_post_edit"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:autofillHints=""
+            android:gravity="top|start"
+            android:hint="@string/add_post"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/category_selector" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
