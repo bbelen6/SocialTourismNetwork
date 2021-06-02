@@ -96,32 +96,36 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    replaceFragment(
-                        HomeFragment.newInstance(),
-                        R.id.fragmentComplete,
-                        TAG_HOME
-                    )
+                    if (supportFragmentManager.findFragmentByTag(TAG_HOME) == null)
+                        replaceFragment(
+                            HomeFragment.newInstance(),
+                            R.id.fragmentComplete,
+                            TAG_HOME
+                        )
                 }
                 R.id.nav_add -> {
-                    replaceFragment(
-                        AddPostFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
-                        R.id.fragmentComplete,
-                        TAG_ADD_POST
-                    )
+                    if (supportFragmentManager.findFragmentByTag(TAG_ADD_POST) == null)
+                        replaceFragment(
+                            AddPostFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
+                            R.id.fragmentComplete,
+                            TAG_ADD_POST
+                        )
                 }
                 R.id.nav_profile -> {
-                    replaceFragment(
-                        ProfileFragment.newInstance(),
-                        R.id.fragmentComplete,
-                        TAG_PROFILE
-                    )
+                    if (supportFragmentManager.findFragmentByTag(TAG_PROFILE) == null)
+                        replaceFragment(
+                            ProfileFragment.newInstance(),
+                            R.id.fragmentComplete,
+                            TAG_PROFILE
+                        )
                 }
                 R.id.nav_settings -> {
-                    replaceFragment(
-                        SettingsFragment.newInstance(),
-                        R.id.fragmentComplete,
-                        TAG_SETTINGS
-                    )
+                    if (supportFragmentManager.findFragmentByTag(TAG_SETTINGS) == null)
+                        replaceFragment(
+                            SettingsFragment.newInstance(),
+                            R.id.fragmentComplete,
+                            TAG_SETTINGS
+                        )
                 }
             }
             true

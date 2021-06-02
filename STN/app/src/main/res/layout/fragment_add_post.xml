@@ -34,9 +34,10 @@
             android:layout_marginTop="@dimen/margin_8"
             android:gravity="top|start"
             app:counterEnabled="true"
-            app:counterMaxLength="8000"
+            app:counterMaxLength="1000"
             app:layout_constraintBottom_toTopOf="@id/save_post_button"
-            app:layout_constraintTop_toBottomOf="@id/category_selector">
+            app:layout_constraintTop_toBottomOf="@id/category_selector"
+            android:clipToPadding="true">
 
             <EditText
                 android:id="@+id/add_post_edit"
@@ -46,7 +47,7 @@
                 android:gravity="top|start"
                 android:hint="@string/add_post"
                 android:inputType="textMultiLine"
-                android:maxLength="8000" />
+                android:maxLength="1000" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
