@@ -7,22 +7,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.addPost.AddPostFragment">
+        tools:context=".ui.addPost.AddPostFragment"
+        android:layout_margin="@dimen/margin_8">
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
             android:id="@+id/location_selector"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_40"
+            android:layout_height="@dimen/size_40"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/category_selector"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_40"
-            app:layout_constraintTop_toBottomOf="@id/location_selector"
-            android:spinnerMode="dialog"
+            android:layout_height="@dimen/size_40"
             android:layout_centerInParent="true"
-            android:prompt="@string/categories" />
+            android:prompt="@string/categories"
+            android:spinnerMode="dialog"
+            app:layout_constraintTop_toBottomOf="@id/location_selector" />
 
 
         <EditText
@@ -33,8 +34,15 @@
             android:gravity="top|start"
             android:hint="@string/add_post"
             android:inputType="text"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/save_post_button"
             app:layout_constraintTop_toBottomOf="@id/category_selector" />
+
+        <Button
+            android:id="@+id/save_post_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_40"
+            android:text="@string/add_post"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
