@@ -29,6 +29,8 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
             locationSelector.setTitle(getString(R.string.location))
             savePostButton.setOnClickListener {
                 //TODO: SAVE POST IN FIREBASE
+                if (addPostEdit.text.isEmpty()) addPostEdit.error =
+                    getString(R.string.add_post_error)
             }
         }
     }

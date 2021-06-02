@@ -19,5 +19,6 @@
     <string name="add_post">Añadir experiencia</string>
     <string name="location">Zona de experiencia</string>
     <string name="categories">Selecciona una categoria</string>
+    <string name="add_post_error">¡Texto necesario para añadir post!</string>
 
 </resources>
