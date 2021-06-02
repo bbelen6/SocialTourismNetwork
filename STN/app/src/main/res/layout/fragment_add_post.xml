@@ -26,16 +26,27 @@
             app:layout_constraintTop_toBottomOf="@id/location_selector" />
 
 
-        <EditText
-            android:id="@+id/add_post_edit"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_post_input_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:autofillHints=""
             android:gravity="top|start"
-            android:hint="@string/add_post"
-            android:inputType="text"
             app:layout_constraintBottom_toTopOf="@id/save_post_button"
-            app:layout_constraintTop_toBottomOf="@id/category_selector" />
+            app:layout_constraintTop_toBottomOf="@id/category_selector"
+            app:counterEnabled="true"
+            app:counterMaxLength="8000">
+
+            <EditText
+                android:id="@+id/add_post_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_post"
+                android:inputType="textMultiLine"
+                android:gravity="top|start"
+                android:autofillHints=""
+                android:maxLength="8000" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/save_post_button"
