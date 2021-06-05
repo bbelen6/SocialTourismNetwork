@@ -12,9 +12,9 @@ data class LocationDao(
     @SerializedName("municipio_nombre")
     val name: String,
     @SerializedName("nuts4_codigo")
-    val nuts4Code: String,
+    val areaCode: String,
     @SerializedName("nuts4_nombre")
-    val nuts4Name: String,
+    val areaName: String,
     @SerializedName("superficie_km2")
     val areaKm2: Double
 )

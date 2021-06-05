@@ -8,6 +8,4 @@ fun LocationsResponseDao.map(): List<LocationEntity> {
     return locations.map { it.map() }
 }
 
-fun LocationDao.map(): LocationEntity {
-    return LocationEntity(name = name)
-}
+fun LocationDao.map(): LocationEntity = LocationEntity(name, areaName)

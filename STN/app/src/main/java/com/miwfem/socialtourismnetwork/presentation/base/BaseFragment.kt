@@ -16,8 +16,8 @@ abstract class BaseFragment(@LayoutRes private val layout: Int) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(layout, container, false)
-        observeViewModel()
         setUpDataBinding(view)
+        observeViewModel()
         return view
     }
 
