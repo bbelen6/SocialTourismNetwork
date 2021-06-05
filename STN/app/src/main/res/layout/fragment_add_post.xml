@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/margin_8"
         android:background="@color/white"
-        tools:context=".ui.addPost.AddPostFragment">
+        tools:context=".presentation.ui.addPost.view.AddPostFragment">
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
             android:id="@+id/location_selector"
