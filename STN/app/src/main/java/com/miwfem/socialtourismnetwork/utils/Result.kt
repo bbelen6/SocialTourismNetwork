@@ -1,4 +1,4 @@
-package com.miwfem.socialtourismnetwork.core.datatype
+package com.miwfem.socialtourismnetwork.utils
 
 data class Result<out T>(
     var resultType: ResultType,
@@ -15,4 +15,9 @@ data class Result<out T>(
             return Result(ResultType.ERROR, error = error)
         }
     }
+}
+
+enum class ResultType {
+    ERROR,
+    SUCCESS
 }

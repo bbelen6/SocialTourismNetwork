@@ -1,8 +1,8 @@
 package com.miwfem.socialtourismnetwork.data.datasource
 
-import com.miwfem.socialtourismnetwork.core.datatype.Result
 import com.miwfem.socialtourismnetwork.data.datasource.api.ComunidadMadridService
 import com.miwfem.socialtourismnetwork.data.datasource.model.LocationsResponseDao
+import com.miwfem.socialtourismnetwork.utils.Result
 
 class LocationDataSource(private val cmApiService: ComunidadMadridService) {
     suspend fun getLocations(): Result<LocationsResponseDao?> {
