@@ -4,7 +4,7 @@ import com.miwfem.socialtourismnetwork.data.datasource.api.ComunidadMadridServic
 import com.miwfem.socialtourismnetwork.data.datasource.model.LocationsResponseDao
 import com.miwfem.socialtourismnetwork.utils.Result
 
-class LocationDataSource(private val cmApiService: ComunidadMadridService) {
+class CMDataSource(private val cmApiService: ComunidadMadridService) {
     suspend fun getLocations(): Result<LocationsResponseDao?> {
         return try {
             val locations = cmApiService.getLocations().body()
