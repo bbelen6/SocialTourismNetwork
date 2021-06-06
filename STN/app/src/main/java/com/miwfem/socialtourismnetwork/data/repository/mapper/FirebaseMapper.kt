@@ -15,3 +15,5 @@ fun List<CategoryDao>.map(): List<CategoryEntity> {
     }
     return result
 }
+
+fun CategoryEntity.map(): CategoryDao = CategoryDao(name)

@@ -44,13 +44,13 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                 (requireActivity() as? MainActivity)?.onBackPressed()
             }
             singUpButton.setOnClickListener {
-                if (emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()) {
+                if (loginCorreoField.text?.isNotEmpty() == true && loginCodeField.text?.isNotEmpty() == true) {
                     authViewModel.singUp(
-                        emailEditText.text.toString(),
-                        passwordEditText.text.toString()
+                        loginCorreoField.text.toString(),
+                        loginCodeField.text.toString()
                     ).addOnCompleteListener {
                         if (it.isSuccessful) {
-                            authSuccess(emailEditText.text.toString())
+                            authSuccess(loginCorreoField.text.toString())
                         } else {
                             showAlert(
                                 title = getString(R.string.error),
@@ -67,13 +67,13 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                 }
             }
             loginButton.setOnClickListener {
-                if (emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()) {
+                if (loginCorreoField.text?.isNotEmpty() == true && loginCodeField.text?.isNotEmpty() == true) {
                     authViewModel.login(
-                        emailEditText.text.toString(),
-                        passwordEditText.text.toString()
+                        loginCorreoField.text.toString(),
+                        loginCodeField.text.toString()
                     ).addOnCompleteListener {
                         if (it.isSuccessful) {
-                            authSuccess(emailEditText.text.toString())
+                            authSuccess(loginCorreoField.text.toString())
                         } else {
                             showAlert(
                                 title = getString(R.string.error),

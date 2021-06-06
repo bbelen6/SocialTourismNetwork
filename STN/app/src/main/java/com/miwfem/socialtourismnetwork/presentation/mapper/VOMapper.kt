@@ -21,3 +21,5 @@ fun List<CategoryEntity>.map(): List<CategoryVO> {
     }
     return result
 }
+
+fun CategoryVO.map(): CategoryEntity = CategoryEntity(name)

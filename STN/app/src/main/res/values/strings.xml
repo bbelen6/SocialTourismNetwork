@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Finddes</string>
 
-    <string name="email">Email</string>
-    <string name="password">Contaseña</string>
+    <string name="input">Correo</string>
+    <string name="contra">Contaseña</string>
     <string name="register">Registrarse</string>
     <string name="login">Acceder</string>
     <string name="provider">Proveedor</string>
@@ -20,5 +20,8 @@
     <string name="location">Zona de experiencia</string>
     <string name="categories">Selecciona una categoria</string>
     <string name="add_post_error">¡Texto necesario para añadir post!</string>
+    <string name="new_category">Añade una nueva categoria</string>
+    <string name="thanks_new_post">Gracias por el post!</string>
+    <string name="error_new_post">Se ha producido un error al añadir el post, intentelo de nuevo</string>
 
 </resources>

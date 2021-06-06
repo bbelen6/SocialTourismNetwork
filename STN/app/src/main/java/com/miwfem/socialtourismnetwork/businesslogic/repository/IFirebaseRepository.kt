@@ -9,5 +9,6 @@ interface IFirebaseRepository {
 
     fun savePost(post: PostEntity): ResultType
     suspend fun getCategories(): Result<List<CategoryEntity>>
+    fun saveCategory(category: CategoryEntity): ResultType
 
 }

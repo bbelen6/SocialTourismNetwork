@@ -2,8 +2,10 @@ package com.miwfem.socialtourismnetwork.presentation.ui.addPost.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentAddPostBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
@@ -11,6 +13,7 @@ import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.viewmodel.AddPostViewModel
 import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity
 import com.miwfem.socialtourismnetwork.presentation.utils.setBoldText
+import com.miwfem.socialtourismnetwork.utils.OTHER
 import com.miwfem.socialtourismnetwork.utils.ResultType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,37 +27,48 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
         addPostBinding = FragmentAddPostBinding.bind(view).apply {
             locationSelector.setTitle(getString(R.string.location))
             locationSelector.setPositiveButton(getString(R.string.close))
+            categorySelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    addPostViewModel.getCategoryByPosition(position)?.also { category ->
+                        categoryOtherInputLayout.isVisible = category.name == OTHER
+                    }
+                }
+            }
             savePostButton.setOnClickListener {
                 if (addPostEdit.text.isEmpty()) addPostEdit.error =
                     getString(R.string.add_post_error)
-                else {
+                else if (categoryOtherInputLayout.isVisible && categoryOther.text.isEmpty()) {
+                    categoryOther.error = getString(R.string.add_post_error)
+                } else {
                     val locationSelected =
                         addPostViewModel.getLocationByPosition(locationSelector.selectedItemPosition)
                     locationSelected?.let { location ->
+                        var category = categorySelector.selectedItem.toString()
+                        if (categoryOtherInputLayout.isVisible) {
+                            category += " - ${categoryOther.text}"
+                        }
                         addPostViewModel.savePost(
                             PostVO(
                                 user = user ?: "",
                                 location = location.name,
                                 area = location.areaName,
-                                category = categorySelector.selectedItem.toString(),
+                                category = category,
                                 comment = addPostEdit.text.toString(),
                             )
                         ).also { result ->
                             when (result) {
                                 ResultType.SUCCESS -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Gracias por el post!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    showToast(getString(R.string.thanks_new_post))
                                     navigateToHome()
                                 }
                                 ResultType.ERROR -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Se ha producido un error al añadir el post, intentelo de nuevo",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    showToast(getString(R.string.error_new_post))
                                 }
                             }
                         }
@@ -95,6 +109,14 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
 
     private fun navigateToHome() {
         (requireActivity() as? MainActivity)?.navigateToHome()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     companion object {

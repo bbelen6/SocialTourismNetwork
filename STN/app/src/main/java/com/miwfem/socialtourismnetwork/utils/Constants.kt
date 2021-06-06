@@ -11,3 +11,4 @@ const val PREFERENCES_FILE = "PREFERENCES FILE"
 const val COMUNIDAD_MADRID_BASE_URL = "https://datos.comunidad.madrid/"
 const val LOCATIONS =
     "/catalogo/dataset/032474a0-bf11-4465-bb92-392052962866/resource/301aed82-339b-4005-ab20-06db41ee7017/download/municipio_comunidad_madrid.json"
+const val OTHER = "Otro"

@@ -31,4 +31,8 @@ class FirebaseRepositoryImpl(
         }
         return Result.error(Exception())
     }
+
+    override fun saveCategory(category: CategoryEntity): ResultType {
+        return firebaseDataSource.saveCategory(category.map())
+    }
 }

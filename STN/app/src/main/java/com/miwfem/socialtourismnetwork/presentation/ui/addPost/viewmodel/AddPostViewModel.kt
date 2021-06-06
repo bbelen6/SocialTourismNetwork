@@ -59,4 +59,8 @@ class AddPostViewModel(
         }
     }
 
+    fun getCategoryByPosition(position: Int): CategoryVO? {
+        return categories.value?.get(position)
+    }
+
 }

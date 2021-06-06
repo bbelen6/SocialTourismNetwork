@@ -3,6 +3,7 @@ package com.miwfem.socialtourismnetwork.data.datasource.source
 import com.google.firebase.firestore.FirebaseFirestore
 import com.miwfem.socialtourismnetwork.data.datasource.model.CategoryDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.PostDao
+import com.miwfem.socialtourismnetwork.utils.OTHER
 import com.miwfem.socialtourismnetwork.utils.Result
 import com.miwfem.socialtourismnetwork.utils.ResultType
 import kotlinx.coroutines.tasks.await
@@ -43,6 +44,15 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         return result
     }
 
+    fun saveCategory(category: CategoryDao): ResultType {
+        return try {
+            firebaseFirestore.collection(CATEGORIES).document(category.name)
+            return ResultType.SUCCESS
+        } catch (exception: Exception) {
+            ResultType.ERROR
+        }
+    }
+
     companion object {
         const val POST = "post"
         const val USER = "user"
@@ -51,7 +61,6 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         const val CATEGORY = "category"
         const val COMMENT = "comment"
         const val CATEGORIES = "categories"
-        const val OTHER = "Otro"
     }
 
 }
