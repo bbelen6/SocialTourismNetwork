@@ -170,6 +170,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton(getString(R.string.accept)) { _, _ ->
                 closeSession()
                 setBottomOptions()
+                navigateToHome()
             }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
         val dialog = builder.create()
