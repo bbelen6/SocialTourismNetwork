@@ -2,7 +2,7 @@ package com.miwfem.socialtourismnetwork.data.repository
 
 import com.miwfem.socialtourismnetwork.businesslogic.model.LocationEntity
 import com.miwfem.socialtourismnetwork.businesslogic.repository.ICMRepository
-import com.miwfem.socialtourismnetwork.data.datasource.CMDataSource
+import com.miwfem.socialtourismnetwork.data.datasource.source.CMDataSource
 import com.miwfem.socialtourismnetwork.data.repository.mapper.map
 import com.miwfem.socialtourismnetwork.utils.Result
 import com.miwfem.socialtourismnetwork.utils.ResultType

@@ -1,4 +1,4 @@
-package com.miwfem.socialtourismnetwork.data.datasource
+package com.miwfem.socialtourismnetwork.data.datasource.source
 
 import com.miwfem.socialtourismnetwork.data.datasource.api.ComunidadMadridService
 import com.miwfem.socialtourismnetwork.data.datasource.model.LocationsResponseDao

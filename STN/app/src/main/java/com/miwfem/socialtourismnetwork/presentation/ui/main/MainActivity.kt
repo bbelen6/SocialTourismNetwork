@@ -175,4 +175,14 @@ class MainActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
+
+    fun navigateToHome() {
+        if (supportFragmentManager.findFragmentByTag(TAG_HOME) == null)
+            replaceFragment(
+                HomeFragment.newInstance(),
+                R.id.fragmentComplete,
+                TAG_HOME
+            )
+        bottom_navigation.selectedItemId = R.id.nav_home
+    }
 }
