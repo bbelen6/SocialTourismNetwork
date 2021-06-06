@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.GetCategoriesUseCase
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.GetLocationsUseCase
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.SavePostUseCase
+import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.mapper.map
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
-import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.PostVO
 import com.miwfem.socialtourismnetwork.utils.ResultType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

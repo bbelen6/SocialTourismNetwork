@@ -12,7 +12,7 @@ import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.view.AddPostFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.auth.view.AuthFragment
-import com.miwfem.socialtourismnetwork.presentation.ui.home.HomeFragment
+import com.miwfem.socialtourismnetwork.presentation.ui.home.view.HomeFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.profile.ProfileFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.settings.SettingsFragment
 import com.miwfem.socialtourismnetwork.utils.*

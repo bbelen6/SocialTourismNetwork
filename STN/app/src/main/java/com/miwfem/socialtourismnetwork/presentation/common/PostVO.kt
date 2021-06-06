@@ -1,4 +1,4 @@
-package com.miwfem.socialtourismnetwork.presentation.ui.addPost.model
+package com.miwfem.socialtourismnetwork.presentation.common
 
 data class PostVO(
     val user: String,

@@ -28,6 +28,30 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         }
     }
 
+    suspend fun getPosts(): Result<List<PostDao>> {
+        lateinit var result: Result<List<PostDao>>
+        val posts = mutableListOf<PostDao>()
+        firebaseFirestore.collection(POST).get().addOnSuccessListener {
+            it.documents.forEach { post ->
+                post.data?.apply {
+                    posts.add(
+                        PostDao(
+                            get(USER).toString(),
+                            get(LOCATION).toString(),
+                            get(AREA).toString(),
+                            get(CATEGORY).toString(),
+                            get(COMMENT).toString()
+                        )
+                    )
+                }
+            }
+            result = Result.success(posts)
+        }.addOnFailureListener {
+            result = Result.error(Exception(it))
+        }.await()
+        return result
+    }
+
     suspend fun getCategories(): Result<List<CategoryDao>> {
         lateinit var result: Result<List<CategoryDao>>
         val categories = mutableListOf<CategoryDao>()

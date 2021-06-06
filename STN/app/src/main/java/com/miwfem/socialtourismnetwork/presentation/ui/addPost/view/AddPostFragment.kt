@@ -9,10 +9,10 @@ import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentAddPostBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
-import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.setBoldText
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.viewmodel.AddPostViewModel
 import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity
-import com.miwfem.socialtourismnetwork.presentation.utils.setBoldText
 import com.miwfem.socialtourismnetwork.utils.OTHER
 import com.miwfem.socialtourismnetwork.utils.ResultType
 import org.koin.androidx.viewmodel.ext.android.viewModel

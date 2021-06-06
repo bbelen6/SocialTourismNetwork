@@ -16,6 +16,22 @@ class FirebaseRepositoryImpl(
         return firebaseDataSource.savePost(post.map())
     }
 
+    override suspend fun getPosts(): Result<List<PostEntity>> {
+        firebaseDataSource.getPosts().apply {
+            data?.let { posts ->
+                return when (resultType) {
+                    ResultType.SUCCESS -> {
+                        Result.success(posts.map())
+                    }
+                    ResultType.ERROR -> {
+                        Result.error(error)
+                    }
+                }
+            }
+        }
+        return Result.error(Exception())
+    }
+
     override suspend fun getCategories(): Result<List<CategoryEntity>> {
         firebaseDataSource.getCategories().apply {
             data?.let { categories ->

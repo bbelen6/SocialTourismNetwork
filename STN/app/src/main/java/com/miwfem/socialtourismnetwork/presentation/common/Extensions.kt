@@ -1,4 +1,4 @@
-package com.miwfem.socialtourismnetwork.presentation.utils
+package com.miwfem.socialtourismnetwork.presentation.common
 
 import android.graphics.Typeface
 import android.text.Spannable
