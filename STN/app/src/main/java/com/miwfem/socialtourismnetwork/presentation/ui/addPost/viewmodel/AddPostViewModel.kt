@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miwfem.socialtourismnetwork.businesslogic.usecase.LocationsUseCase
+import com.miwfem.socialtourismnetwork.businesslogic.usecase.GetLocationsUseCase
 import com.miwfem.socialtourismnetwork.presentation.mapper.map
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
 import kotlinx.coroutines.CoroutineScope
@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddPostViewModel(
-    private val getLocationsUseCase: LocationsUseCase
+    private val getGetLocationsUseCase: GetLocationsUseCase
 ) : ViewModel() {
 
     private val _locations by lazy { MutableLiveData<List<LocationVO>>() }
@@ -27,7 +27,7 @@ class AddPostViewModel(
 
     private fun getLocations() {
         viewModelScope.launch {
-            _locations.value = getLocationsUseCase.execute().data?.map()
+            _locations.value = getGetLocationsUseCase.execute().data?.map()
         }
     }
 

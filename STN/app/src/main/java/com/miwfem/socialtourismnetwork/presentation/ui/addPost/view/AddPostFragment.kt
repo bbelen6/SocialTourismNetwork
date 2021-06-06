@@ -30,6 +30,9 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
                 //TODO: SAVE POST IN FIREBASE
                 if (addPostEdit.text.isEmpty()) addPostEdit.error =
                     getString(R.string.add_post_error)
+                else {
+
+                }
             }
         }
     }
