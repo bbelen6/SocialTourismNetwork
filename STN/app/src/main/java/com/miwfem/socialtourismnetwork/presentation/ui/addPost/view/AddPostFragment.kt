@@ -18,16 +18,10 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
 
     private lateinit var addPostBinding: FragmentAddPostBinding
     private var user: String? = null
-    private val categories = listOf("Restaurantes", "Eventos", "Cultura", "Otros")
     private val addPostViewModel: AddPostViewModel by viewModel()
 
     override fun setUpDataBinding(view: View) {
         addPostBinding = FragmentAddPostBinding.bind(view).apply {
-            categorySelector.adapter = ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_spinner_item,
-                categories
-            )
             locationSelector.setTitle(getString(R.string.location))
             locationSelector.setPositiveButton(getString(R.string.close))
             savePostButton.setOnClickListener {
@@ -84,6 +78,15 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
                         requireContext(),
                         android.R.layout.simple_spinner_item,
                         locations.map { "${it.name} - ${it.areaName}".setBoldText(listOf(it.name)) }
+                    )
+                }
+            })
+            categories.observe(viewLifecycleOwner, { categories ->
+                with(addPostBinding) {
+                    categorySelector.adapter = ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        categories.map { it.name }
                     )
                 }
             })
