@@ -2,10 +2,10 @@ package com.miwfem.socialtourismnetwork.presentation.ui.home.view
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
@@ -27,7 +27,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     private var logUser: String? = null
 
     override fun setUpDataBinding(view: View) {
-        homeBinding = FragmentHomeBinding.bind(view)
+        homeBinding = FragmentHomeBinding.bind(view).apply {
+            filterButton.setOnClickListener {
+                showFilters(true)
+            }
+            closeFilter.setOnClickListener {
+                showFilters(false)
+            }
+            applyFiltersButton.setOnClickListener {
+                showFilters(false)
+            }
+        }
     }
 
     override fun getBundleExtras() {
@@ -57,7 +67,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     override fun addFavPost(post: PostVO) {
-        Log.d("POST", "POST")
+
     }
 
     override fun seeAllPost(post: PostVO) {
@@ -79,6 +89,13 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         }
         dialog.show()
         dialog.setContentView(dialogBinding.root)
+    }
+
+    private fun showFilters(visibility: Boolean) {
+        with(homeBinding) {
+            filterButton.isVisible = !visibility
+            filterLayout.isVisible = visibility
+        }
     }
 
     private fun showDeletePostAlert(post: PostVO) {

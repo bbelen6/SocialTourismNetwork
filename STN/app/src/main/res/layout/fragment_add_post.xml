@@ -33,10 +33,10 @@
             android:layout_marginTop="@dimen/margin_8"
             android:clipToPadding="true"
             android:gravity="top|start"
+            android:visibility="gone"
             app:counterEnabled="true"
             app:counterMaxLength="20"
-            app:layout_constraintTop_toBottomOf="@id/category_selector"
-            android:visibility="gone">
+            app:layout_constraintTop_toBottomOf="@id/category_selector">
 
             <EditText
                 android:id="@+id/category_other"
