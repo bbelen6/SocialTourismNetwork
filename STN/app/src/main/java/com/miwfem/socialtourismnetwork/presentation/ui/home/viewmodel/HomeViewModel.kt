@@ -8,6 +8,7 @@ import com.miwfem.socialtourismnetwork.businesslogic.usecase.DeletePostUseCase
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.GetPostsUseCase
 import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.mapper.map
+import com.miwfem.socialtourismnetwork.utils.ResultType
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -29,10 +30,10 @@ class HomeViewModel(
         }
     }
 
-    fun deletePost(post: PostVO) {
-        deletePostUseCase.execute(DeletePostUseCase.Params(post.map()))
+    fun deletePost(post: PostVO): ResultType {
         val newPosts = _posts.value?.toMutableList()
         newPosts?.remove(post)
         _posts.value = newPosts
+        return deletePostUseCase.execute(DeletePostUseCase.Params(post.map()))
     }
 }

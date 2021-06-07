@@ -53,10 +53,16 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         return result
     }
 
-    fun deletePost(post: PostDao) {
-        post.id?.let {
-            firebaseFirestore.collection(POST).document(it).delete()
+    fun deletePost(post: PostDao): ResultType {
+        return try {
+            post.id?.let {
+                firebaseFirestore.collection(POST).document(it).delete()
+            }
+            ResultType.SUCCESS
+        } catch (exception: Exception) {
+            ResultType.ERROR
         }
+
     }
 
     suspend fun getCategories(): Result<List<CategoryDao>> {

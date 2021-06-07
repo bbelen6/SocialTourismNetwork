@@ -29,5 +29,7 @@
     <string name="delete_message">¿Estas seguro que quieres eliminar este post?</string>
     <string name="apply_filters">Aplicar filtros</string>
     <string name="filter">filter</string>
+    <string name="delete_post">Post Eliminado</string>
+    <string name="delete_post_error">Se ha producido un error al eliminar el post, intentelo de nuevo</string>
 
 </resources>

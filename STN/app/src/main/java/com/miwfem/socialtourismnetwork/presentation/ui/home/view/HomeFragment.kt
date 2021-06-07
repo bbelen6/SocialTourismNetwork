@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -16,6 +17,7 @@ import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
 import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 import com.miwfem.socialtourismnetwork.presentation.ui.home.viewmodel.HomeViewModel
+import com.miwfem.socialtourismnetwork.utils.ResultType
 import com.miwfem.socialtourismnetwork.utils.USER
 import kotlinx.android.synthetic.main.item_post.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -105,11 +107,28 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         builder.setTitle(getString(R.string.delete))
             .setMessage(getString(R.string.delete_message))
             .setPositiveButton(getString(R.string.accept)) { _, _ ->
-                homeViewModel.deletePost(post)
+                homeViewModel.deletePost(post).also { result ->
+                    when (result) {
+                        ResultType.SUCCESS -> {
+                            showToast(getString(R.string.delete_post))
+                        }
+                        ResultType.ERROR -> {
+                            showToast(getString(R.string.delete_post_error))
+                        }
+                    }
+                }
             }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     companion object {
