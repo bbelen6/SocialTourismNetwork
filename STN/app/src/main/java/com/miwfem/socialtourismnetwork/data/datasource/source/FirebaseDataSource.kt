@@ -28,9 +28,19 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         }
     }
 
-    suspend fun getPosts(): Result<List<PostDao>> {
+    suspend fun getPosts(logUser: String?): Result<List<PostDao>> {
         lateinit var result: Result<List<PostDao>>
         val posts = mutableListOf<PostDao>()
+        val favPosts = mutableListOf<String>()
+        logUser?.let {
+            firebaseFirestore.collection(USER_SETTINGS).document(it).collection(POSTS_FAV).get()
+                .addOnSuccessListener { postsFav ->
+                    postsFav.documents.forEach { post ->
+                        favPosts.add(post.id)
+                    }
+                }.await()
+        }
+
         firebaseFirestore.collection(POST).get().addOnSuccessListener {
             it.documents.forEach { post ->
                 post.data?.apply {
@@ -41,7 +51,9 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                             get(LOCATION).toString(),
                             get(AREA).toString(),
                             get(CATEGORY).toString(),
-                            get(COMMENT).toString()
+                            get(COMMENT).toString(),
+                            favPosts.contains(post.id),
+                            get(WITH_FAV) as Long
                         )
                     )
                 }
@@ -62,7 +74,64 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         } catch (exception: Exception) {
             ResultType.ERROR
         }
+    }
 
+    fun addFavoritePost(post: PostDao, logUser: String?): ResultType {
+        return try {
+            post.id?.let {
+                firebaseFirestore.collection(POST).document(it).set(
+                    hashMapOf(
+                        USER to post.user,
+                        LOCATION to post.location,
+                        AREA to post.area,
+                        CATEGORY to post.category,
+                        COMMENT to post.comment,
+                        WITH_FAV to post.withFav
+                    )
+                )
+                logUser?.let { logUser ->
+                    firebaseFirestore.collection(USER_SETTINGS).document(logUser)
+                        .collection(POSTS_FAV).document(post.id).set(
+                        hashMapOf(
+                            USER to post.user,
+                            LOCATION to post.location,
+                            AREA to post.area,
+                            CATEGORY to post.category,
+                            COMMENT to post.comment,
+                            WITH_FAV to post.withFav
+                        )
+                    )
+                }
+
+            }
+            ResultType.SUCCESS
+        } catch (exception: Exception) {
+            ResultType.ERROR
+        }
+    }
+
+    fun deleteFavoritePost(post: PostDao, logUser: String?): ResultType {
+        return try {
+            post.id?.let {
+                firebaseFirestore.collection(POST).document(it).set(
+                    hashMapOf(
+                        USER to post.user,
+                        LOCATION to post.location,
+                        AREA to post.area,
+                        CATEGORY to post.category,
+                        COMMENT to post.comment,
+                        WITH_FAV to post.withFav
+                    )
+                )
+                logUser?.let { logUser ->
+                    firebaseFirestore.collection(USER_SETTINGS).document(logUser)
+                        .collection(POSTS_FAV).document(post.id).delete()
+                }
+            }
+            ResultType.SUCCESS
+        } catch (exception: Exception) {
+            ResultType.ERROR
+        }
     }
 
     suspend fun getCategories(): Result<List<CategoryDao>> {
@@ -92,12 +161,15 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
 
     companion object {
         const val POST = "post"
+        const val POSTS_FAV = "postsFav"
         const val USER = "user"
         const val LOCATION = "location"
         const val AREA = "area"
         const val CATEGORY = "category"
         const val COMMENT = "comment"
         const val CATEGORIES = "categories"
+        const val WITH_FAV = "withFav"
+        const val USER_SETTINGS = "userSettings"
     }
 
 }

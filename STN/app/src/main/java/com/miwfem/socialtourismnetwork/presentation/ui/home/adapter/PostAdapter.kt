@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.ItemPostBinding
 import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
@@ -43,6 +44,13 @@ class PostAdapter(
                 user.text = post.user
 
                 deletePost.isVisible = post.user == logUser
+                favoritePost.isVisible = logUser != null
+
+                if (post.isFav) {
+                    favoritePost.setImageResource(R.drawable.ic_baseline_favorite_24)
+                } else {
+                    favoritePost.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                }
 
                 seeAllPost.setOnClickListener {
                     itemPostListener.seeAllPost(post)
@@ -51,6 +59,14 @@ class PostAdapter(
                     itemPostListener.deletePost(post)
                 }
                 favoritePost.setOnClickListener {
+                    post.isFav = !post.isFav
+                    if (post.isFav) {
+                        post.withFav += 1
+                        favoritePost.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    } else if (post.withFav > 0) {
+                        post.withFav -= 1
+                        favoritePost.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                    }
                     itemPostListener.addFavPost(post)
                 }
             }

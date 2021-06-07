@@ -16,8 +16,8 @@ class FirebaseRepositoryImpl(
         return firebaseDataSource.savePost(post.map())
     }
 
-    override suspend fun getPosts(): Result<List<PostEntity>> {
-        firebaseDataSource.getPosts().apply {
+    override suspend fun getPosts(logUser: String?): Result<List<PostEntity>> {
+        firebaseDataSource.getPosts(logUser).apply {
             data?.let { posts ->
                 return when (resultType) {
                     ResultType.SUCCESS -> {
@@ -34,6 +34,14 @@ class FirebaseRepositoryImpl(
 
     override fun deletePost(post: PostEntity): ResultType {
         return firebaseDataSource.deletePost(post.map())
+    }
+
+    override fun addFavoritePost(post: PostEntity, logUser: String?): ResultType {
+        return firebaseDataSource.addFavoritePost(post.map(), logUser)
+    }
+
+    override fun deleteFavoritePost(post: PostEntity, logUser: String?): ResultType {
+        return firebaseDataSource.deleteFavoritePost(post.map(), logUser)
     }
 
     override suspend fun getCategories(): Result<List<CategoryEntity>> {

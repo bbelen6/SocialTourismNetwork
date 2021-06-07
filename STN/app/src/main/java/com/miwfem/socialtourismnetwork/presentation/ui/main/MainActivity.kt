@@ -144,6 +144,19 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.isVisible = true
     }
 
+    fun backAndRefreshHome(user: String?) {
+        onBackPressed()
+        refreshHome(user)
+    }
+
+    private fun refreshHome(user: String? = null) {
+        supportFragmentManager.findFragmentById(R.id.fragmentComplete)?.let { fragment ->
+            if (fragment is HomeFragment) {
+                fragment.refreshHome(user)
+            }
+        }
+    }
+
     override fun onBackPressed() {
         supportFragmentManager.findFragmentById(R.id.fragmentComplete)?.let { fragment ->
             if (fragment is BaseFragment) {
@@ -175,6 +188,7 @@ class MainActivity : AppCompatActivity() {
                 closeSession()
                 setBottomOptions()
                 navigateToHome()
+                refreshHome()
             }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
         val dialog = builder.create()

@@ -7,5 +7,6 @@ data class PostDao(
     val area: String,
     val category: String,
     val comment: String,
-    val isFav: Boolean = false
+    val isFav: Boolean = false,
+    val withFav: Long = 0
 )

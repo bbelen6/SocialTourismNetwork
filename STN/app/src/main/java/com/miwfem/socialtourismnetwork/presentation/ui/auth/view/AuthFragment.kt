@@ -116,7 +116,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     private fun authSuccess(email: String) {
         (requireActivity() as? MainActivity)?.let { activity ->
-            activity.onBackPressed()
+            activity.backAndRefreshHome(email)
             activity.changeTopIcon(true)
             val sharedEdit = sharedPreferences.edit()
             sharedEdit?.putString(EMAIL, email)

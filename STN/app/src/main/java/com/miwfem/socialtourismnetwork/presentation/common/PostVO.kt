@@ -7,5 +7,6 @@ data class PostVO(
     val area: String,
     val category: String,
     val comment: String,
-    val isFav: Boolean = false
+    var isFav: Boolean = false,
+    var withFav: Long = 0
 )

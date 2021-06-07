@@ -8,8 +8,10 @@ import com.miwfem.socialtourismnetwork.utils.ResultType
 interface IFirebaseRepository {
 
     fun savePost(post: PostEntity): ResultType
-    suspend fun getPosts(): Result<List<PostEntity>>
+    suspend fun getPosts(logUser: String?): Result<List<PostEntity>>
     fun deletePost(post: PostEntity): ResultType
+    fun addFavoritePost(post: PostEntity, logUser: String?): ResultType
+    fun deleteFavoritePost(post: PostEntity, logUser: String?): ResultType
     suspend fun getCategories(): Result<List<CategoryEntity>>
     fun saveCategory(category: CategoryEntity): ResultType
 

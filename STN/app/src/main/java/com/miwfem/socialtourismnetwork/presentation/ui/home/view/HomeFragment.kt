@@ -40,6 +40,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             applyFiltersButton.setOnClickListener {
                 showFilters(false)
             }
+            filterButton.isVisible = logUser != null
         }
     }
 
@@ -47,6 +48,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         arguments?.let {
             logUser = it.getString(USER)
         }
+        homeViewModel.getPosts(logUser)
+    }
+
+    fun refreshHome(user: String?) {
+        logUser = user
+        homeBinding.filterButton.isVisible = user != null
+        homeViewModel.getPosts(logUser)
+        this.hideKeyboard()
     }
 
     override fun observeViewModel() {
@@ -70,7 +79,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     override fun addFavPost(post: PostVO) {
-
+        homeViewModel.manageFavorite(post, logUser)
     }
 
     override fun seeAllPost(post: PostVO) {
@@ -86,6 +95,13 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             seeAllLocation.text = post.location
             seeAllUser.text = post.user
             seeAllCategory.text = post.category
+            deletePost2.isVisible = false
+
+            if (post.isFav) {
+                favoritePost2.setImageResource(R.drawable.ic_baseline_favorite_24)
+            } else {
+                favoritePost2.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
             seeAllClose.setOnClickListener {
                 dialog.dismiss()
             }

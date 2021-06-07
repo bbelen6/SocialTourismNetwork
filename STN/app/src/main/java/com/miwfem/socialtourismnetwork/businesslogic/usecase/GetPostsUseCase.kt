@@ -5,7 +5,11 @@ import com.miwfem.socialtourismnetwork.businesslogic.repository.IFirebaseReposit
 import com.miwfem.socialtourismnetwork.utils.Result
 
 class GetPostsUseCase(private val firebaseRepository: IFirebaseRepository) {
-    suspend fun execute(): Result<List<PostEntity>> {
-        return firebaseRepository.getPosts()
+    suspend fun execute(params: Params): Result<List<PostEntity>> {
+        return firebaseRepository.getPosts(params.logUser)
     }
+
+    data class Params(
+        val logUser: String?
+    )
 }
