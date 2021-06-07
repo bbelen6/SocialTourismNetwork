@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
 import com.miwfem.socialtourismnetwork.databinding.ItemSeeAllPostBinding
@@ -38,10 +38,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     private fun setPostsAdapter(posts: List<PostVO>) {
+        val adapter = PostAdapter(posts, this@HomeFragment)
         with(homeBinding) {
-            val lManager = LinearLayoutManager(context)
-            rvPosts.layoutManager = lManager
-            rvPosts.adapter = PostAdapter(posts, this@HomeFragment)
+            rvPosts.itemAnimator = DefaultItemAnimator()
+            rvPosts.adapter = adapter
         }
     }
 
