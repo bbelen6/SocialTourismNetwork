@@ -5,4 +5,6 @@
     <dimen name="margin_20">20dp</dimen>
 
     <dimen name="size_40">40dp</dimen>
+
+    <dimen name="user_size">12sp</dimen>
 </resources>

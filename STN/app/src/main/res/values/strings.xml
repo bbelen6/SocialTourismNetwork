@@ -23,5 +23,8 @@
     <string name="new_category">Añade una nueva categoria</string>
     <string name="thanks_new_post">Gracias por el post!</string>
     <string name="error_new_post">Se ha producido un error al añadir el post, intentelo de nuevo</string>
+    <string name="see_all">see all</string>
+    <string name="favorite">favorite</string>
+    <string name="delete">delete</string>
 
 </resources>

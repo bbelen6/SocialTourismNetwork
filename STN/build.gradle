@@ -3,7 +3,9 @@ buildscript {
     ext {
         kotlin_version = "1.4.10"
         koin_version = "3.0.2"
-        kotlinCoroutines = '1.4.2'
+        kotlin_coroutines = '1.4.2'
+        kotlin_lifecycle = '2.3.1'
+        retrofit = '2.9.0'
     }
 
     repositories {
@@ -19,7 +21,7 @@ buildscript {
         // in the individual module build.gradle files
         classpath 'com.google.gms:google-services:4.3.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
+        classpath 'com.android.support:cardview-v7:28.0.0'
     }
 }
 
