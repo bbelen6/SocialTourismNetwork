@@ -12,6 +12,7 @@ import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
 import com.miwfem.socialtourismnetwork.databinding.ItemSeeAllPostBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.common.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
 import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 import com.miwfem.socialtourismnetwork.presentation.ui.home.viewmodel.HomeViewModel
@@ -95,6 +96,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         with(homeBinding) {
             filterButton.isVisible = !visibility
             filterLayout.isVisible = visibility
+            if (!visibility) this@HomeFragment.hideKeyboard()
         }
     }
 
