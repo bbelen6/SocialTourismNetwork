@@ -15,6 +15,7 @@ import com.miwfem.socialtourismnetwork.presentation.ui.addPost.viewmodel.AddPost
 import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity
 import com.miwfem.socialtourismnetwork.utils.OTHER
 import com.miwfem.socialtourismnetwork.utils.ResultType
+import com.miwfem.socialtourismnetwork.utils.USER
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
@@ -125,8 +126,6 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
                 putString(USER, user)
             }
         }
-
-        private const val USER = "user"
     }
 
 }

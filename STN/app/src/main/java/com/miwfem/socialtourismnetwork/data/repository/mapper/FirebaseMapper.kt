@@ -6,12 +6,12 @@ import com.miwfem.socialtourismnetwork.data.datasource.model.CategoryDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.PostDao
 
 
-fun PostEntity.map(): PostDao = PostDao(user, location, area, category, comment)
+fun PostEntity.map(): PostDao = PostDao(id, user, location, area, category, comment)
 
 fun List<PostDao>.map(): List<PostEntity> {
     val result = mutableListOf<PostEntity>()
     forEach {
-        result.add(PostEntity(it.user, it.location, it.area, it.category, it.comment))
+        result.add(PostEntity(it.id, it.user, it.location, it.area, it.category, it.comment))
     }
     return result
 }

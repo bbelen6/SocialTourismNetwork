@@ -1,9 +1,11 @@
 package com.miwfem.socialtourismnetwork.presentation.ui.home.view
 
 import android.app.Dialog
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
@@ -13,6 +15,8 @@ import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 import com.miwfem.socialtourismnetwork.presentation.ui.home.viewmodel.HomeViewModel
+import com.miwfem.socialtourismnetwork.utils.USER
+import kotlinx.android.synthetic.main.item_post.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
@@ -20,13 +24,16 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     private lateinit var homeBinding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by viewModel()
     private lateinit var dialog: Dialog
+    private var logUser: String? = null
 
     override fun setUpDataBinding(view: View) {
         homeBinding = FragmentHomeBinding.bind(view)
     }
 
     override fun getBundleExtras() {
-        //TODO("Not yet implemented")
+        arguments?.let {
+            logUser = it.getString(USER)
+        }
     }
 
     override fun observeViewModel() {
@@ -38,19 +45,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     private fun setPostsAdapter(posts: List<PostVO>) {
-        val adapter = PostAdapter(posts, this@HomeFragment)
+        val adapter = PostAdapter(posts, this@HomeFragment, logUser)
         with(homeBinding) {
             rvPosts.itemAnimator = DefaultItemAnimator()
             rvPosts.adapter = adapter
         }
     }
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
     override fun deletePost(post: PostVO) {
-        Log.d("POST", "POST")
+        showDeletePostAlert(post)
     }
 
     override fun addFavPost(post: PostVO) {
@@ -77,4 +80,25 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         dialog.show()
         dialog.setContentView(dialogBinding.root)
     }
+
+    private fun showDeletePostAlert(post: PostVO) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.delete))
+            .setMessage(getString(R.string.delete_message))
+            .setPositiveButton(getString(R.string.accept)) { _, _ ->
+                homeViewModel.deletePost(post)
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    companion object {
+        fun newInstance(user: String?) = HomeFragment().apply {
+            arguments = Bundle().apply {
+                putString(USER, user)
+            }
+        }
+    }
+
 }

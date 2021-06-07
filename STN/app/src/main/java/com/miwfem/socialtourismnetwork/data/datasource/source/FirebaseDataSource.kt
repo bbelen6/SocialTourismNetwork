@@ -36,6 +36,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                 post.data?.apply {
                     posts.add(
                         PostDao(
+                            post.id,
                             get(USER).toString(),
                             get(LOCATION).toString(),
                             get(AREA).toString(),
@@ -50,6 +51,12 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
             result = Result.error(Exception(it))
         }.await()
         return result
+    }
+
+    fun deletePost(post: PostDao) {
+        post.id?.let {
+            firebaseFirestore.collection(POST).document(it).delete()
+        }
     }
 
     suspend fun getCategories(): Result<List<CategoryDao>> {

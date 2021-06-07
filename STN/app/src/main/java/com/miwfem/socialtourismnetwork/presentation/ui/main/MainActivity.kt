@@ -27,8 +27,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        replaceFragment(HomeFragment.newInstance(), R.id.fragmentComplete, TAG_HOME)
         sharedPreferences = getSharedPreferences(PREFERENCES_FILE, MODE_PRIVATE)
+        replaceFragment(
+            HomeFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
+            R.id.fragmentComplete,
+            TAG_HOME
+        )
         bottomNavigation()
         setBottomOptions(sharedPreferences.getString(EMAIL, null))
     }
@@ -98,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home -> {
                     if (supportFragmentManager.findFragmentByTag(TAG_HOME) == null)
                         replaceFragment(
-                            HomeFragment.newInstance(),
+                            HomeFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
                             R.id.fragmentComplete,
                             TAG_HOME
                         )
@@ -180,7 +184,7 @@ class MainActivity : AppCompatActivity() {
     fun navigateToHome() {
         if (supportFragmentManager.findFragmentByTag(TAG_HOME) == null)
             replaceFragment(
-                HomeFragment.newInstance(),
+                HomeFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
                 R.id.fragmentComplete,
                 TAG_HOME
             )

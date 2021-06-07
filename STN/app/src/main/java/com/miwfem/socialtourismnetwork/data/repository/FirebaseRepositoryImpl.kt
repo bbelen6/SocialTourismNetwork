@@ -32,6 +32,10 @@ class FirebaseRepositoryImpl(
         return Result.error(Exception())
     }
 
+    override fun deletePost(post: PostEntity) {
+        firebaseDataSource.deletePost(post.map())
+    }
+
     override suspend fun getCategories(): Result<List<CategoryEntity>> {
         firebaseDataSource.getCategories().apply {
             data?.let { categories ->

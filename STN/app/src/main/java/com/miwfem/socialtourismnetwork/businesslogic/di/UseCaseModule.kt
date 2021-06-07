@@ -9,4 +9,5 @@ val useCaseModule = module {
     factory { GetCategoriesUseCase(get()) }
     factory { SaveCategoryUseCase(get()) }
     factory { GetPostsUseCase(get()) }
+    factory { DeletePostUseCase(get()) }
 }

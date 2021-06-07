@@ -2,12 +2,17 @@ package com.miwfem.socialtourismnetwork.presentation.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.miwfem.socialtourismnetwork.databinding.ItemPostBinding
 import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 
-class PostAdapter(private val posts: List<PostVO>, private val itemPostListener: ItemPostListener) :
+class PostAdapter(
+    private val posts: List<PostVO>,
+    private val itemPostListener: ItemPostListener,
+    private val logUser: String?
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -36,6 +41,8 @@ class PostAdapter(private val posts: List<PostVO>, private val itemPostListener:
                 category.text = post.category
                 comment.text = post.comment
                 user.text = post.user
+
+                deletePost.isVisible = post.user == logUser
 
                 seeAllPost.setOnClickListener {
                     itemPostListener.seeAllPost(post)
