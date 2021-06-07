@@ -6,18 +6,17 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_margin="10dp">
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="10dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:cardMaxElevation="12dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            android:padding="10dp"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/location"
@@ -49,7 +48,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:ellipsize="end"
-                android:maxLines="8"
+                android:maxLines="6"
                 app:layout_constraintBottom_toTopOf="@id/user"
                 app:layout_constraintTop_toBottomOf="@id/category"
                 tools:text="Comment" />
@@ -75,7 +74,7 @@
                 app:layout_constraintStart_toEndOf="@id/user">
 
                 <ImageButton
-                    android:id="@+id/see_all"
+                    android:id="@+id/see_all_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -84,7 +83,7 @@
                     android:src="@drawable/ic_baseline_add_box_24" />
 
                 <ImageButton
-                    android:id="@+id/favorite"
+                    android:id="@+id/favorite_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -93,6 +92,7 @@
                     android:src="@drawable/ic_baseline_favorite_border_24" />
 
                 <ImageButton
+                    android:id="@+id/delete_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

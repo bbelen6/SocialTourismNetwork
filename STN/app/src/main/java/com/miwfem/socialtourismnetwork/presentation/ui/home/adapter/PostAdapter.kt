@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.ItemPostBinding
 import com.miwfem.socialtourismnetwork.presentation.common.PostVO
+import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 
-class PostAdapter(private val posts: List<PostVO>) :
+class PostAdapter(private val posts: List<PostVO>, private val itemPostListener: ItemPostListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var postBinding: ItemPostBinding
@@ -33,6 +34,16 @@ class PostAdapter(private val posts: List<PostVO>) :
                 category.text = post.category
                 comment.text = post.comment
                 user.text = post.user
+
+                seeAllPost.setOnClickListener {
+                    itemPostListener.seeAllPost(post)
+                }
+                deletePost.setOnClickListener {
+                    itemPostListener.deletePost(post)
+                }
+                favoritePost.setOnClickListener {
+                    itemPostListener.addFavPost(post)
+                }
             }
         }
     }
