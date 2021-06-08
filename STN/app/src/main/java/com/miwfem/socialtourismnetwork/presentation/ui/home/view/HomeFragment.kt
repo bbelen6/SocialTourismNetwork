@@ -142,6 +142,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             seeAllUser.text = post.user
             seeAllCategory.text = post.category
             deletePost2.isVisible = false
+            favoritePost2.isVisible = logUser != null
 
             if (post.isFav) {
                 favoritePost2.setImageResource(R.drawable.ic_baseline_favorite_24)
