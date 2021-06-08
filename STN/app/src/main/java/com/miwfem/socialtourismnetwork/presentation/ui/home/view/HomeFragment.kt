@@ -41,11 +41,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
                 showFilters(false)
             }
             applyFiltersButton.setOnClickListener {
-                showFilters(false)
+                applyFilters(
+                    searchLocationFilter.selectedItem.toString(),
+                    searchAreaFilter.selectedItem.toString(),
+                    searchCategoryFilter.selectedItem.toString(),
+                    searchUserFilter.text.toString()
+                )
+            }
+            deleteFiltersButton.setOnClickListener {
+                deleteFilters()
             }
             filterButton.isVisible = logUser != null
         }
     }
+
 
     override fun getBundleExtras() {
         arguments?.let {
@@ -84,36 +93,43 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     private fun setPostsAdapter(posts: List<PostVO>) {
-        val adapter = PostAdapter(posts, this@HomeFragment, logUser)
+        val adapter = PostAdapter(this@HomeFragment, logUser)
         with(homeBinding) {
             rvPosts.itemAnimator = DefaultItemAnimator()
             rvPosts.adapter = adapter
+            adapter.addDataSet(posts)
         }
     }
 
     private fun setCategoriesSpinner(categories: List<CategoryVO>) {
         with(homeBinding) {
+            val allCategories = mutableListOf(getString(R.string.categories))
+            allCategories.addAll(categories.map { it.name })
             searchCategoryFilter.adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                categories.map { it.name }
+                allCategories
             )
         }
     }
 
     private fun setLocationsSpinner(locations: List<LocationVO>) {
         with(homeBinding) {
+            val allLocations = mutableListOf(getString(R.string.filter_location))
+            allLocations.addAll(locations.map { it.name })
             searchLocationFilter.adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                locations.map { it.name }
+                allLocations
             )
             searchLocationFilter.setTitle(getString(R.string.filter_location))
             searchLocationFilter.setPositiveButton(getString(R.string.close))
+            val areas = mutableListOf(getString(R.string.filter_area))
+            areas.addAll(locations.map { it.areaName })
             searchAreaFilter.adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                locations.map { it.areaName }
+                areas.distinct()
             )
             searchAreaFilter.setTitle(getString(R.string.filter_area))
             searchAreaFilter.setPositiveButton(getString(R.string.close))
@@ -162,6 +178,53 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             filterButton.isVisible = !visibility
             filterLayout.isVisible = visibility
             if (!visibility) this@HomeFragment.hideKeyboard()
+        }
+    }
+
+    private fun applyFilters(location: String, area: String, category: String, user: String) {
+        val finalPosts = mutableListOf<PostVO>()
+        var finalLocation: String? = null
+        var finalArea: String? = null
+        var finalCategory: String? = null
+        var finalUser: String? = null
+        if (location != getString(R.string.filter_location)) {
+            finalLocation = location
+        }
+        if (area != getString(R.string.filter_area)) {
+            finalArea = area
+        }
+        if (category != getString(R.string.categories)) {
+            finalCategory = category
+        }
+        if (user.isNotEmpty()) {
+            finalUser = user
+        }
+        homeViewModel.posts.value?.forEach { post ->
+            if ((finalLocation == post.location || finalLocation == null) &&
+                (finalArea == post.area || finalArea == null) &&
+                (finalCategory?.let { post.category.contains(it) } == true || finalCategory == null) &&
+                (finalUser?.let { post.user.contains(it) } == true || finalUser == null)
+            ) {
+                finalPosts.add(post)
+            }
+        }
+        if (finalPosts.isNotEmpty()) {
+            showFilters(false)
+            (homeBinding.rvPosts.adapter as? PostAdapter)?.addDataSet(finalPosts)
+        } else showToast("No hay coincidencias con los filtros")
+    }
+
+    private fun deleteFilters() {
+        with(homeBinding) {
+            searchCategoryFilter.setSelection(0)
+            searchLocationFilter.setSelection(0)
+            searchAreaFilter.setSelection(0)
+            searchUserFilter.setText("")
+        }
+        homeViewModel.posts.value?.let {
+            (homeBinding.rvPosts.adapter as? PostAdapter)?.addDataSet(
+                it
+            )
         }
     }
 

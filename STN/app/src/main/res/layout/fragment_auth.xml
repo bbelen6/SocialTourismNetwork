@@ -77,18 +77,21 @@
 
                 <Button
                     android:id="@+id/sing_up_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_4"
                     android:layout_weight="1"
-                    android:text="@string/register" />
+                    android:text="@string/register"
+                    style="?android:attr/buttonBarButtonStyle" />
 
                 <Button
                     android:id="@+id/login_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/login" />
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:text="@string/login"
+                    style="?android:attr/buttonBarButtonStyle" />
 
             </LinearLayout>
 

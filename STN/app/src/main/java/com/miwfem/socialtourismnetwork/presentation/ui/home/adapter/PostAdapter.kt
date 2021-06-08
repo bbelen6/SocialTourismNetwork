@@ -6,16 +6,23 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.ItemPostBinding
+import com.miwfem.socialtourismnetwork.presentation.common.AddDataSetAdapterLister
 import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 
 class PostAdapter(
-    private val posts: List<PostVO>,
     private val itemPostListener: ItemPostListener,
     private val logUser: String?
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), AddDataSetAdapterLister<PostVO> {
 
+    private val dataSet = mutableListOf<PostVO>()
+
+    override fun addDataSet(items: List<PostVO>) {
+        dataSet.clear()
+        if (items.isNotEmpty()) dataSet.addAll(items)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PostViewHolder(
@@ -29,10 +36,10 @@ class PostAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is PostViewHolder)
-            holder.bindData(posts[position])
+            holder.bindData(dataSet[position])
     }
 
-    override fun getItemCount(): Int = posts.size
+    override fun getItemCount(): Int = dataSet.size
 
     inner class PostViewHolder(private val binding: ItemPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
