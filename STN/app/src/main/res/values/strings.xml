@@ -31,5 +31,7 @@
     <string name="filter">filter</string>
     <string name="delete_post">Post Eliminado</string>
     <string name="delete_post_error">Se ha producido un error al eliminar el post, intentelo de nuevo</string>
+    <string name="filter_location">Selecciona una localidad</string>
+    <string name="filter_area">Selecciona un área</string>
 
 </resources>

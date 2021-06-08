@@ -4,13 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miwfem.socialtourismnetwork.businesslogic.usecase.DeletePostUseCase
-import com.miwfem.socialtourismnetwork.businesslogic.usecase.GetCategoriesUseCase
-import com.miwfem.socialtourismnetwork.businesslogic.usecase.GetPostsUseCase
-import com.miwfem.socialtourismnetwork.businesslogic.usecase.ManageFavoriteUseCase
+import com.miwfem.socialtourismnetwork.businesslogic.usecase.*
 import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.mapper.map
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
+import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
 import com.miwfem.socialtourismnetwork.utils.ResultType
 import kotlinx.coroutines.launch
 
@@ -18,7 +16,8 @@ class HomeViewModel(
     private val getPostsUseCase: GetPostsUseCase,
     private val deletePostUseCase: DeletePostUseCase,
     private val manageFavoriteUseCase: ManageFavoriteUseCase,
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val getLocationsUseCase: GetLocationsUseCase
 ) : ViewModel() {
 
     private val _posts by lazy { MutableLiveData<List<PostVO>>() }
@@ -28,6 +27,10 @@ class HomeViewModel(
     private val _categories by lazy { MutableLiveData<List<CategoryVO>>() }
     val categories: LiveData<List<CategoryVO>>
         get() = _categories
+
+    private val _locations by lazy { MutableLiveData<List<LocationVO>>() }
+    val location: LiveData<List<LocationVO>>
+        get() = _locations
 
     fun getPosts(logUser: String?) {
         viewModelScope.launch {
@@ -49,6 +52,12 @@ class HomeViewModel(
     fun getCategories() {
         viewModelScope.launch {
             _categories.value = getCategoriesUseCase.execute().data?.map()
+        }
+    }
+
+    fun getLocations() {
+        viewModelScope.launch {
+            _locations.value = getLocationsUseCase.execute().data?.map()
         }
     }
 }

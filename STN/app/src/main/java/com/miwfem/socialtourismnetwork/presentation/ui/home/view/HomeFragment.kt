@@ -16,6 +16,7 @@ import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
+import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 import com.miwfem.socialtourismnetwork.presentation.ui.home.viewmodel.HomeViewModel
@@ -51,14 +52,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             logUser = it.getString(USER)
         }
         homeViewModel.getPosts(logUser)
-        if (logUser != null) homeViewModel.getCategories()
+        if (logUser != null) {
+            homeViewModel.getCategories()
+            homeViewModel.getLocations()
+        }
     }
 
     fun refreshHome(user: String?) {
         logUser = user
         homeBinding.filterButton.isVisible = logUser != null
         homeViewModel.getPosts(logUser)
-        if (logUser != null) homeViewModel.getCategories()
+        if (logUser != null) {
+            homeViewModel.getCategories()
+            homeViewModel.getLocations()
+        }
         this.hideKeyboard()
     }
 
@@ -69,6 +76,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             })
             categories.observe(viewLifecycleOwner, {
                 setCategoriesSpinner(it)
+            })
+            location.observe(viewLifecycleOwner, {
+                setLocationsSpinner(it)
             })
         }
     }
@@ -88,6 +98,25 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
                 android.R.layout.simple_spinner_item,
                 categories.map { it.name }
             )
+        }
+    }
+
+    private fun setLocationsSpinner(locations: List<LocationVO>) {
+        with(homeBinding) {
+            searchLocationFilter.adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                locations.map { it.name }
+            )
+            searchLocationFilter.setTitle(getString(R.string.filter_location))
+            searchLocationFilter.setPositiveButton(getString(R.string.close))
+            searchAreaFilter.adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                locations.map { it.areaName }
+            )
+            searchAreaFilter.setTitle(getString(R.string.filter_area))
+            searchAreaFilter.setPositiveButton(getString(R.string.close))
         }
     }
 

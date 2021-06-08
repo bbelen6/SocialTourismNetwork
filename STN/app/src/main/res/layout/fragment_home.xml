@@ -41,13 +41,16 @@
                 android:id="@+id/search_category_filter"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_40"
-                android:layout_marginTop="@dimen/margin_8" />
+                android:layout_marginTop="@dimen/margin_8"
+                android:spinnerMode="dialog"
+                android:prompt="@string/categories" />
 
             <EditText
                 android:id="@+id/search_user_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8" />
+                android:layout_marginTop="@dimen/margin_8"
+                android:hint="@string/input" />
 
             <Button
                 android:id="@+id/apply_filters_button"
