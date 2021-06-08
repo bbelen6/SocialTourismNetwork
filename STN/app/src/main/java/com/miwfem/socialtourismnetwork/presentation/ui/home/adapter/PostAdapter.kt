@@ -42,9 +42,11 @@ class PostAdapter(
                 category.text = post.category
                 comment.text = post.comment
                 user.text = post.user
+                numberFavs.text = post.withFav.toString()
 
                 deletePost.isVisible = post.user == logUser
                 favoritePost.isVisible = logUser != null
+                numberFavs.isVisible = logUser != null
 
                 if (post.isFav) {
                     favoritePost.setImageResource(R.drawable.ic_baseline_favorite_24)
@@ -67,6 +69,8 @@ class PostAdapter(
                         post.withFav -= 1
                         favoritePost.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                     }
+                    numberFavs.isVisible = post.withFav != 0L
+                    numberFavs.text = post.withFav.toString()
                     itemPostListener.addFavPost(post)
                 }
             }

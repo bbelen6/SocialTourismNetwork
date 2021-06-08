@@ -19,7 +19,8 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                     LOCATION to post.location,
                     AREA to post.area,
                     CATEGORY to post.category,
-                    COMMENT to post.comment
+                    COMMENT to post.comment,
+                    WITH_FAV to 0
                 )
             )
             ResultType.SUCCESS
@@ -53,7 +54,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                             get(CATEGORY).toString(),
                             get(COMMENT).toString(),
                             favPosts.contains(post.id),
-                            get(WITH_FAV) as Long
+                            get(WITH_FAV) as? Long ?: 0
                         )
                     )
                 }
