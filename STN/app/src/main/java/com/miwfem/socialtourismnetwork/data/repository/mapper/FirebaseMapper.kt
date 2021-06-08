@@ -4,7 +4,7 @@ import com.miwfem.socialtourismnetwork.businesslogic.model.CategoryEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.PostEntity
 import com.miwfem.socialtourismnetwork.data.datasource.model.CategoryDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.PostDao
-import com.miwfem.socialtourismnetwork.data.datasource.room.CategoryEntityLocal
+import com.miwfem.socialtourismnetwork.data.datasource.room.model.CategoryEntityLocal
 
 
 fun PostEntity.map(): PostDao = PostDao(id, user, location, area, category, comment, isFav, withFav)
@@ -21,9 +21,9 @@ fun CategoryEntity.map(): CategoryDao = CategoryDao(name)
 
 fun CategoryDao.map(): CategoryEntity = CategoryEntity(name)
 
-fun List<CategoryDao>.mapRoom(): List<CategoryEntityLocal> = map { it.mapRoom() }
+fun List<CategoryDao>.mapLocal(): List<CategoryEntityLocal> = map { it.mapLocal() }
 
-fun CategoryDao.mapRoom(): CategoryEntityLocal = CategoryEntityLocal(name = name)
+fun CategoryDao.mapLocal(): CategoryEntityLocal = CategoryEntityLocal(name = name)
 
 @JvmName("mapCategoryEntityRoom")
 fun List<CategoryEntityLocal>.map(): List<CategoryDao> = map { it.map() }

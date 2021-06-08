@@ -10,8 +10,10 @@ import org.koin.dsl.module
 val roomModule = module {
     single { provideRoom(androidApplication()) }
     single { get<AppDatabase>().categoryDao() }
+    single { get<AppDatabase>().locationDao() }
 }
 
 private fun provideRoom(context: Context): AppDatabase =
-    Room.databaseBuilder(context, AppDatabase::class.java, "app_database").build()
+    Room.databaseBuilder(context, AppDatabase::class.java, "app_database")
+        .fallbackToDestructiveMigration().build()
 

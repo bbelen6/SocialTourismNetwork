@@ -3,17 +3,17 @@ package com.miwfem.socialtourismnetwork.data.repository
 import com.miwfem.socialtourismnetwork.businesslogic.model.CategoryEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.PostEntity
 import com.miwfem.socialtourismnetwork.businesslogic.repository.IFirebaseRepository
-import com.miwfem.socialtourismnetwork.data.datasource.room.CategoryDaoLocal
-import com.miwfem.socialtourismnetwork.data.datasource.room.CategoryEntityLocal
+import com.miwfem.socialtourismnetwork.data.datasource.room.model.CategoryDaoLocal
+import com.miwfem.socialtourismnetwork.data.datasource.room.model.CategoryEntityLocal
 import com.miwfem.socialtourismnetwork.data.datasource.source.FirebaseDataSource
 import com.miwfem.socialtourismnetwork.data.repository.mapper.map
-import com.miwfem.socialtourismnetwork.data.repository.mapper.mapRoom
+import com.miwfem.socialtourismnetwork.data.repository.mapper.mapLocal
 import com.miwfem.socialtourismnetwork.utils.Result
 import com.miwfem.socialtourismnetwork.utils.ResultType
 
 class FirebaseRepositoryImpl(
     private val firebaseDataSource: FirebaseDataSource,
-    private val categoryDao: CategoryDaoLocal
+    private val categoryDaoLocal: CategoryDaoLocal
 ) : IFirebaseRepository {
 
     override fun savePost(post: PostEntity): ResultType {
@@ -49,13 +49,13 @@ class FirebaseRepositoryImpl(
     }
 
     override suspend fun getCategories(): Result<List<CategoryEntity>> {
-        val roomCategories = getRoomCategories()
-        if (roomCategories.isNullOrEmpty()) {
+        val localCategories = getLocalCategories()
+        if (localCategories.isNullOrEmpty()) {
             firebaseDataSource.getCategories().apply {
                 data?.let { categories ->
                     return when (resultType) {
                         ResultType.SUCCESS -> {
-                            insertRoomCategories(categories.mapRoom())
+                            insertLocalCategories(categories.mapLocal())
                             Result.success(categories.map())
                         }
                         ResultType.ERROR -> {
@@ -65,17 +65,17 @@ class FirebaseRepositoryImpl(
                 }
             }
         } else {
-            return Result.success(roomCategories.map().map())
+            return Result.success(localCategories.map().map())
         }
         return Result.error(Exception())
     }
 
-    private suspend fun getRoomCategories(): List<CategoryEntityLocal> {
-        return categoryDao.getAllCategories()
+    private suspend fun getLocalCategories(): List<CategoryEntityLocal> {
+        return categoryDaoLocal.getAllCategories()
     }
 
-    private suspend fun insertRoomCategories(categories: List<CategoryEntityLocal>) {
-        categoryDao.insertCategories(categories)
+    private suspend fun insertLocalCategories(categories: List<CategoryEntityLocal>) {
+        categoryDaoLocal.insertCategories(categories)
     }
 
 }

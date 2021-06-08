@@ -23,7 +23,7 @@ private fun provideRetrofit(baseUrl: String): Retrofit {
 val cmApiModule = module {
     factory { provideCMService(get()) }
     factory { CMDataSource(get()) }
-    single { CMRepositoryImpl(get()) as ICMRepository }
+    single { CMRepositoryImpl(get(), get()) as ICMRepository }
 }
 
 private fun provideCMService(retrofit: Retrofit): ComunidadMadridService =

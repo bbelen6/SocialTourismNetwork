@@ -13,3 +13,5 @@ const val LOCATIONS =
     "/catalogo/dataset/032474a0-bf11-4465-bb92-392052962866/resource/301aed82-339b-4005-ab20-06db41ee7017/download/municipio_comunidad_madrid.json"
 const val OTHER = "Otro"
 const val USER = "user"
+const val CATEGORY_DATABASE = "categories"
+const val LOCATIONS_DATABASE = "locations"
