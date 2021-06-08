@@ -9,7 +9,7 @@ import org.koin.dsl.module
 val firebaseModule = module {
     single { provideFirebase() }
     factory { FirebaseDataSource(get()) }
-    single { FirebaseRepositoryImpl(get()) as IFirebaseRepository }
+    single { FirebaseRepositoryImpl(get(), get()) as IFirebaseRepository }
 }
 
 private fun provideFirebase(): FirebaseFirestore = FirebaseFirestore.getInstance()

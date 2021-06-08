@@ -5,6 +5,7 @@ import com.miwfem.socialtourismnetwork.businesslogic.di.useCaseModule
 import com.miwfem.socialtourismnetwork.data.di.cmApiModule
 import com.miwfem.socialtourismnetwork.data.di.firebaseModule
 import com.miwfem.socialtourismnetwork.data.di.retrofitModule
+import com.miwfem.socialtourismnetwork.data.di.roomModule
 import com.miwfem.socialtourismnetwork.presentation.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -21,7 +22,15 @@ class BaseApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@BaseApplication)
-            modules(viewModelModule, retrofitModule, cmApiModule, useCaseModule, firebaseModule)
+            modules(
+                viewModelModule,
+                retrofitModule,
+                cmApiModule,
+                useCaseModule,
+                firebaseModule,
+                roomModule
+            )
         }
     }
+
 }

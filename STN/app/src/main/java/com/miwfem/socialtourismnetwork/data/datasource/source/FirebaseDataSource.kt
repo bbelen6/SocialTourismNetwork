@@ -151,15 +151,6 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         return result
     }
 
-    fun saveCategory(category: CategoryDao): ResultType {
-        return try {
-            firebaseFirestore.collection(CATEGORIES).document(category.name)
-            return ResultType.SUCCESS
-        } catch (exception: Exception) {
-            ResultType.ERROR
-        }
-    }
-
     companion object {
         const val POST = "post"
         const val POSTS_FAV = "postsFav"
