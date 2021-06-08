@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
@@ -14,6 +15,7 @@ import com.miwfem.socialtourismnetwork.databinding.ItemSeeAllPostBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
+import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 import com.miwfem.socialtourismnetwork.presentation.ui.home.viewmodel.HomeViewModel
@@ -49,12 +51,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             logUser = it.getString(USER)
         }
         homeViewModel.getPosts(logUser)
+        if (logUser != null) homeViewModel.getCategories()
     }
 
     fun refreshHome(user: String?) {
         logUser = user
-        homeBinding.filterButton.isVisible = user != null
+        homeBinding.filterButton.isVisible = logUser != null
         homeViewModel.getPosts(logUser)
+        if (logUser != null) homeViewModel.getCategories()
         this.hideKeyboard()
     }
 
@@ -62,6 +66,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         with(homeViewModel) {
             posts.observe(viewLifecycleOwner, {
                 setPostsAdapter(it)
+            })
+            categories.observe(viewLifecycleOwner, {
+                setCategoriesSpinner(it)
             })
         }
     }
@@ -71,6 +78,16 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         with(homeBinding) {
             rvPosts.itemAnimator = DefaultItemAnimator()
             rvPosts.adapter = adapter
+        }
+    }
+
+    private fun setCategoriesSpinner(categories: List<CategoryVO>) {
+        with(homeBinding) {
+            searchCategoryFilter.adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                categories.map { it.name }
+            )
         }
     }
 
