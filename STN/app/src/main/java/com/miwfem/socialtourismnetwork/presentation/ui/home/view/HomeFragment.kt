@@ -181,29 +181,18 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         }
     }
 
-    private fun applyFilters(location: String, area: String, category: String, user: String) {
+    private fun applyFilters(
+        location: String?,
+        area: String,
+        category: String,
+        user: String
+    ) {
         val finalPosts = mutableListOf<PostVO>()
-        var finalLocation: String? = null
-        var finalArea: String? = null
-        var finalCategory: String? = null
-        var finalUser: String? = null
-        if (location != getString(R.string.filter_location)) {
-            finalLocation = location
-        }
-        if (area != getString(R.string.filter_area)) {
-            finalArea = area
-        }
-        if (category != getString(R.string.categories)) {
-            finalCategory = category
-        }
-        if (user.isNotEmpty()) {
-            finalUser = user
-        }
         homeViewModel.posts.value?.forEach { post ->
-            if ((finalLocation == post.location || finalLocation == null) &&
-                (finalArea == post.area || finalArea == null) &&
-                (finalCategory?.let { post.category.contains(it) } == true || finalCategory == null) &&
-                (finalUser?.let { post.user.contains(it) } == true || finalUser == null)
+            if ((location == post.location || location == getString(R.string.filter_location)) &&
+                (area == post.area || area == getString(R.string.filter_area)) &&
+                (post.category.contains(category) || category == getString(R.string.categories)) &&
+                (post.user.contains(user) || user == "")
             ) {
                 finalPosts.add(post)
             }
