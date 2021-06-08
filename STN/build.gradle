@@ -6,6 +6,7 @@ buildscript {
         kotlin_coroutines = '1.4.2'
         kotlin_lifecycle = '2.3.1'
         retrofit = '2.9.0'
+        room_version = "2.3.0"
     }
 
     repositories {
