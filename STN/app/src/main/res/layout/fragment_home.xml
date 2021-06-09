@@ -5,7 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/blue_background">
 
         <LinearLayout
             android:id="@+id/filter_layout"
@@ -95,7 +96,7 @@
             android:id="@+id/filter_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_baseline_filter_alt_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

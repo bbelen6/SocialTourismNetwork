@@ -6,82 +6,89 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_8"
-        android:background="@color/white"
-        tools:context=".presentation.ui.addPost.view.AddPostFragment">
+        android:background="@drawable/blue_background">
 
-        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/location_selector"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_40"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_8"
+            tools:context=".presentation.ui.addPost.view.AddPostFragment">
 
-        <Spinner
-            android:id="@+id/category_selector"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_40"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/margin_8"
-            android:prompt="@string/categories"
-            android:spinnerMode="dialog"
-            app:layout_constraintTop_toBottomOf="@id/location_selector" />
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/location_selector"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_40"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/category_other_input_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            android:clipToPadding="true"
-            android:gravity="top|start"
-            android:visibility="gone"
-            app:counterEnabled="true"
-            app:counterMaxLength="20"
-            app:layout_constraintTop_toBottomOf="@id/category_selector">
+            <Spinner
+                android:id="@+id/category_selector"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_40"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/margin_8"
+                android:prompt="@string/categories"
+                android:spinnerMode="dialog"
+                app:layout_constraintTop_toBottomOf="@id/location_selector" />
 
-            <EditText
-                android:id="@+id/category_other"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/category_other_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
-                android:autofillHints=" "
-                android:hint="@string/new_category"
-                android:inputType="text"
-                android:maxLength="20" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/add_post_input_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_8"
-            android:clipToPadding="true"
-            android:gravity="top|start"
-            app:counterEnabled="true"
-            app:counterMaxLength="1000"
-            app:layout_constraintBottom_toTopOf="@id/save_post_button"
-            app:layout_constraintTop_toBottomOf="@id/category_other_input_layout">
-
-            <EditText
-                android:id="@+id/add_post_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints=" "
-                android:background="@color/white"
+                android:clipToPadding="true"
                 android:gravity="top|start"
-                android:hint="@string/add_post"
-                android:inputType="textMultiLine"
-                android:maxLength="1000" />
+                android:visibility="gone"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:layout_constraintTop_toBottomOf="@id/category_selector">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/category_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:autofillHints=" "
+                    android:background="@color/blue_clair"
+                    android:hint="@string/new_category"
+                    android:inputType="text"
+                    android:maxLength="20" />
 
-        <Button
-            android:id="@+id/save_post_button"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_40"
-            android:layout_marginTop="@dimen/margin_8"
-            android:text="@string/add_post"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/add_post_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_8"
+                android:clipToPadding="true"
+                android:gravity="top|start"
+                app:counterEnabled="true"
+                app:counterMaxLength="1000"
+                app:layout_constraintBottom_toTopOf="@id/save_post_button"
+                app:layout_constraintTop_toBottomOf="@id/category_other_input_layout">
+
+                <EditText
+                    android:id="@+id/add_post_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=" "
+                    android:background="@color/blue_clair"
+                    android:gravity="top|start"
+                    android:hint="@string/add_post"
+                    android:inputType="textMultiLine"
+                    android:maxLength="1000" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/save_post_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_40"
+                android:layout_marginTop="@dimen/margin_8"
+                android:text="@string/add_post"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
