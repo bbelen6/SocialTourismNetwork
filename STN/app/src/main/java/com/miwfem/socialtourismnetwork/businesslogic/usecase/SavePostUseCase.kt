@@ -5,6 +5,7 @@ import com.miwfem.socialtourismnetwork.businesslogic.repository.IFirebaseReposit
 import com.miwfem.socialtourismnetwork.utils.ResultType
 
 class SavePostUseCase(private val firebaseRepository: IFirebaseRepository) {
+
     fun execute(params: Params): ResultType = firebaseRepository.savePost(params.post)
 
     data class Params(

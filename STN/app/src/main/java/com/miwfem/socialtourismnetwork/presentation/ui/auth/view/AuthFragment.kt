@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentAuthBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
+import com.miwfem.socialtourismnetwork.presentation.common.model.UserVO
 import com.miwfem.socialtourismnetwork.presentation.ui.auth.viewmodel.AuthViewModel
 import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity
 import com.miwfem.socialtourismnetwork.utils.EMAIL
@@ -100,6 +101,12 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                     loginCodeField.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
+                        authViewModel.saveUserProfile(
+                            UserVO(
+                                loginCorreoField.text.toString(),
+                                registerField.text.toString()
+                            )
+                        )
                         authSuccess(loginCorreoField.text.toString())
                     } else {
                         showAlert(

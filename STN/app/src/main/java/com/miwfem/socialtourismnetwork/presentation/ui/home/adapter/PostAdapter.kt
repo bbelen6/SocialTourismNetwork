@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.ItemPostBinding
-import com.miwfem.socialtourismnetwork.presentation.common.AddDataSetAdapterLister
-import com.miwfem.socialtourismnetwork.presentation.common.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.interfaces.AddDataSetAdapterLister
+import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 
 class PostAdapter(

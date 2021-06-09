@@ -2,10 +2,13 @@ package com.miwfem.socialtourismnetwork.data.repository.mapper
 
 import com.miwfem.socialtourismnetwork.businesslogic.model.CategoryEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.PostEntity
+import com.miwfem.socialtourismnetwork.businesslogic.model.UserEntity
 import com.miwfem.socialtourismnetwork.data.datasource.model.CategoryDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.PostDao
+import com.miwfem.socialtourismnetwork.data.datasource.model.UserDao
 import com.miwfem.socialtourismnetwork.data.datasource.room.model.CategoryEntityLocal
 
+fun UserEntity.map(): UserDao = UserDao(email, name)
 
 fun PostEntity.map(): PostDao = PostDao(id, user, location, area, category, comment, isFav, withFav)
 

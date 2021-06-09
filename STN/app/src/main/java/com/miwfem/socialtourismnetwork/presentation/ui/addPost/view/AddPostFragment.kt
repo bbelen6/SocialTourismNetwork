@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentAddPostBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
-import com.miwfem.socialtourismnetwork.presentation.common.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.common.setBoldText
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.viewmodel.AddPostViewModel
 import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity

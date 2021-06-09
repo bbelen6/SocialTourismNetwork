@@ -2,6 +2,7 @@ package com.miwfem.socialtourismnetwork.data.repository
 
 import com.miwfem.socialtourismnetwork.businesslogic.model.CategoryEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.PostEntity
+import com.miwfem.socialtourismnetwork.businesslogic.model.UserEntity
 import com.miwfem.socialtourismnetwork.businesslogic.repository.IFirebaseRepository
 import com.miwfem.socialtourismnetwork.data.datasource.room.model.CategoryDaoLocal
 import com.miwfem.socialtourismnetwork.data.datasource.room.model.CategoryEntityLocal
@@ -15,6 +16,10 @@ class FirebaseRepositoryImpl(
     private val firebaseDataSource: FirebaseDataSource,
     private val categoryDaoLocal: CategoryDaoLocal
 ) : IFirebaseRepository {
+
+    override fun saveUserProfile(user: UserEntity): ResultType {
+        return firebaseDataSource.saveUserProfile(user.map())
+    }
 
     override fun savePost(post: PostEntity): ResultType {
         return firebaseDataSource.savePost(post.map())

@@ -3,9 +3,13 @@ package com.miwfem.socialtourismnetwork.presentation.mapper
 import com.miwfem.socialtourismnetwork.businesslogic.model.CategoryEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.LocationEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.PostEntity
-import com.miwfem.socialtourismnetwork.presentation.common.PostVO
+import com.miwfem.socialtourismnetwork.businesslogic.model.UserEntity
+import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.model.UserVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
+
+fun UserVO.map(): UserEntity = UserEntity(email, name)
 
 fun List<LocationEntity>.map(): List<LocationVO> = map { it.map() }
 

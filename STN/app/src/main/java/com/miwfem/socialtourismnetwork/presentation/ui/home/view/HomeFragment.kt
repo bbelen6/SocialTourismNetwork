@@ -13,8 +13,8 @@ import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
 import com.miwfem.socialtourismnetwork.databinding.ItemSeeAllPostBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
-import com.miwfem.socialtourismnetwork.presentation.common.PostVO
 import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
+import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter

@@ -1,6 +1,6 @@
 package com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces
 
-import com.miwfem.socialtourismnetwork.presentation.common.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 
 interface ItemPostListener {
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.*
-import com.miwfem.socialtourismnetwork.presentation.common.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.mapper.map
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO

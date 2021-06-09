@@ -3,6 +3,7 @@ package com.miwfem.socialtourismnetwork.data.datasource.source
 import com.google.firebase.firestore.FirebaseFirestore
 import com.miwfem.socialtourismnetwork.data.datasource.model.CategoryDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.PostDao
+import com.miwfem.socialtourismnetwork.data.datasource.model.UserDao
 import com.miwfem.socialtourismnetwork.utils.OTHER
 import com.miwfem.socialtourismnetwork.utils.Result
 import com.miwfem.socialtourismnetwork.utils.ResultType
@@ -11,6 +12,18 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
+
+    fun saveUserProfile(user: UserDao): ResultType {
+        return try {
+            val dummyMap = HashMap<String, String>()
+            val doc = firebaseFirestore.collection(USER_SETTINGS).document(user.email)
+            doc.set(dummyMap)
+            doc.collection(PROFILE).document(user.name).set(dummyMap)
+            ResultType.SUCCESS
+        } catch (exception: Exception) {
+            ResultType.ERROR
+        }
+    }
 
     fun savePost(post: PostDao): ResultType {
         return try {
@@ -175,6 +188,8 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         const val CATEGORIES = "categories"
         const val WITH_FAV = "withFav"
         const val USER_SETTINGS = "userSettings"
+        const val PROFILE = "profile"
+        const val NAME = "name"
     }
 
 }

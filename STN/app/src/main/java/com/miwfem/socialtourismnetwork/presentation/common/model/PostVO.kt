@@ -1,4 +1,4 @@
-package com.miwfem.socialtourismnetwork.presentation.common
+package com.miwfem.socialtourismnetwork.presentation.common.model
 
 data class PostVO(
     val id: String? = null,
