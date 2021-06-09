@@ -8,6 +8,7 @@ import com.miwfem.socialtourismnetwork.utils.Result
 import com.miwfem.socialtourismnetwork.utils.ResultType
 import kotlinx.coroutines.tasks.await
 import java.util.*
+import kotlin.collections.HashMap
 
 class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
 
@@ -68,8 +69,18 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
 
     fun deletePost(post: PostDao): ResultType {
         return try {
-            post.id?.let {
-                firebaseFirestore.collection(POST).document(it).delete()
+            post.id?.let { postId ->
+                firebaseFirestore.collection(POST).document(postId).delete()
+                if (post.withFav != 0L) {
+                    firebaseFirestore.collection(USER_SETTINGS).get()
+                        .addOnSuccessListener { result ->
+                            result.documents.forEach { doc ->
+                                firebaseFirestore.collection(USER_SETTINGS)
+                                    .document(doc.reference.id).collection(POSTS_FAV)
+                                    .document(postId).delete()
+                            }
+                        }
+                }
             }
             ResultType.SUCCESS
         } catch (exception: Exception) {
@@ -91,8 +102,10 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                     )
                 )
                 logUser?.let { logUser ->
-                    firebaseFirestore.collection(USER_SETTINGS).document(logUser)
-                        .collection(POSTS_FAV).document(post.id).set(
+                    val dummyMap = HashMap<String, String>()
+                    val doc = firebaseFirestore.collection(USER_SETTINGS).document(logUser)
+                    doc.set(dummyMap)
+                    doc.collection(POSTS_FAV).document(post.id).set(
                         hashMapOf(
                             USER to post.user,
                             LOCATION to post.location,
