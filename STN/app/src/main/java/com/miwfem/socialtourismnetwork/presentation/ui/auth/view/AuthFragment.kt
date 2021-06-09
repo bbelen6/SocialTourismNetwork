@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentAuthBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
@@ -19,6 +20,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
     private val authViewModel: AuthViewModel by viewModel()
     private lateinit var authBinding: FragmentAuthBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private var registerView = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,50 +46,17 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                 (requireActivity() as? MainActivity)?.onBackPressed()
             }
             singUpButton.setOnClickListener {
-                if (loginCorreoField.text?.isNotEmpty() == true && loginCodeField.text?.isNotEmpty() == true) {
-                    authViewModel.singUp(
-                        loginCorreoField.text.toString(),
-                        loginCodeField.text.toString()
-                    ).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            authSuccess(loginCorreoField.text.toString())
-                        } else {
-                            showAlert(
-                                title = getString(R.string.error),
-                                message = getString(R.string.sing_up_error),
-                                positiveButton = getString(R.string.accept)
-                            )
-                        }
-                    }
-                } else {
-                    showAlert(
-                        message = getString(R.string.fill_error),
-                        positiveButton = getString(R.string.accept)
-                    )
-                }
+                registerView = !registerView
+                if (registerView)
+                    registerUserView()
+                else
+                    loginUserView()
             }
             loginButton.setOnClickListener {
-                if (loginCorreoField.text?.isNotEmpty() == true && loginCodeField.text?.isNotEmpty() == true) {
-                    authViewModel.login(
-                        loginCorreoField.text.toString(),
-                        loginCodeField.text.toString()
-                    ).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            authSuccess(loginCorreoField.text.toString())
-                        } else {
-                            showAlert(
-                                title = getString(R.string.error),
-                                message = getString(R.string.login_error),
-                                positiveButton = getString(R.string.accept)
-                            )
-                        }
-                    }
-                } else {
-                    showAlert(
-                        message = getString(R.string.fill_error),
-                        positiveButton = getString(R.string.accept)
-                    )
-                }
+                if (registerView)
+                    registerUser()
+                else
+                    loginUser()
             }
         }
     }
@@ -112,6 +81,76 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     override fun observeViewModel() {
         //TODO("Not yet implemented")
+    }
+
+    private fun registerUserView() {
+        with(authBinding) {
+            userName.isVisible = true
+            loginButton.text = getString(R.string.register)
+            noAccount.isVisible = false
+            singUpButton.text = getString(R.string.login)
+        }
+    }
+
+    private fun registerUser() {
+        with(authBinding) {
+            if (loginCorreoField.text?.isNotEmpty() == true && loginCodeField.text?.isNotEmpty() == true) {
+                authViewModel.singUp(
+                    loginCorreoField.text.toString(),
+                    loginCodeField.text.toString()
+                ).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        authSuccess(loginCorreoField.text.toString())
+                    } else {
+                        showAlert(
+                            title = getString(R.string.error),
+                            message = getString(R.string.sing_up_error),
+                            positiveButton = getString(R.string.accept)
+                        )
+                    }
+                }
+            } else {
+                showAlert(
+                    message = getString(R.string.fill_error),
+                    positiveButton = getString(R.string.accept)
+                )
+            }
+        }
+    }
+
+    private fun loginUser() {
+        with(authBinding) {
+            if (loginCorreoField.text?.isNotEmpty() == true && loginCodeField.text?.isNotEmpty() == true) {
+                authViewModel.login(
+                    loginCorreoField.text.toString(),
+                    loginCodeField.text.toString()
+                ).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        authSuccess(loginCorreoField.text.toString())
+                    } else {
+                        showAlert(
+                            title = getString(R.string.error),
+                            message = getString(R.string.login_error),
+                            positiveButton = getString(R.string.accept)
+                        )
+                    }
+                }
+            } else {
+                showAlert(
+                    message = getString(R.string.fill_error),
+                    positiveButton = getString(R.string.accept)
+                )
+            }
+        }
+    }
+
+    private fun loginUserView() {
+        with(authBinding) {
+            userName.isVisible = false
+            loginButton.text = getString(R.string.login)
+            noAccount.isVisible = true
+            singUpButton.text = getString(R.string.register)
+        }
     }
 
     private fun authSuccess(email: String) {

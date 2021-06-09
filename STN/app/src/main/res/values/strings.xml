@@ -37,5 +37,8 @@
     <string name="no_area">NO FILTRO AREA</string>
     <string name="no_location">NO FILTRO LOCALIDAD</string>
     <string name="no_category">NO FILTRO CATEGORIA</string>
+    <string name="no_account">¿No tienes cuenta?</string>
+    <string name="register_name">Nombre de usuario</string>
+    <string name="compass">compass</string>
 
 </resources>
