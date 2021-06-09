@@ -75,6 +75,10 @@ class FirebaseRepositoryImpl(
         return Result.error(Exception())
     }
 
+    override suspend fun getUserNameByEmail(email: String): Result<String> {
+        return firebaseDataSource.getUserNameByEmail(email)
+    }
+
     private suspend fun getLocalCategories(): List<CategoryEntityLocal> {
         return categoryDaoLocal.getAllCategories()
     }

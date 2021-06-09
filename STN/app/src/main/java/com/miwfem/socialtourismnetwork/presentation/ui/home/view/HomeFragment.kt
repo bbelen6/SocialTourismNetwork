@@ -155,7 +155,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         dialogBinding.apply {
             seeAllComment.text = post.comment
             seeAllLocation.text = post.location
-            seeAllUser.text = post.user
+            seeAllUser.text = if (post.userName.isNotEmpty()) post.userName else post.user
             seeAllCategory.text = post.category
             deletePost2.isVisible = false
             favoritePost2.isVisible = logUser != null
@@ -192,7 +192,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             if ((location == post.location || location == getString(R.string.filter_location)) &&
                 (area == post.area || area == getString(R.string.filter_area)) &&
                 (post.category.contains(category) || category == getString(R.string.categories)) &&
-                (post.user.contains(user) || user == "")
+                (post.userName.contains(user) || user == "")
             ) {
                 finalPosts.add(post)
             }

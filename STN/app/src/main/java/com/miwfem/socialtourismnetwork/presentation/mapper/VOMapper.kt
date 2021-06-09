@@ -16,12 +16,13 @@ fun List<LocationEntity>.map(): List<LocationVO> = map { it.map() }
 fun LocationEntity.map(): LocationVO = LocationVO(name, areaName)
 
 fun PostVO.map(): PostEntity =
-    PostEntity(id, user, location, area, category, comment, isFav, withFav)
+    PostEntity(id, user, userName, location, area, category, comment, isFav, withFav)
 
 @JvmName("mapPostEntity")
 fun List<PostEntity>.map(): List<PostVO> = map { it.map() }
 
-fun PostEntity.map(): PostVO = PostVO(id, user, location, area, category, comment, isFav, withFav)
+fun PostEntity.map(): PostVO =
+    PostVO(id, user, userName, location, area, category, comment, isFav, withFav)
 
 @JvmName("mapCategoryEntity")
 fun List<CategoryEntity>.map(): List<CategoryVO> = map { it.map() }

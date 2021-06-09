@@ -16,12 +16,14 @@ import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity
 import com.miwfem.socialtourismnetwork.utils.OTHER
 import com.miwfem.socialtourismnetwork.utils.ResultType
 import com.miwfem.socialtourismnetwork.utils.USER
+import com.miwfem.socialtourismnetwork.utils.USER_NAME
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
 
     private lateinit var addPostBinding: FragmentAddPostBinding
     private var user: String? = null
+    private var userName: String? = null
     private val addPostViewModel: AddPostViewModel by viewModel()
 
     override fun setUpDataBinding(view: View) {
@@ -57,6 +59,7 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
                         addPostViewModel.savePost(
                             PostVO(
                                 user = user ?: "",
+                                userName = userName ?: "",
                                 location = location.name,
                                 area = location.areaName,
                                 category = category,
@@ -82,6 +85,7 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
     override fun getBundleExtras() {
         arguments?.let {
             user = it.getString(USER)
+            userName = it.getString(USER_NAME)
         }
     }
 
@@ -121,9 +125,10 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
     }
 
     companion object {
-        fun newInstance(user: String?) = AddPostFragment().apply {
+        fun newInstance(user: String?, userName: String?) = AddPostFragment().apply {
             arguments = Bundle().apply {
                 putString(USER, user)
+                putString(USER_NAME, userName)
             }
         }
     }

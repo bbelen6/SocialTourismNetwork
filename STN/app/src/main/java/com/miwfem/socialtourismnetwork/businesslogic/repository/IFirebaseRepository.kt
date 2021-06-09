@@ -15,5 +15,6 @@ interface IFirebaseRepository {
     fun addFavoritePost(post: PostEntity, logUser: String?): ResultType
     fun deleteFavoritePost(post: PostEntity, logUser: String?): ResultType
     suspend fun getCategories(): Result<List<CategoryEntity>>
+    suspend fun getUserNameByEmail(email: String): Result<String>
 
 }

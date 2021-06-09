@@ -10,12 +10,13 @@ import com.miwfem.socialtourismnetwork.data.datasource.room.model.CategoryEntity
 
 fun UserEntity.map(): UserDao = UserDao(email, name)
 
-fun PostEntity.map(): PostDao = PostDao(id, user, location, area, category, comment, isFav, withFav)
+fun PostEntity.map(): PostDao =
+    PostDao(id, user, userName, location, area, category, comment, isFav, withFav)
 
 fun List<PostDao>.map(): List<PostEntity> = map { it.map() }
 
 fun PostDao.map(): PostEntity =
-    PostEntity(id, user, location, area, category, comment, isFav, withFav)
+    PostEntity(id, user, userName, location, area, category, comment, isFav, withFav)
 
 @JvmName("mapCategoryDao")
 fun List<CategoryDao>.map(): List<CategoryEntity> = map { it.map() }

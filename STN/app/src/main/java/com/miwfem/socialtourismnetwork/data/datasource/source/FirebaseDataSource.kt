@@ -7,6 +7,7 @@ import com.miwfem.socialtourismnetwork.data.datasource.model.UserDao
 import com.miwfem.socialtourismnetwork.utils.OTHER
 import com.miwfem.socialtourismnetwork.utils.Result
 import com.miwfem.socialtourismnetwork.utils.ResultType
+import com.miwfem.socialtourismnetwork.utils.USER_NAME
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import kotlin.collections.HashMap
@@ -18,11 +19,30 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
             val dummyMap = HashMap<String, String>()
             val doc = firebaseFirestore.collection(USER_SETTINGS).document(user.email)
             doc.set(dummyMap)
-            doc.collection(PROFILE).document(user.name).set(dummyMap)
+            doc.collection(PROFILE).document().set(
+                hashMapOf(
+                    USER_NAME to user.name
+                )
+            )
             ResultType.SUCCESS
         } catch (exception: Exception) {
             ResultType.ERROR
         }
+    }
+
+    suspend fun getUserNameByEmail(email: String): Result<String> {
+        lateinit var result: Result<String>
+        firebaseFirestore.collection(USER_SETTINGS).document(email).collection(PROFILE).get()
+            .addOnSuccessListener {
+                result = if (it.documents.isNotEmpty()) {
+                    Result.success(it.documents[0].data?.get(USER_NAME).toString())
+                } else {
+                    Result.success("")
+                }
+            }.addOnFailureListener {
+                result = Result.error(java.lang.Exception(it))
+            }.await()
+        return result
     }
 
     fun savePost(post: PostDao): ResultType {
@@ -30,6 +50,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
             firebaseFirestore.collection(POST).document(UUID.randomUUID().toString()).set(
                 hashMapOf(
                     USER to post.user,
+                    USER_NAME to post.userName,
                     LOCATION to post.location,
                     AREA to post.area,
                     CATEGORY to post.category,
@@ -63,6 +84,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                         PostDao(
                             post.id,
                             get(USER).toString(),
+                            if (get(USER_NAME) == null) "" else get(USER_NAME).toString(),
                             get(LOCATION).toString(),
                             get(AREA).toString(),
                             get(CATEGORY).toString(),
@@ -189,7 +211,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         const val WITH_FAV = "withFav"
         const val USER_SETTINGS = "userSettings"
         const val PROFILE = "profile"
-        const val NAME = "name"
+        const val USERS = "users"
     }
 
 }

@@ -110,7 +110,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_add -> {
                     if (supportFragmentManager.findFragmentByTag(TAG_ADD_POST) == null)
                         replaceFragment(
-                            AddPostFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
+                            AddPostFragment.newInstance(
+                                sharedPreferences.getString(EMAIL, null),
+                                sharedPreferences.getString(USER_NAME, null)
+                            ),
                             R.id.fragmentComplete,
                             TAG_ADD_POST
                         )
@@ -177,6 +180,7 @@ class MainActivity : AppCompatActivity() {
         changeTopIcon(false)
         val sharedEdit = sharedPreferences.edit()
         sharedEdit.remove(EMAIL)
+        sharedEdit.remove(USER_NAME)
         sharedEdit.apply()
     }
 

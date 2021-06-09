@@ -14,6 +14,7 @@ import com.miwfem.socialtourismnetwork.presentation.ui.auth.viewmodel.AuthViewMo
 import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity
 import com.miwfem.socialtourismnetwork.utils.EMAIL
 import com.miwfem.socialtourismnetwork.utils.PREFERENCES_FILE
+import com.miwfem.socialtourismnetwork.utils.USER_NAME
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AuthFragment : BaseFragment(R.layout.fragment_auth) {
@@ -81,7 +82,11 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
     }
 
     override fun observeViewModel() {
-        //TODO("Not yet implemented")
+        with(authViewModel) {
+            userName.observe(viewLifecycleOwner, {
+                authSuccess(authBinding.loginCorreoField.text.toString(), it)
+            })
+        }
     }
 
     private fun registerUserView() {
@@ -95,7 +100,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
 
     private fun registerUser() {
         with(authBinding) {
-            if (loginCorreoField.text?.isNotEmpty() == true && loginCodeField.text?.isNotEmpty() == true) {
+            if (loginCorreoField.text?.isNotEmpty() == true && loginCodeField.text?.isNotEmpty() == true && registerField.text?.isNotEmpty() == true) {
                 authViewModel.singUp(
                     loginCorreoField.text.toString(),
                     loginCodeField.text.toString()
@@ -107,7 +112,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                                 registerField.text.toString()
                             )
                         )
-                        authSuccess(loginCorreoField.text.toString())
+                        authSuccess(loginCorreoField.text.toString(), registerField.text.toString())
                     } else {
                         showAlert(
                             title = getString(R.string.error),
@@ -117,10 +122,15 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                     }
                 }
             } else {
-                showAlert(
-                    message = getString(R.string.fill_error),
-                    positiveButton = getString(R.string.accept)
-                )
+                if (loginCorreoField.text?.isNotEmpty() == false) loginCorreoField.error =
+                    getString(R.string.fill_error)
+                else loginCorreoField.error = null
+                if (loginCodeField.text?.isNotEmpty() == false) loginCodeField.error =
+                    getString(R.string.fill_error)
+                else loginCodeField.error = null
+                if (registerField.text?.isNotEmpty() == false) registerField.error =
+                    getString(R.string.fill_error)
+                else registerField.error = null
             }
         }
     }
@@ -133,7 +143,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                     loginCodeField.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        authSuccess(loginCorreoField.text.toString())
+                        authViewModel.getUserNameByEmail(loginCorreoField.text.toString())
                     } else {
                         showAlert(
                             title = getString(R.string.error),
@@ -143,10 +153,12 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                     }
                 }
             } else {
-                showAlert(
-                    message = getString(R.string.fill_error),
-                    positiveButton = getString(R.string.accept)
-                )
+                if (loginCorreoField.text?.isNotEmpty() == false) loginCorreoField.error =
+                    getString(R.string.fill_error)
+                else loginCorreoField.error = null
+                if (loginCodeField.text?.isNotEmpty() == false) loginCodeField.error =
+                    getString(R.string.fill_error)
+                else loginCodeField.error = null
             }
         }
     }
@@ -160,12 +172,13 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
         }
     }
 
-    private fun authSuccess(email: String) {
+    private fun authSuccess(email: String, userName: String) {
         (requireActivity() as? MainActivity)?.let { activity ->
             activity.backAndRefreshHome(email)
             activity.changeTopIcon(true)
             val sharedEdit = sharedPreferences.edit()
             sharedEdit?.putString(EMAIL, email)
+            sharedEdit?.putString(USER_NAME, userName)
             sharedEdit.apply()
             activity.setBottomOptions(email)
         }

@@ -48,7 +48,7 @@ class PostAdapter(
                 location.text = post.location
                 category.text = post.category
                 comment.text = post.comment
-                user.text = post.user
+                user.text = if (post.userName.isNotEmpty()) post.userName else post.user
                 numberFavs.text = post.withFav.toString()
 
                 deletePost.isVisible = post.user == logUser
