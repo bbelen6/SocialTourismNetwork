@@ -3,7 +3,6 @@
 
     <item android:drawable="@drawable/blue_background" />
     <item
-        android:drawable="@drawable/ic_compass"
+        android:drawable="@drawable/ic_compass_splash"
         android:gravity="center" />
-
 </layer-list>
