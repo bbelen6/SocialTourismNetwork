@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialTourismNetwork">
-        <activity android:name="com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity">
+        <activity
+            android:name="com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
