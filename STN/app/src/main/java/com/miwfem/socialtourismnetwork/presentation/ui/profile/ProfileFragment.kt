@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentProfileBinding
@@ -111,6 +112,39 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
         sharedEdit.apply()
     }
 
+    override fun deletePost(post: PostVO) {
+        showDeletePostAlert(post)
+    }
+
+    override fun addFavPost(post: PostVO) {
+        profileViewModel.manageFavorite(post, user)
+    }
+
+    override fun seeAllPost(post: PostVO) {
+        showSeeAllPostDialog(post, user)
+    }
+
+    private fun showDeletePostAlert(post: PostVO) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.delete))
+            .setMessage(getString(R.string.delete_message))
+            .setPositiveButton(getString(R.string.accept)) { _, _ ->
+                profileViewModel.deletePost(post).also { result ->
+                    when (result) {
+                        ResultType.SUCCESS -> {
+                            showToast(getString(R.string.delete_post))
+                        }
+                        ResultType.ERROR -> {
+                            showToast(getString(R.string.delete_post_error))
+                        }
+                    }
+                }
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
     companion object {
         fun newInstance(user: String?, userName: String?) = ProfileFragment().apply {
             arguments = Bundle().apply {
@@ -120,15 +154,4 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
         }
     }
 
-    override fun deletePost(post: PostVO) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun addFavPost(post: PostVO) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun seeAllPost(post: PostVO) {
-        showSeeAllPostDialog(post, user)
-    }
 }

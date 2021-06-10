@@ -144,31 +144,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     override fun seeAllPost(post: PostVO) {
         showSeeAllPostDialog(post, logUser)
     }
-/*
-    private fun showSeeAllPostDialog(post: PostVO) {
-        dialog = Dialog(requireContext(), R.style.DialogTheme)
-        val dialogBinding: ItemSeeAllPostBinding =
-            ItemSeeAllPostBinding.inflate(LayoutInflater.from(requireContext()))
-        dialogBinding.apply {
-            seeAllComment.text = post.comment
-            seeAllLocation.text = post.location
-            seeAllUser.text = if (post.userName.isNotEmpty()) post.userName else post.user
-            seeAllCategory.text = post.category
-            deletePost2.isVisible = false
-            favoritePost2.isVisible = logUser != null
-
-            if (post.isFav) {
-                favoritePost2.setImageResource(R.drawable.ic_baseline_favorite_24)
-            } else {
-                favoritePost2.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-            }
-            seeAllClose.setOnClickListener {
-                dialog.dismiss()
-            }
-        }
-        dialog.show()
-        dialog.setContentView(dialogBinding.root)
-    }*/
 
     private fun showFilters(visibility: Boolean) {
         with(homeBinding) {
