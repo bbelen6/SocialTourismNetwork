@@ -2,16 +2,13 @@ package com.miwfem.socialtourismnetwork.presentation.ui.home.view
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
-import com.miwfem.socialtourismnetwork.databinding.ItemSeeAllPostBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
@@ -145,9 +142,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     override fun seeAllPost(post: PostVO) {
-        showSeeAllPostDialog(post)
+        showSeeAllPostDialog(post, logUser)
     }
-
+/*
     private fun showSeeAllPostDialog(post: PostVO) {
         dialog = Dialog(requireContext(), R.style.DialogTheme)
         val dialogBinding: ItemSeeAllPostBinding =
@@ -171,7 +168,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         }
         dialog.show()
         dialog.setContentView(dialogBinding.root)
-    }
+    }*/
 
     private fun showFilters(visibility: Boolean) {
         with(homeBinding) {
@@ -236,14 +233,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
         val dialog = builder.create()
         dialog.show()
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(
-            requireContext(),
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     companion object {

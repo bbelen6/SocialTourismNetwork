@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentAddPostBinding
@@ -114,14 +113,6 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
 
     private fun navigateToHome() {
         (requireActivity() as? MainActivity)?.navigateToHome()
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(
-            requireContext(),
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     companion object {
