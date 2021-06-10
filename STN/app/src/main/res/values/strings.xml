@@ -40,5 +40,10 @@
     <string name="no_account">¿No tienes cuenta?</string>
     <string name="register_name">Nombre de usuario</string>
     <string name="compass">compass</string>
+    <string name="profile">Tu perfil</string>
+    <string name="edit_name">edit</string>
+    <string name="save">Guardar</string>
+    <string name="changed_name">Nombre de usuario cambiado</string>
+    <string name="changed_name_error">Se ha producido un error al intentar cambiar el nombre de usuario</string>
 
 </resources>

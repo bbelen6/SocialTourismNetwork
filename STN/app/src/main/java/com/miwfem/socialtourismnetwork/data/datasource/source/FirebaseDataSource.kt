@@ -19,7 +19,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
             val dummyMap = HashMap<String, String>()
             val doc = firebaseFirestore.collection(USER_SETTINGS).document(user.email)
             doc.set(dummyMap)
-            doc.collection(PROFILE).document().set(
+            doc.collection(PROFILE).document(USER_NAME).set(
                 hashMapOf(
                     USER_NAME to user.name
                 )

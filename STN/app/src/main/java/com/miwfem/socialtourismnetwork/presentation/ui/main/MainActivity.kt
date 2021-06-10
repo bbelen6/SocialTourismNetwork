@@ -121,7 +121,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_profile -> {
                     if (supportFragmentManager.findFragmentByTag(TAG_PROFILE) == null)
                         replaceFragment(
-                            ProfileFragment.newInstance(),
+                            ProfileFragment.newInstance(
+                                sharedPreferences.getString(EMAIL, null),
+                                sharedPreferences.getString(USER_NAME, null)
+                            ),
                             R.id.fragmentComplete,
                             TAG_PROFILE
                         )

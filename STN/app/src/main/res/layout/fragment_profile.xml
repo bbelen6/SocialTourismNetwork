@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.ui.profile.ProfileFragment">
 
@@ -8,10 +9,103 @@
         android:layout_height="match_parent"
         android:background="@drawable/blue_background">
 
-        <TextView
+        <ImageButton
+            android:id="@+id/edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/edit_name"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent" />
+
+        <ImageButton
+            android:id="@+id/edit_profile_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/edit_name"
+            android:src="@drawable/ic_baseline_close_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/profile_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="PROFILE FRAGMENT" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/profile"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_compass"
+                android:contentDescription="@string/compass" />
+
+            <TextView
+                android:id="@+id/profile_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="10dp"
+                tools:text="Mail" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="10dp"
+                tools:text="Nombre" />
+
+            <EditText
+                android:id="@+id/edit_profile_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autofillHints=" "
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                android:inputType="text"
+                android:hint="@string/register_name"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:maxLength="10" />
+
+            <Button
+                android:id="@+id/save_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_profile"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
