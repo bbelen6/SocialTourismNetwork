@@ -1,12 +1,10 @@
 package com.miwfem.socialtourismnetwork.presentation.ui.home.view
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DefaultItemAnimator
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
@@ -26,8 +24,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
 
     private lateinit var homeBinding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by viewModel()
-    private lateinit var dialog: Dialog
     private var logUser: String? = null
+    private var postsAdapter: PostAdapter? = null
 
     override fun setUpDataBinding(view: View) {
         homeBinding = FragmentHomeBinding.bind(view).apply {
@@ -90,11 +88,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     private fun setPostsAdapter(posts: List<PostVO>) {
-        val adapter = PostAdapter(this@HomeFragment, logUser)
+        if (postsAdapter == null) {
+            postsAdapter = PostAdapter(this, logUser)
+        }
         with(homeBinding) {
-            rvPosts.itemAnimator = DefaultItemAnimator()
-            rvPosts.adapter = adapter
-            adapter.addDataSet(posts)
+            if (rvPosts.adapter == null) {
+                rvPosts.adapter = postsAdapter
+            }
+            postsAdapter?.addDataSet(posts)
         }
     }
 

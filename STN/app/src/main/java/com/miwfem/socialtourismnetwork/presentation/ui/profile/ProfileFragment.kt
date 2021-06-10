@@ -82,7 +82,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
 
     private fun setPostsAdapter(posts: List<PostVO>) {
         if (postsAdapter == null) {
-            postsAdapter = PostAdapter(this@ProfileFragment, user)
+            postsAdapter = PostAdapter(this, user)
         }
         with(profileBinding) {
             if (rvProfile.adapter == null) {
