@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentProfileBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
+import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
@@ -26,6 +27,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
     private var user: String? = null
     private var userName: String? = null
     private lateinit var sharedPreferences: SharedPreferences
+    private var postsAdapter: PostAdapter? = null
 
     override fun setUpDataBinding(view: View) {
         profileBinding = FragmentProfileBinding.bind(view).apply {
@@ -35,13 +37,21 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
                 editView(true)
             }
             saveProfile.setOnClickListener {
-                if (editProfileName.text.isNotEmpty())
-                    saveProfile(editProfileName.text.toString())
-                else
-                    editProfileName.error = getString(R.string.fill_error)
+                when (editProfileName.text.toString()) {
+                    userName -> {
+                        editProfileName.error = getString(R.string.same_name)
+                    }
+                    "" -> {
+                        editProfileName.error = getString(R.string.fill_error)
+                    }
+                    else -> {
+                        saveProfile(editProfileName.text.toString())
+                    }
+                }
             }
             editProfileClose.setOnClickListener {
                 editView(false)
+                hideKeyboard()
             }
         }
     }
@@ -71,10 +81,14 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
     }
 
     private fun setPostsAdapter(posts: List<PostVO>) {
-        val adapter = PostAdapter(this@ProfileFragment, user)
+        if (postsAdapter == null) {
+            postsAdapter = PostAdapter(this@ProfileFragment, user)
+        }
         with(profileBinding) {
-            rvProfile.adapter = adapter
-            adapter.addDataSet(posts)
+            if (rvProfile.adapter == null) {
+                rvProfile.adapter = postsAdapter
+            }
+            postsAdapter?.addDataSet(posts)
         }
     }
 
@@ -94,7 +108,9 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
                     ResultType.SUCCESS -> {
                         editView(false)
                         profileBinding.profileName.text = newName
+                        profileBinding.editProfileName.setText("")
                         changeSharedPreferences(newName)
+                        hideKeyboard()
                         showToast(getString(R.string.changed_name))
                     }
                     ResultType.ERROR -> {

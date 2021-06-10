@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miwfem.socialtourismnetwork.businesslogic.model.UserEntity
-import com.miwfem.socialtourismnetwork.businesslogic.usecase.DeletePostUseCase
-import com.miwfem.socialtourismnetwork.businesslogic.usecase.GetPostsUseCase
-import com.miwfem.socialtourismnetwork.businesslogic.usecase.ManageFavoriteUseCase
-import com.miwfem.socialtourismnetwork.businesslogic.usecase.SaveUserProfileUseCase
+import com.miwfem.socialtourismnetwork.businesslogic.usecase.*
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.mapper.map
 import com.miwfem.socialtourismnetwork.utils.ResultType
@@ -18,7 +15,8 @@ class ProfileViewModel(
     private val saveUserProfileUseCase: SaveUserProfileUseCase,
     private val getPostsUseCase: GetPostsUseCase,
     private val deletePostUseCase: DeletePostUseCase,
-    private val manageFavoriteUseCase: ManageFavoriteUseCase
+    private val manageFavoriteUseCase: ManageFavoriteUseCase,
+    private val savePostUseCase: SavePostUseCase,
 ) : ViewModel() {
 
     private val _posts by lazy { MutableLiveData<List<PostVO>>() }
@@ -26,6 +24,7 @@ class ProfileViewModel(
         get() = _posts
 
     fun saveName(user: String, userName: String): ResultType {
+        updatePosts(userName)
         return saveUserProfileUseCase.execute(
             SaveUserProfileUseCase.Params(
                 UserEntity(
@@ -57,5 +56,15 @@ class ProfileViewModel(
 
     fun manageFavorite(post: PostVO, logUser: String?): ResultType {
         return manageFavoriteUseCase.execute(ManageFavoriteUseCase.Params(post.map(), logUser))
+    }
+
+    private fun updatePosts(userName: String) {
+        posts.value?.forEach { post ->
+            post.userName = userName
+            savePostUseCase.execute(
+                SavePostUseCase.Params(post.map())
+            )
+        }
+        _posts.value = posts.value
     }
 }

@@ -47,17 +47,19 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
 
     fun savePost(post: PostDao): ResultType {
         return try {
-            firebaseFirestore.collection(POST).document(UUID.randomUUID().toString()).set(
-                hashMapOf(
-                    USER to post.user,
-                    USER_NAME to post.userName,
-                    LOCATION to post.location,
-                    AREA to post.area,
-                    CATEGORY to post.category,
-                    COMMENT to post.comment,
-                    WITH_FAV to 0
+            firebaseFirestore.collection(POST)
+                .document(if (post.id.isNullOrEmpty()) UUID.randomUUID().toString() else post.id)
+                .set(
+                    hashMapOf(
+                        USER to post.user,
+                        USER_NAME to post.userName,
+                        LOCATION to post.location,
+                        AREA to post.area,
+                        CATEGORY to post.category,
+                        COMMENT to post.comment,
+                        WITH_FAV to post.withFav
+                    )
                 )
-            )
             ResultType.SUCCESS
         } catch (exception: Exception) {
             ResultType.ERROR

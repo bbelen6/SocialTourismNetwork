@@ -16,7 +16,7 @@
     <string name="cancel">Cancelar</string>
     <string name="logout_message">¿Estas seguro que quieres cerrar sesión?</string>
     <string name="close">Cerrar</string>
-    <string name="add_post">Añadir experiencia</string>
+    <string name="add_post">Añadir</string>
     <string name="location">Zona de experiencia</string>
     <string name="categories">Selecciona una categoria</string>
     <string name="add_post_error">¡Texto necesario para añadir post!</string>
@@ -45,5 +45,6 @@
     <string name="save">Guardar</string>
     <string name="changed_name">Nombre de usuario cambiado</string>
     <string name="changed_name_error">Se ha producido un error al intentar cambiar el nombre de usuario</string>
+    <string name="same_name">El nombre de usuario es el mismo</string>
 
 </resources>
