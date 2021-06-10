@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@drawable/blue_background"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -97,13 +97,14 @@
 
         <ImageButton
             android:id="@+id/see_all_close"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="24dp"
+            android:layout_height="25dp"
             android:layout_margin="10dp"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_baseline_close_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:tint="@color/text_color" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

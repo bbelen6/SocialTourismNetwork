@@ -17,7 +17,8 @@
             android:contentDescription="@string/close"
             android:src="@drawable/ic_baseline_close_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/text_color" />
 
         <ImageView
             android:layout_width="350dp"
@@ -49,7 +50,8 @@
                     android:layout_height="70dp"
                     android:layout_marginEnd="20dp"
                     android:contentDescription="@string/input"
-                    android:src="@drawable/ic_baseline_person_24" />
+                    android:src="@drawable/ic_baseline_person_24"
+                    app:tint="@color/text_color" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/register"
@@ -82,7 +84,8 @@
                     android:layout_height="70dp"
                     android:layout_marginEnd="20dp"
                     android:contentDescription="@string/input"
-                    android:src="@drawable/ic_baseline_email_24" />
+                    android:src="@drawable/ic_baseline_email_24"
+                    app:tint="@color/text_color" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/login_correo"
@@ -114,7 +117,8 @@
                     android:layout_height="70dp"
                     android:layout_marginEnd="20dp"
                     android:contentDescription="@string/input"
-                    android:src="@drawable/ic_baseline_lock_24" />
+                    android:src="@drawable/ic_baseline_lock_24"
+                    app:tint="@color/text_color" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/login_code"
@@ -159,7 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no_account"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/text_color" />
 
                 <Button
                     android:id="@+id/sing_up_button"
@@ -168,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/register"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/text_color"
                     android:textStyle="bold" />
 
             </LinearLayout>
