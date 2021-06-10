@@ -64,6 +64,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
 
     fun refreshHome(user: String?) {
         logUser = user
+        postsAdapter = PostAdapter(this, logUser)
+        homeBinding.rvPosts.adapter = postsAdapter
         homeBinding.filterButton.isVisible = logUser != null
         homeViewModel.getPosts(logUser)
         if (logUser != null) {
