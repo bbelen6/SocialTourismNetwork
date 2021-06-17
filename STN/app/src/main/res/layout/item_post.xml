@@ -68,7 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="3"
+                android:weightSum="4"
                 app:layout_constraintBottom_toBottomOf="@id/user"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user">
@@ -116,6 +116,15 @@
                     android:background="@color/white"
                     android:contentDescription="@string/delete"
                     android:src="@drawable/ic_baseline_delete_24" />
+
+                <ImageButton
+                    android:id="@+id/communication"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_comment_24"
+                    android:background="@color/white"
+                    android:contentDescription="@string/communication"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 

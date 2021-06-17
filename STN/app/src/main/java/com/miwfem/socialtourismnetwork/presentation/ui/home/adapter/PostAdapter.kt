@@ -54,6 +54,7 @@ class PostAdapter(
                 deletePost.isVisible = post.user == logUser
                 favoritePost.isVisible = logUser != null
                 numberFavs.isVisible = logUser != null
+                communication.isVisible = post.user != logUser
 
                 if (post.isFav) {
                     favoritePost.setImageResource(R.drawable.ic_baseline_favorite_24)
@@ -66,6 +67,9 @@ class PostAdapter(
                 }
                 deletePost.setOnClickListener {
                     itemPostListener.deletePost(post)
+                }
+                communication.setOnClickListener {
+                    itemPostListener.sendCommunication(post)
                 }
                 favoritePost.setOnClickListener {
                     post.isFav = !post.isFav

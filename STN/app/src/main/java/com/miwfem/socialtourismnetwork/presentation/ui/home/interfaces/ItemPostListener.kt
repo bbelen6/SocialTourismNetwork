@@ -7,5 +7,6 @@ interface ItemPostListener {
     fun deletePost(post: PostVO)
     fun addFavPost(post: PostVO)
     fun seeAllPost(post: PostVO)
+    fun sendCommunication(post: PostVO)
 
 }

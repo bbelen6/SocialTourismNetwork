@@ -16,7 +16,7 @@ import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity
 
 abstract class BaseFragment(@LayoutRes private val layout: Int) : Fragment() {
 
-    private lateinit var dialog: Dialog
+    lateinit var dialog: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater,

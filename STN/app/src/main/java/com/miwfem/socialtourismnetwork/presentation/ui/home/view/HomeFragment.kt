@@ -1,12 +1,15 @@
 package com.miwfem.socialtourismnetwork.presentation.ui.home.view
 
+import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
+import com.miwfem.socialtourismnetwork.databinding.ItemMessageBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
@@ -148,12 +151,33 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         showSeeAllPostDialog(post, logUser)
     }
 
+    override fun sendCommunication(post: PostVO) {
+        showSendMessageDialog()
+    }
+
     private fun showFilters(visibility: Boolean) {
         with(homeBinding) {
             filterButton.isVisible = !visibility
             filterLayout.isVisible = visibility
             if (!visibility) this@HomeFragment.hideKeyboard()
         }
+    }
+
+    private fun showSendMessageDialog() {
+        dialog = Dialog(requireContext(), R.style.DialogTheme)
+        val dialogBinding: ItemMessageBinding =
+            ItemMessageBinding.inflate(LayoutInflater.from(requireContext()))
+        dialogBinding.apply {
+            messageClose.setOnClickListener {
+                dialog.dismiss()
+            }
+            sendMessage.setOnClickListener {
+                showToast(getString(R.string.sended_message))
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
+        dialog.setContentView(dialogBinding.root)
     }
 
     private fun applyFilters(

@@ -141,6 +141,10 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
         showSeeAllPostDialog(post, user)
     }
 
+    override fun sendCommunication(post: PostVO) {
+        //TODO("Not yet implemented")
+    }
+
     private fun showDeletePostAlert(post: PostVO) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.delete))
