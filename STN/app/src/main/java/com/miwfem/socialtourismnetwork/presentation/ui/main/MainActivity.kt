@@ -86,11 +86,11 @@ class MainActivity : AppCompatActivity() {
     fun setBottomOptions(user: String? = null) {
         bottom_navigation.menu.apply {
             user?.let {
-                findItem(R.id.nav_settings).isVisible = true
+                findItem(R.id.nav_communication).isVisible = true
                 findItem(R.id.nav_add).isVisible = true
                 findItem(R.id.nav_profile).isVisible = true
             } ?: kotlin.run {
-                findItem(R.id.nav_settings).isVisible = false
+                findItem(R.id.nav_communication).isVisible = false
                 findItem(R.id.nav_add).isVisible = false
                 findItem(R.id.nav_profile).isVisible = false
             }
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                             TAG_PROFILE
                         )
                 }
-                R.id.nav_settings -> {
+                R.id.nav_communication -> {
                     if (supportFragmentManager.findFragmentByTag(TAG_SETTINGS) == null)
                         replaceFragment(
                             SettingsFragment.newInstance(),

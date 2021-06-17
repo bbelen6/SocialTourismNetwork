@@ -75,6 +75,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
     override fun observeViewModel() {
         with(profileViewModel) {
             posts.observe(viewLifecycleOwner, {
+                profileBinding.noPosts.isVisible = it.isEmpty()
                 setPostsAdapter(it)
             })
         }
