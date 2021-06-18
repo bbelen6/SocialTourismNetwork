@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.*
+import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.mapper.map
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
@@ -17,7 +18,8 @@ class HomeViewModel(
     private val deletePostUseCase: DeletePostUseCase,
     private val manageFavoriteUseCase: ManageFavoriteUseCase,
     private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val getLocationsUseCase: GetLocationsUseCase
+    private val getLocationsUseCase: GetLocationsUseCase,
+    private val sendMessageUseCase: SendMessageUseCase
 ) : ViewModel() {
 
     private val _posts by lazy { MutableLiveData<List<PostVO>>() }
@@ -59,5 +61,9 @@ class HomeViewModel(
         viewModelScope.launch {
             _locations.value = getLocationsUseCase.execute().data?.map()
         }
+    }
+
+    fun sendMessage(message: MessageVO) {
+        sendMessageUseCase.execute(SendMessageUseCase.Params(message.map()))
     }
 }

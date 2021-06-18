@@ -1,6 +1,7 @@
 package com.miwfem.socialtourismnetwork.data.repository
 
 import com.miwfem.socialtourismnetwork.businesslogic.model.CategoryEntity
+import com.miwfem.socialtourismnetwork.businesslogic.model.MessageEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.PostEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.UserEntity
 import com.miwfem.socialtourismnetwork.businesslogic.repository.IFirebaseRepository
@@ -77,6 +78,26 @@ class FirebaseRepositoryImpl(
 
     override suspend fun getUserNameByEmail(email: String): Result<String> {
         return firebaseDataSource.getUserNameByEmail(email)
+    }
+
+    override fun sendMessage(messageEntity: MessageEntity): ResultType {
+        return firebaseDataSource.sendMessage(messageEntity.map())
+    }
+
+    override suspend fun getMessages(logUser: String?): Result<List<MessageEntity>> {
+        firebaseDataSource.getMessages(logUser).apply {
+            data?.let { messages ->
+                return when (resultType) {
+                    ResultType.SUCCESS -> Result.success(messages.map())
+                    ResultType.ERROR -> Result.error(error)
+                }
+            }
+        }
+        return Result.error(Exception())
+    }
+
+    override fun deleteMessage(messageEntity: MessageEntity): ResultType {
+        return firebaseDataSource.deleteMessage(messageEntity.map())
     }
 
     private suspend fun getLocalCategories(): List<CategoryEntityLocal> {

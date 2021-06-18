@@ -13,8 +13,8 @@ import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.view.AddPostFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.auth.view.AuthFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.home.view.HomeFragment
+import com.miwfem.socialtourismnetwork.presentation.ui.messages.view.MessagesFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.profile.ProfileFragment
-import com.miwfem.socialtourismnetwork.presentation.ui.settings.SettingsFragment
 import com.miwfem.socialtourismnetwork.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -133,7 +133,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_communication -> {
                     if (supportFragmentManager.findFragmentByTag(TAG_SETTINGS) == null)
                         replaceFragment(
-                            SettingsFragment.newInstance(),
+                            MessagesFragment.newInstance(
+                                sharedPreferences.getString(EMAIL, null)
+                            ),
                             R.id.fragmentComplete,
                             TAG_SETTINGS
                         )

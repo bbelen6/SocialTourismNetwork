@@ -2,6 +2,7 @@ package com.miwfem.socialtourismnetwork.data.datasource.source
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.miwfem.socialtourismnetwork.data.datasource.model.CategoryDao
+import com.miwfem.socialtourismnetwork.data.datasource.model.MessageDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.PostDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.UserDao
 import com.miwfem.socialtourismnetwork.utils.OTHER
@@ -201,6 +202,51 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         return result
     }
 
+    fun sendMessage(message: MessageDao): ResultType {
+        return try {
+            val dummyMap = HashMap<String, String>()
+            val doc = firebaseFirestore.collection(USER_SETTINGS).document(message.userReceptor)
+            doc.set(dummyMap)
+            doc.collection(MESSAGES).document(message.postId).set(
+                hashMapOf(
+                    MESSAGE to message.message,
+                    USER_EMISSARY to message.userEmissary
+                )
+            )
+            ResultType.SUCCESS
+        } catch (exception: Exception) {
+            ResultType.ERROR
+        }
+    }
+
+    suspend fun getMessages(logUser: String?): Result<List<MessageDao>> {
+        lateinit var result: Result<List<MessageDao>>
+        val messages = mutableListOf<MessageDao>()
+        logUser?.let { logUser ->
+            firebaseFirestore.collection(USER_SETTINGS).document(logUser).collection(MESSAGES).get()
+                .addOnSuccessListener { allMessages ->
+                    allMessages.documents.forEach { messageId ->
+                        messages.add(
+                            MessageDao(
+                                userEmissary = messageId.data?.get(USER_EMISSARY).toString(),
+                                postId = messageId.id,
+                                userReceptor = logUser,
+                                message = messageId.data?.get(MESSAGE).toString()
+                            )
+                        )
+                    }
+                    result = Result.success(messages)
+                }.addOnFailureListener {
+                    result = Result.error(Exception(it))
+                }.await()
+        }
+        return result
+    }
+
+    fun deleteMessage(message: MessageDao): ResultType {
+        return ResultType.SUCCESS
+    }
+
     companion object {
         const val POST = "post"
         const val POSTS_FAV = "postsFav"
@@ -214,6 +260,10 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         const val USER_SETTINGS = "userSettings"
         const val PROFILE = "profile"
         const val USERS = "users"
+        const val MESSAGES = "messages"
+        const val POST_ID = "postID"
+        const val MESSAGE = "message"
+        const val USER_EMISSARY = "userEmisor"
     }
 
 }

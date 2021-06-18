@@ -1,9 +1,7 @@
 package com.miwfem.socialtourismnetwork.presentation.mapper
 
-import com.miwfem.socialtourismnetwork.businesslogic.model.CategoryEntity
-import com.miwfem.socialtourismnetwork.businesslogic.model.LocationEntity
-import com.miwfem.socialtourismnetwork.businesslogic.model.PostEntity
-import com.miwfem.socialtourismnetwork.businesslogic.model.UserEntity
+import com.miwfem.socialtourismnetwork.businesslogic.model.*
+import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.common.model.UserVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
@@ -30,3 +28,10 @@ fun List<CategoryEntity>.map(): List<CategoryVO> = map { it.map() }
 fun CategoryVO.map(): CategoryEntity = CategoryEntity(name)
 
 fun CategoryEntity.map(): CategoryVO = CategoryVO(name)
+
+fun MessageVO.map(): MessageEntity = MessageEntity(userEmissary, postId, userReceptor, message)
+
+fun MessageEntity.map(): MessageVO = MessageVO(userEmissary, postId, userReceptor, message)
+
+@JvmName("mapMessageEntity")
+fun List<MessageEntity>.map(): List<MessageVO> = map { it.map() }

@@ -12,6 +12,7 @@ import com.miwfem.socialtourismnetwork.databinding.FragmentHomeBinding
 import com.miwfem.socialtourismnetwork.databinding.ItemMessageBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
+import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
@@ -152,7 +153,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     override fun sendCommunication(post: PostVO) {
-        showSendMessageDialog()
+        showSendMessageDialog(post)
     }
 
     private fun showFilters(visibility: Boolean) {
@@ -163,7 +164,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         }
     }
 
-    private fun showSendMessageDialog() {
+    private fun showSendMessageDialog(post: PostVO) {
         dialog = Dialog(requireContext(), R.style.DialogTheme)
         val dialogBinding: ItemMessageBinding =
             ItemMessageBinding.inflate(LayoutInflater.from(requireContext()))
@@ -172,6 +173,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
                 dialog.dismiss()
             }
             sendMessage.setOnClickListener {
+                homeViewModel.sendMessage(
+                    MessageVO(
+                        userEmissary = logUser ?: "",
+                        postId = post.id ?: "",
+                        userReceptor = post.user,
+                        message = messageEdit.text.toString()
+                    )
+                )
                 showToast(getString(R.string.sended_message))
                 dialog.dismiss()
             }

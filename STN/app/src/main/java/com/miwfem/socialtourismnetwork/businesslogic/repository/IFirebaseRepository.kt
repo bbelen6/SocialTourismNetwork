@@ -1,6 +1,7 @@
 package com.miwfem.socialtourismnetwork.businesslogic.repository
 
 import com.miwfem.socialtourismnetwork.businesslogic.model.CategoryEntity
+import com.miwfem.socialtourismnetwork.businesslogic.model.MessageEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.PostEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.UserEntity
 import com.miwfem.socialtourismnetwork.utils.Result
@@ -16,5 +17,8 @@ interface IFirebaseRepository {
     fun deleteFavoritePost(post: PostEntity, logUser: String?): ResultType
     suspend fun getCategories(): Result<List<CategoryEntity>>
     suspend fun getUserNameByEmail(email: String): Result<String>
+    fun sendMessage(messageEntity: MessageEntity): ResultType
+    suspend fun getMessages(logUser: String?): Result<List<MessageEntity>>
+    fun deleteMessage(messageEntity: MessageEntity): ResultType
 
 }

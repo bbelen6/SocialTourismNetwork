@@ -12,4 +12,7 @@ val useCaseModule = module {
     factory { ManageFavoriteUseCase(get()) }
     factory { SaveUserProfileUseCase(get()) }
     factory { GetUserNameByEmailUseCase(get()) }
+    factory { SendMessageUseCase(get()) }
+    factory { GetMessagesUseCase(get()) }
+    factory { DeleteMessageUseCase(get()) }
 }

@@ -1,9 +1,11 @@
 package com.miwfem.socialtourismnetwork.data.repository.mapper
 
 import com.miwfem.socialtourismnetwork.businesslogic.model.CategoryEntity
+import com.miwfem.socialtourismnetwork.businesslogic.model.MessageEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.PostEntity
 import com.miwfem.socialtourismnetwork.businesslogic.model.UserEntity
 import com.miwfem.socialtourismnetwork.data.datasource.model.CategoryDao
+import com.miwfem.socialtourismnetwork.data.datasource.model.MessageDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.PostDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.UserDao
 import com.miwfem.socialtourismnetwork.data.datasource.room.model.CategoryEntityLocal
@@ -33,3 +35,10 @@ fun CategoryDao.mapLocal(): CategoryEntityLocal = CategoryEntityLocal(name = nam
 fun List<CategoryEntityLocal>.map(): List<CategoryDao> = map { it.map() }
 
 fun CategoryEntityLocal.map(): CategoryDao = CategoryDao(name)
+
+fun MessageEntity.map(): MessageDao = MessageDao(userEmissary, postId, userReceptor, message)
+
+fun MessageDao.map(): MessageEntity = MessageEntity(userEmissary, postId, userReceptor, message)
+
+@JvmName("mapMessageDao")
+fun List<MessageDao>.map(): List<MessageEntity> = map { it.map() }
