@@ -1,11 +1,13 @@
 package com.miwfem.socialtourismnetwork.presentation.ui.messages.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentMessagesBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
+import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
+import com.miwfem.socialtourismnetwork.presentation.ui.messages.adapter.MessageAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.messages.viewmodel.MessageViewModel
 import com.miwfem.socialtourismnetwork.utils.USER
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,6 +17,7 @@ class MessagesFragment : BaseFragment(R.layout.fragment_messages) {
     private lateinit var messagesBinding: FragmentMessagesBinding
     private val messageViewModel: MessageViewModel by viewModel()
     private var logUser: String? = null
+    private var messageAdapter: MessageAdapter? = null
 
     override fun setUpDataBinding(view: View) {
         messagesBinding = FragmentMessagesBinding.bind(view)
@@ -30,8 +33,17 @@ class MessagesFragment : BaseFragment(R.layout.fragment_messages) {
     override fun observeViewModel() {
         with(messageViewModel) {
             messages.observe(viewLifecycleOwner, {
-                Log.d("MESSAGES", "MESSAGES")
+                messagesBinding.noMessages.isVisible = it.isEmpty()
+                setMessagesAdapter(it)
             })
+        }
+    }
+
+    private fun setMessagesAdapter(messages: List<MessageVO>) {
+        if (messageAdapter == null) messageAdapter = MessageAdapter()
+        with(messagesBinding) {
+            if (rvMessages.adapter == null) rvMessages.adapter = messageAdapter
+            messageAdapter?.addDataSet(messages)
         }
     }
 

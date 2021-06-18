@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.messages.view.MessagesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -9,9 +10,22 @@
         android:background="@drawable/blue_background">
 
         <TextView
+            android:id="@+id/no_messages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/no_messages"
+            android:layout_margin="@dimen/margin_20"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_messages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="SETTINGS FRAGMENT" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

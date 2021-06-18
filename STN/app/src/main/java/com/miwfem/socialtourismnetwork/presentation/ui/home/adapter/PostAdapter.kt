@@ -54,7 +54,7 @@ class PostAdapter(
                 deletePost.isVisible = post.user == logUser
                 favoritePost.isVisible = logUser != null
                 numberFavs.isVisible = logUser != null
-                communication.isVisible = post.user != logUser
+                communication.isVisible = if (logUser == null) false else post.user != logUser
 
                 if (post.isFav) {
                     favoritePost.setImageResource(R.drawable.ic_baseline_favorite_24)
