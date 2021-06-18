@@ -210,7 +210,8 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
             doc.collection(MESSAGES).document(message.postId).set(
                 hashMapOf(
                     MESSAGE to message.message,
-                    USER_EMISSARY to message.userEmissary
+                    USER_EMISSARY to message.userEmissary,
+                    POST to message.post
                 )
             )
             ResultType.SUCCESS
@@ -231,7 +232,8 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                                 userEmissary = messageId.data?.get(USER_EMISSARY).toString(),
                                 postId = messageId.id,
                                 userReceptor = logUser,
-                                message = messageId.data?.get(MESSAGE).toString()
+                                message = messageId.data?.get(MESSAGE).toString(),
+                                post = messageId.data?.get(POST).toString(),
                             )
                         )
                     }

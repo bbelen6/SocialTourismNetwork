@@ -36,9 +36,10 @@ fun List<CategoryEntityLocal>.map(): List<CategoryDao> = map { it.map() }
 
 fun CategoryEntityLocal.map(): CategoryDao = CategoryDao(name)
 
-fun MessageEntity.map(): MessageDao = MessageDao(userEmissary, postId, userReceptor, message)
+fun MessageEntity.map(): MessageDao = MessageDao(userEmissary, postId, userReceptor, message, post)
 
-fun MessageDao.map(): MessageEntity = MessageEntity(userEmissary, postId, userReceptor, message)
+fun MessageDao.map(): MessageEntity =
+    MessageEntity(userEmissary, postId, userReceptor, message, post)
 
 @JvmName("mapMessageDao")
 fun List<MessageDao>.map(): List<MessageEntity> = map { it.map() }

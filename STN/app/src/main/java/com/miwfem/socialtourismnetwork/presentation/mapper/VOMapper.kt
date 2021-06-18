@@ -29,9 +29,10 @@ fun CategoryVO.map(): CategoryEntity = CategoryEntity(name)
 
 fun CategoryEntity.map(): CategoryVO = CategoryVO(name)
 
-fun MessageVO.map(): MessageEntity = MessageEntity(userEmissary, postId, userReceptor, message)
+fun MessageVO.map(): MessageEntity =
+    MessageEntity(userEmissary, postId, userReceptor, message, post)
 
-fun MessageEntity.map(): MessageVO = MessageVO(userEmissary, postId, userReceptor, message)
+fun MessageEntity.map(): MessageVO = MessageVO(userEmissary, postId, userReceptor, message, post)
 
 @JvmName("mapMessageEntity")
 fun List<MessageEntity>.map(): List<MessageVO> = map { it.map() }

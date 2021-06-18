@@ -178,7 +178,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
                         userEmissary = logUser ?: "",
                         postId = post.id ?: "",
                         userReceptor = post.user,
-                        message = messageEdit.text.toString()
+                        message = messageEdit.text.toString(),
+                        post = post.comment
                     )
                 )
                 showToast(getString(R.string.sended_message))
