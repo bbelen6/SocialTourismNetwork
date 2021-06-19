@@ -53,5 +53,6 @@
     <string name="add_message">Añadir mensaje</string>
     <string name="send_message">Enviar mensaje</string>
     <string name="sended_message">Mensaje enviado</string>
+    <string name="user_message">Mensaje enviador por: </string>
 
 </resources>

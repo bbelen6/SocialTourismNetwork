@@ -13,8 +13,8 @@
             android:id="@+id/edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_10"
             android:background="@android:color/transparent"
             android:contentDescription="@string/edit_name"
             android:src="@drawable/ic_baseline_edit_24"
@@ -26,8 +26,8 @@
             android:id="@+id/edit_profile_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_margin="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_10"
             android:background="@android:color/transparent"
             android:contentDescription="@string/edit_name"
             android:src="@drawable/ic_baseline_close_24"
@@ -40,7 +40,7 @@
             android:id="@+id/profile_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/margin_10"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent">
@@ -55,9 +55,9 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="@dimen/compass_dimens"
+                android:layout_height="@dimen/compass_dimens"
+                android:layout_marginTop="@dimen/margin_10"
                 android:contentDescription="@string/compass"
                 android:src="@drawable/ic_compass"
                 app:tint="@color/text_color" />
@@ -66,7 +66,7 @@
                 android:id="@+id/profile_mail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_10"
                 android:textColor="@color/text_color"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Mail" />
@@ -75,7 +75,7 @@
                 android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_10"
                 android:textColor="@color/text_color"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Nombre" />
@@ -84,7 +84,7 @@
                 android:id="@+id/edit_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_10"
                 android:autofillHints=" "
                 android:gravity="center"
                 android:hint="@string/register_name"
@@ -100,7 +100,7 @@
                 android:id="@+id/save_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/save"
                 android:visibility="gone"
                 tools:visibility="visible" />
@@ -115,7 +115,7 @@
             android:text="@string/no_post"
             android:layout_margin="@dimen/margin_20"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="@dimen/empty_message"
             android:gravity="center"
             android:visibility="gone" />
 
@@ -123,7 +123,7 @@
             android:id="@+id/rv_profile"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_10"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_container" />

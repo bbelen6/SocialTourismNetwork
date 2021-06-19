@@ -2,9 +2,24 @@
 <resources>
     <dimen name="margin_4">4dp</dimen>
     <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
     <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
 
     <dimen name="size_40">40dp</dimen>
+    <dimen name="card_height">250dp</dimen>
+    <dimen name="card_dimen">5dp</dimen>
+    <dimen name="card_elevation">10dp</dimen>
+    <dimen name="card_padding">10dp</dimen>
+    <dimen name="compass_dimens">60dp</dimen>
+    <dimen name="close_dimens">20dp</dimen>
+    <dimen name="icons_dimens_home">30dp</dimen>
+    <dimen name="compass_dimens_auth">350dp</dimen>
+    <dimen name="auth_images_height">70dp</dimen>
+    <dimen name="message_height">400dp</dimen>
+    <dimen name="see_all_width">200dp</dimen>
 
     <dimen name="user_size">12sp</dimen>
+    <dimen name="empty_message">20sp</dimen>
+
 </resources>

@@ -5,17 +5,17 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
-        app:cardMaxElevation="10dp"
+        android:layout_height="@dimen/card_height"
+        app:cardCornerRadius="@dimen/card_dimen"
+        app:cardElevation="@dimen/card_dimen"
+        app:cardMaxElevation="@dimen/card_elevation"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:padding="@dimen/card_padding">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/communication_info"
@@ -32,7 +32,8 @@
                 <TextView
                     android:id="@+id/communication_menssage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="top"
                     app:layout_constraintBottom_toTopOf="@id/communication_delete_post"
                     app:layout_constraintTop_toBottomOf="@id/communication_user_name"
                     tools:text="Mensaje" />

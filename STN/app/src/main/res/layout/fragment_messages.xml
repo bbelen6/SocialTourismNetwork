@@ -17,7 +17,7 @@
             android:text="@string/no_messages"
             android:layout_margin="@dimen/margin_20"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="@dimen/empty_message"
             android:gravity="center"
             android:visibility="gone" />
 

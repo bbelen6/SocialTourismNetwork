@@ -21,8 +21,8 @@
 
             <ImageButton
                 android:id="@+id/close_filter"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/icons_dimens_home"
+                android:layout_height="@dimen/icons_dimens_home"
                 android:layout_gravity="end"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_baseline_close_24"
@@ -94,12 +94,12 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/filter_layout"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="@dimen/margin_30" />
 
         <ImageButton
             android:id="@+id/filter_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/icons_dimens_home"
+            android:layout_height="@dimen/icons_dimens_home"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_baseline_filter_alt_24"
             app:layout_constraintEnd_toEndOf="parent"

@@ -16,12 +16,12 @@
             app:counterEnabled="true"
             app:counterMaxLength="100"
             app:layout_constraintTop_toBottomOf="@id/message_close"
-            android:padding="10dp">
+            android:padding="@dimen/card_padding">
 
             <EditText
                 android:id="@+id/message_edit"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="@dimen/message_height"
                 android:autofillHints=" "
                 android:gravity="top|start"
                 android:hint="@string/add_message"
@@ -34,15 +34,15 @@
             android:id="@+id/send_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/margin_10"
             app:layout_constraintTop_toBottomOf="@id/message_input_layout"
             android:text="@string/send_message" />
 
         <ImageButton
             android:id="@+id/message_close"
-            android:layout_width="24dp"
-            android:layout_height="25dp"
-            android:layout_margin="10dp"
+            android:layout_width="@dimen/close_dimens"
+            android:layout_height="@dimen/close_dimens"
+            android:layout_margin="@dimen/margin_10"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_baseline_close_24"
             app:layout_constraintEnd_toEndOf="parent"

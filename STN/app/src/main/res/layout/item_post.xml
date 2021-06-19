@@ -5,17 +5,17 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
-        app:cardMaxElevation="10dp"
+        android:layout_height="@dimen/card_height"
+        app:cardCornerRadius="@dimen/card_dimen"
+        app:cardElevation="@dimen/card_dimen"
+        app:cardMaxElevation="@dimen/card_elevation"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
+            android:padding="@dimen/card_padding"
             android:background="@color/white">
 
             <TextView
@@ -33,7 +33,7 @@
                 android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_10"
                 android:ellipsize="end"
                 android:maxLines="1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,8 +45,8 @@
                 android:id="@+id/comment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:ellipsize="end"
                 android:maxLines="6"
                 app:layout_constraintBottom_toTopOf="@id/user"
@@ -55,9 +55,9 @@
 
             <TextView
                 android:id="@+id/user"
-                android:layout_width="200dp"
+                android:layout_width="@dimen/see_all_width"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:textSize="@dimen/user_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

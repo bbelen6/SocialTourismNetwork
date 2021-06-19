@@ -10,8 +10,8 @@
 
         <ImageButton
             android:id="@+id/auth_close"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/close_dimens"
+            android:layout_height="@dimen/close_dimens"
             android:layout_margin="@dimen/margin_8"
             android:background="@android:color/transparent"
             android:contentDescription="@string/close"
@@ -21,8 +21,8 @@
             app:tint="@color/text_color" />
 
         <ImageView
-            android:layout_width="350dp"
-            android:layout_height="350dp"
+            android:layout_width="@dimen/compass_dimens_auth"
+            android:layout_height="@dimen/compass_dimens_auth"
             android:src="@drawable/ic_compass"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,8 +47,8 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="70dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_height="@dimen/auth_images_height"
+                    android:layout_marginEnd="@dimen/margin_20"
                     android:contentDescription="@string/input"
                     android:src="@drawable/ic_baseline_person_24"
                     app:tint="@color/text_color" />
@@ -56,7 +56,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/register"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="@dimen/auth_images_height"
                     android:textColorHint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -81,8 +81,8 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="70dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_height="@dimen/auth_images_height"
+                    android:layout_marginEnd="@dimen/margin_20"
                     android:contentDescription="@string/input"
                     android:src="@drawable/ic_baseline_email_24"
                     app:tint="@color/text_color" />
@@ -90,7 +90,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/login_correo"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="@dimen/auth_images_height"
                     android:textColorHint="@android:color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -114,8 +114,8 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="70dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_height="@dimen/auth_images_height"
+                    android:layout_marginEnd="@dimen/margin_20"
                     android:contentDescription="@string/input"
                     android:src="@drawable/ic_baseline_lock_24"
                     app:tint="@color/text_color" />
