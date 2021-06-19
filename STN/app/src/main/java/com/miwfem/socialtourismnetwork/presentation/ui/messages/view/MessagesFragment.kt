@@ -8,11 +8,12 @@ import com.miwfem.socialtourismnetwork.databinding.FragmentMessagesBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.ui.messages.adapter.MessageAdapter
+import com.miwfem.socialtourismnetwork.presentation.ui.messages.interfaces.ItemMessageListener
 import com.miwfem.socialtourismnetwork.presentation.ui.messages.viewmodel.MessageViewModel
 import com.miwfem.socialtourismnetwork.utils.USER
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MessagesFragment : BaseFragment(R.layout.fragment_messages) {
+class MessagesFragment : BaseFragment(R.layout.fragment_messages), ItemMessageListener {
 
     private lateinit var messagesBinding: FragmentMessagesBinding
     private val messageViewModel: MessageViewModel by viewModel()
@@ -40,7 +41,7 @@ class MessagesFragment : BaseFragment(R.layout.fragment_messages) {
     }
 
     private fun setMessagesAdapter(messages: List<MessageVO>) {
-        if (messageAdapter == null) messageAdapter = MessageAdapter()
+        if (messageAdapter == null) messageAdapter = MessageAdapter(this)
         with(messagesBinding) {
             if (rvMessages.adapter == null) rvMessages.adapter = messageAdapter
             messageAdapter?.addDataSet(messages)
@@ -53,5 +54,12 @@ class MessagesFragment : BaseFragment(R.layout.fragment_messages) {
                 putString(USER, logUser)
             }
         }
+    }
+
+    override fun deleteMessage(message: MessageVO) {
+        messageViewModel.deleteMessage(message)
+    }
+
+    override fun seeDetailsMessage(message: MessageVO) {
     }
 }

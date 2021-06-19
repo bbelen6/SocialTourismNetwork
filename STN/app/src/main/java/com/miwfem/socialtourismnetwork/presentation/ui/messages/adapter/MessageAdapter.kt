@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miwfem.socialtourismnetwork.databinding.ItemCommunicationBinding
 import com.miwfem.socialtourismnetwork.presentation.common.interfaces.AddDataSetAdapterLister
 import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
+import com.miwfem.socialtourismnetwork.presentation.ui.messages.interfaces.ItemMessageListener
 
-class MessageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class MessageAdapter(
+    private val itemMessageListener: ItemMessageListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     AddDataSetAdapterLister<MessageVO> {
 
     private val dataSet = mutableListOf<MessageVO>()
@@ -40,6 +43,13 @@ class MessageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         fun bindData(messageVO: MessageVO) {
             with(binding) {
                 communicationMenssage.text = messageVO.message
+                communicationUserName.text = messageVO.userEmissary
+                communicationDeletePost.setOnClickListener {
+                    itemMessageListener.deleteMessage(messageVO)
+                }
+                communicationMoreInfoPost.setOnClickListener {
+                    itemMessageListener.seeDetailsMessage(messageVO)
+                }
             }
         }
     }

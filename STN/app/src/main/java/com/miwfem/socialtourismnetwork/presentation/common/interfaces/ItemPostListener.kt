@@ -1,4 +1,4 @@
-package com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces
+package com.miwfem.socialtourismnetwork.presentation.common.interfaces
 
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 

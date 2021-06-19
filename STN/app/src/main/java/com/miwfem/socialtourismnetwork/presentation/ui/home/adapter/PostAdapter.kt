@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.ItemPostBinding
 import com.miwfem.socialtourismnetwork.presentation.common.interfaces.AddDataSetAdapterLister
+import com.miwfem.socialtourismnetwork.presentation.common.interfaces.ItemPostListener
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
-import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 
 class PostAdapter(
     private val itemPostListener: ItemPostListener,

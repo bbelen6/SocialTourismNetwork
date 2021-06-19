@@ -22,31 +22,64 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/communication_user_name"
+                <LinearLayout
+                    android:id="@+id/container_user_emissary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="nombre de usuario" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_message"
+                        android:layout_marginEnd="@dimen/margin_10" />
+
+                    <TextView
+                        android:id="@+id/communication_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="nombre de usuario"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/communication_menssage"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:gravity="top"
-                    app:layout_constraintBottom_toTopOf="@id/communication_delete_post"
-                    app:layout_constraintTop_toBottomOf="@id/communication_user_name"
+                    app:layout_constraintBottom_toTopOf="@id/container_message_icons"
+                    app:layout_constraintTop_toBottomOf="@id/container_user_emissary"
                     tools:text="Mensaje" />
 
-                <ImageButton
-                    android:id="@+id/communication_delete_post"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/container_message_icons"
+                    android:layout_width="@dimen/container_icons"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:contentDescription="@string/delete"
-                    android:src="@drawable/ic_baseline_delete_24"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:weightSum="2">
+
+                    <ImageButton
+                        android:id="@+id/communication_more_info_post"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:contentDescription="@string/delete"
+                        android:src="@drawable/ic_baseline_add_box_24"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/communication_delete_post"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:contentDescription="@string/delete"
+                        android:src="@drawable/ic_baseline_delete_24"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

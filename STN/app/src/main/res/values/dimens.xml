@@ -18,6 +18,7 @@
     <dimen name="auth_images_height">70dp</dimen>
     <dimen name="message_height">400dp</dimen>
     <dimen name="see_all_width">200dp</dimen>
+    <dimen name="container_icons">60dp</dimen>
 
     <dimen name="user_size">12sp</dimen>
     <dimen name="empty_message">20sp</dimen>

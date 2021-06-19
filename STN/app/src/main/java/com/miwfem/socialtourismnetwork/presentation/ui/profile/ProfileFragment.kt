@@ -10,9 +10,9 @@ import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentProfileBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.common.hideKeyboard
+import com.miwfem.socialtourismnetwork.presentation.common.interfaces.ItemPostListener
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter
-import com.miwfem.socialtourismnetwork.presentation.ui.home.interfaces.ItemPostListener
 import com.miwfem.socialtourismnetwork.presentation.ui.profile.viewmodel.ProfileViewModel
 import com.miwfem.socialtourismnetwork.utils.PREFERENCES_FILE
 import com.miwfem.socialtourismnetwork.utils.ResultType
