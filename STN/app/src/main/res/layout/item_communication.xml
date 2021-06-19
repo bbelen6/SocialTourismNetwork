@@ -51,7 +51,8 @@
                     android:gravity="top"
                     app:layout_constraintBottom_toTopOf="@id/container_message_icons"
                     app:layout_constraintTop_toBottomOf="@id/container_user_emissary"
-                    tools:text="Mensaje" />
+                    tools:text="Mensaje"
+                    android:textStyle="italic" />
 
                 <LinearLayout
                     android:id="@+id/container_message_icons"

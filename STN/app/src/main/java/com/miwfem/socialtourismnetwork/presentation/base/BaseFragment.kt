@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.ItemSeeAllPostBinding
+import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity
 
@@ -49,25 +50,40 @@ abstract class BaseFragment(@LayoutRes private val layout: Int) : Fragment() {
         }
     }
 
-    fun showSeeAllPostDialog(post: PostVO, logUser: String?) {
+    fun showSeeAllPostDialog(
+        post: PostVO? = null,
+        logUser: String? = null,
+        message: MessageVO? = null
+    ) {
         dialog = Dialog(requireContext(), R.style.DialogTheme)
         val dialogBinding: ItemSeeAllPostBinding =
             ItemSeeAllPostBinding.inflate(LayoutInflater.from(requireContext()))
         dialogBinding.apply {
-            seeAllComment.text = post.comment
-            seeAllLocation.text = post.location
-            seeAllUser.text = if (post.userName.isNotEmpty()) post.userName else post.user
-            seeAllCategory.text = post.category
-            deletePost2.isVisible = false
-            favoritePost2.isVisible = logUser != null
-
-            if (post.isFav) {
-                favoritePost2.setImageResource(R.drawable.ic_baseline_favorite_24)
-            } else {
-                favoritePost2.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-            }
             seeAllClose.setOnClickListener {
                 dialog.dismiss()
+            }
+            message?.let {
+                seeAllComment.text = it.post
+                seeAllCategory.text = getString(R.string.your_post)
+                messageUser.isVisible = true
+                messageUser.text = it.message
+                seeAllLocation.isVisible = false
+                seeAllUser.isVisible = false
+                favoritePost2.isVisible = false
+                seeAllContainerUserEmissary.isVisible = true
+                seeAllCommunicationUserName.text = it.userEmissary
+            } ?: kotlin.run {
+                seeAllComment.text = post?.comment
+                seeAllLocation.text = post?.location
+                seeAllUser.text =
+                    if (post?.userName?.isNotEmpty() == true) post.userName else post?.user
+                seeAllCategory.text = post?.category
+                favoritePost2.isVisible = logUser != null
+                if (post?.isFav == true) {
+                    favoritePost2.setImageResource(R.drawable.ic_baseline_favorite_24)
+                } else {
+                    favoritePost2.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                }
             }
         }
         dialog.show()

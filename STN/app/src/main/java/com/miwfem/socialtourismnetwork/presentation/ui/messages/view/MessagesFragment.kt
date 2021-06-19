@@ -80,5 +80,6 @@ class MessagesFragment : BaseFragment(R.layout.fragment_messages), ItemMessageLi
     }
 
     override fun seeDetailsMessage(message: MessageVO) {
+        showSeeAllPostDialog(message = message)
     }
 }

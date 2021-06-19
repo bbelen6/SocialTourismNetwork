@@ -50,6 +50,41 @@
                     app:layout_constraintTop_toBottomOf="@id/see_all_category"
                     tools:text="Comment" />
 
+                <LinearLayout
+                    android:id="@+id/see_all_container_user_emissary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/see_all_comment"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_message"
+                        android:layout_marginEnd="@dimen/margin_10" />
+
+                    <TextView
+                        android:id="@+id/see_all_communication_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="nombre de usuario"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/message_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/see_all_container_user_emissary"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    tools:text="Mensaje"
+                    android:visibility="gone"
+                    android:textStyle="italic" />
+
                 <TextView
                     android:id="@+id/see_all_user"
                     android:layout_width="@dimen/see_all_width"
@@ -58,7 +93,7 @@
                     android:layout_marginBottom="@dimen/margin_10"
                     android:textSize="@dimen/user_size"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/see_all_comment"
+                    app:layout_constraintTop_toBottomOf="@id/message_user"
                     tools:text="User" />
 
                 <LinearLayout
@@ -87,7 +122,8 @@
                         android:layout_weight="1"
                         android:background="@color/white"
                         android:contentDescription="@string/delete"
-                        android:src="@drawable/ic_baseline_delete_24" />
+                        android:src="@drawable/ic_baseline_delete_24"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
