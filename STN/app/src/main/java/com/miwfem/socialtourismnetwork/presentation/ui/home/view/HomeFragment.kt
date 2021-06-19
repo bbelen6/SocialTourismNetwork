@@ -229,7 +229,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     private fun showDeletePostAlert(post: PostVO) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.delete))
-            .setMessage(getString(R.string.delete_message))
+            .setMessage(getString(R.string.delete_message_post))
             .setPositiveButton(getString(R.string.accept)) { _, _ ->
                 homeViewModel.deletePost(post).also { result ->
                     when (result) {

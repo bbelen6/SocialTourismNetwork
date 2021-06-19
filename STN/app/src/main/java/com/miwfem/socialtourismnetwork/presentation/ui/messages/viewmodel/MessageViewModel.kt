@@ -8,6 +8,7 @@ import com.miwfem.socialtourismnetwork.businesslogic.usecase.DeleteMessageUseCas
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.GetMessagesUseCase
 import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.mapper.map
+import com.miwfem.socialtourismnetwork.utils.ResultType
 import kotlinx.coroutines.launch
 
 class MessageViewModel(
@@ -26,8 +27,11 @@ class MessageViewModel(
         }
     }
 
-    fun deleteMessage(message: MessageVO) {
-
+    fun deleteMessage(message: MessageVO): ResultType {
+        val newMessages = _messages.value?.toMutableList()
+        newMessages?.remove(message)
+        _messages.value = newMessages
+        return deleteMessageUseCase.execute(DeleteMessageUseCase.Params(message.map()))
     }
 
 }

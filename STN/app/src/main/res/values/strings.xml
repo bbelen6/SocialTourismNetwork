@@ -26,7 +26,7 @@
     <string name="see_all">see all</string>
     <string name="favorite">favorite</string>
     <string name="delete">Eliminar Post</string>
-    <string name="delete_message">¿Estas seguro que quieres eliminar este post?</string>
+    <string name="delete_message_post">¿Estas seguro que quieres eliminar este post?</string>
     <string name="apply_filters">Aplicar filtros</string>
     <string name="delete_filters">Eliminar filtros</string>
     <string name="filter">filter</string>
@@ -48,11 +48,15 @@
     <string name="same_name">El nombre de usuario es el mismo</string>
     <string name="reject">Rechazar</string>
     <string name="no_post">En este apartado puede modificar su nombre de perfil y verá sus post añadidos \n ¡Añade tu primer post!</string>
-    <string name="no_messages">En este apartado puede apareceran los mensajes de los usuario que quieran ponerse en contacto por sus post añadidos</string>
+    <string name="no_messages">En este apartado apareceran los mensajes de los usuario que quieran ponerse en contacto por sus post añadidos</string>
     <string name="communication">communication</string>
     <string name="add_message">Añadir mensaje</string>
     <string name="send_message">Enviar mensaje</string>
     <string name="sended_message">Mensaje enviado</string>
     <string name="user_message">Mensaje enviador por: </string>
+    <string name="delete_message_success">El mensaje ha sido eliminado</string>
+    <string name="delete_message_error">El mensaje no ha podido eliminarse intentelo de nuevo</string>
+    <string name="delete_message">Eliminar mensaje</string>
+    <string name="delete_message_alert">¿Estas seguro que quieres eliminar este mensaje?</string>
 
 </resources>

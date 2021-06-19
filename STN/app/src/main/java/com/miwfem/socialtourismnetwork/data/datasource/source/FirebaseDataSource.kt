@@ -246,7 +246,13 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
     }
 
     fun deleteMessage(message: MessageDao): ResultType {
-        return ResultType.SUCCESS
+        return try {
+            firebaseFirestore.collection(USER_SETTINGS).document(message.userReceptor)
+                .collection(MESSAGES).document(message.postId).delete()
+            ResultType.SUCCESS
+        } catch (exception: Exception) {
+            ResultType.ERROR
+        }
     }
 
     companion object {

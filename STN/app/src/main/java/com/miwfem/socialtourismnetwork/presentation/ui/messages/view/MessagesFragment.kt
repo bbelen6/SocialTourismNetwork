@@ -2,6 +2,7 @@ package com.miwfem.socialtourismnetwork.presentation.ui.messages.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentMessagesBinding
@@ -10,6 +11,7 @@ import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.ui.messages.adapter.MessageAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.messages.interfaces.ItemMessageListener
 import com.miwfem.socialtourismnetwork.presentation.ui.messages.viewmodel.MessageViewModel
+import com.miwfem.socialtourismnetwork.utils.ResultType
 import com.miwfem.socialtourismnetwork.utils.USER
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -57,7 +59,24 @@ class MessagesFragment : BaseFragment(R.layout.fragment_messages), ItemMessageLi
     }
 
     override fun deleteMessage(message: MessageVO) {
-        messageViewModel.deleteMessage(message)
+        showDeleteMessageAlert(message)
+    }
+
+    private fun showDeleteMessageAlert(message: MessageVO) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.delete_message))
+            .setMessage(getString(R.string.delete_message_alert))
+            .setPositiveButton(getString(R.string.accept)) { _, _ ->
+                messageViewModel.deleteMessage(message).apply {
+                    when (this) {
+                        ResultType.SUCCESS -> showToast(getString(R.string.delete_message_success))
+                        ResultType.ERROR -> showToast(getString(R.string.delete_message_error))
+                    }
+                }
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     override fun seeDetailsMessage(message: MessageVO) {

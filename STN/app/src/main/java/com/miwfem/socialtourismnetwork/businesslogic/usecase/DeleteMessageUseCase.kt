@@ -6,7 +6,7 @@ import com.miwfem.socialtourismnetwork.utils.ResultType
 
 class DeleteMessageUseCase(private val firebaseRepository: IFirebaseRepository) {
 
-    fun execute(params: SendMessageUseCase.Params): ResultType {
+    fun execute(params: Params): ResultType {
         return firebaseRepository.deleteMessage(params.message)
     }
 

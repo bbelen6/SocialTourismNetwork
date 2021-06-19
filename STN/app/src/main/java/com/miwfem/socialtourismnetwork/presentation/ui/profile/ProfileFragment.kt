@@ -148,7 +148,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
     private fun showDeletePostAlert(post: PostVO) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.delete))
-            .setMessage(getString(R.string.delete_message))
+            .setMessage(getString(R.string.delete_message_post))
             .setPositiveButton(getString(R.string.accept)) { _, _ ->
                 profileViewModel.deletePost(post).also { result ->
                     when (result) {
