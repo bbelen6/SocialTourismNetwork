@@ -210,7 +210,8 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
             doc.collection(MESSAGES).document(message.postId).set(
                 hashMapOf(
                     MESSAGE to message.message,
-                    USER_EMISSARY to message.userEmissary,
+                    USER_EMISSARY_MAIL to (message.userEmissaryEmail ?: ""),
+                    USER_EMISSARY_NAME to message.userEmissary,
                     POST to message.post
                 )
             )
@@ -229,7 +230,9 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                     allMessages.documents.forEach { messageId ->
                         messages.add(
                             MessageDao(
-                                userEmissary = messageId.data?.get(USER_EMISSARY).toString(),
+                                userEmissary = messageId.data?.get(USER_EMISSARY_NAME).toString(),
+                                userEmissaryEmail = messageId.data?.get(USER_EMISSARY_MAIL)
+                                    .toString(),
                                 postId = messageId.id,
                                 userReceptor = logUser,
                                 message = messageId.data?.get(MESSAGE).toString(),
@@ -271,7 +274,8 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         const val MESSAGES = "messages"
         const val POST_ID = "postID"
         const val MESSAGE = "message"
-        const val USER_EMISSARY = "userEmisor"
+        const val USER_EMISSARY_MAIL = "userEmisorMail"
+        const val USER_EMISSARY_NAME = "userEmisorName"
     }
 
 }

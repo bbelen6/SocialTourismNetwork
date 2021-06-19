@@ -24,14 +24,14 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
 
     private lateinit var profileBinding: FragmentProfileBinding
     private val profileViewModel: ProfileViewModel by viewModel()
-    private var user: String? = null
+    private var userMail: String? = null
     private var userName: String? = null
     private lateinit var sharedPreferences: SharedPreferences
     private var postsAdapter: PostAdapter? = null
 
     override fun setUpDataBinding(view: View) {
         profileBinding = FragmentProfileBinding.bind(view).apply {
-            profileMail.text = user
+            profileMail.text = userMail
             profileName.text = userName
             editProfile.setOnClickListener {
                 editView(true)
@@ -66,10 +66,10 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
 
     override fun getBundleExtras() {
         arguments?.let {
-            user = it.getString(USER)
+            userMail = it.getString(USER)
             userName = it.getString(USER_NAME)
         }
-        profileViewModel.getPosts(user)
+        profileViewModel.getPosts(userMail)
     }
 
     override fun observeViewModel() {
@@ -83,7 +83,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
 
     private fun setPostsAdapter(posts: List<PostVO>) {
         if (postsAdapter == null) {
-            postsAdapter = PostAdapter(this, user)
+            postsAdapter = PostAdapter(this, userMail)
         }
         with(profileBinding) {
             if (rvProfile.adapter == null) {
@@ -103,7 +103,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
     }
 
     private fun saveProfile(newName: String) {
-        user?.let {
+        userMail?.let {
             profileViewModel.saveName(it, newName).also { result ->
                 when (result) {
                     ResultType.SUCCESS -> {
@@ -134,11 +134,11 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
     }
 
     override fun addFavPost(post: PostVO) {
-        profileViewModel.manageFavorite(post, user)
+        profileViewModel.manageFavorite(post, userMail)
     }
 
     override fun seeAllPost(post: PostVO) {
-        showSeeAllPostDialog(post, user)
+        showSeeAllPostDialog(post, userMail)
     }
 
     override fun sendCommunication(post: PostVO) {

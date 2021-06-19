@@ -72,6 +72,8 @@ abstract class BaseFragment(@LayoutRes private val layout: Int) : Fragment() {
                 favoritePost2.isVisible = false
                 seeAllContainerUserEmissary.isVisible = true
                 seeAllCommunicationUserName.text = it.userEmissary
+                seeAllUserMail.isVisible = !it.userEmissaryEmail.isNullOrBlank()
+                seeAllUserMail.text = it.userEmissaryEmail ?: ""
             } ?: kotlin.run {
                 seeAllComment.text = post?.comment
                 seeAllLocation.text = post?.location

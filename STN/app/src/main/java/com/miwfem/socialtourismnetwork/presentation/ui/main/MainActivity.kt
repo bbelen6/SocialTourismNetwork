@@ -30,7 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences(PREFERENCES_FILE, MODE_PRIVATE)
         replaceFragment(
-            HomeFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
+            HomeFragment.newInstance(
+                sharedPreferences.getString(EMAIL, null),
+                sharedPreferences.getString(USER_NAME, null)
+            ),
             R.id.fragmentComplete,
             TAG_HOME
         )
@@ -103,7 +106,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home -> {
                     if (supportFragmentManager.findFragmentByTag(TAG_HOME) == null)
                         replaceFragment(
-                            HomeFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
+                            HomeFragment.newInstance(
+                                sharedPreferences.getString(EMAIL, null),
+                                sharedPreferences.getString(USER_NAME, null)
+                            ),
                             R.id.fragmentComplete,
                             TAG_HOME
                         )
@@ -153,15 +159,15 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.isVisible = true
     }
 
-    fun backAndRefreshHome(user: String?) {
+    fun backAndRefreshHome(user: String?, userName: String?) {
         onBackPressed()
-        refreshHome(user)
+        refreshHome(user, userName)
     }
 
-    private fun refreshHome(user: String? = null) {
+    private fun refreshHome(user: String? = null, userName: String? = null) {
         supportFragmentManager.findFragmentById(R.id.fragmentComplete)?.let { fragment ->
             if (fragment is HomeFragment) {
-                fragment.refreshHome(user)
+                fragment.refreshHome(user, userName)
             }
         }
     }
@@ -208,7 +214,10 @@ class MainActivity : AppCompatActivity() {
     fun navigateToHome() {
         if (supportFragmentManager.findFragmentByTag(TAG_HOME) == null)
             replaceFragment(
-                HomeFragment.newInstance(sharedPreferences.getString(EMAIL, null)),
+                HomeFragment.newInstance(
+                    sharedPreferences.getString(EMAIL, null),
+                    sharedPreferences.getString(USER_NAME, null)
+                ),
                 R.id.fragmentComplete,
                 TAG_HOME
             )

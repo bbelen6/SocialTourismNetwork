@@ -21,6 +21,7 @@ import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.home.viewmodel.HomeViewModel
 import com.miwfem.socialtourismnetwork.utils.ResultType
 import com.miwfem.socialtourismnetwork.utils.USER
+import com.miwfem.socialtourismnetwork.utils.USER_NAME
 import kotlinx.android.synthetic.main.item_post.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +29,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
 
     private lateinit var homeBinding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by viewModel()
-    private var logUser: String? = null
+    private var userMail: String? = null
+    private var userName: String? = null
     private var postsAdapter: PostAdapter? = null
 
     override fun setUpDataBinding(view: View) {
@@ -50,29 +52,31 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             deleteFiltersButton.setOnClickListener {
                 deleteFilters()
             }
-            filterButton.isVisible = logUser != null
+            filterButton.isVisible = userMail != null
         }
     }
 
 
     override fun getBundleExtras() {
         arguments?.let {
-            logUser = it.getString(USER)
+            userMail = it.getString(USER)
+            userName = it.getString(USER_NAME)
         }
-        homeViewModel.getPosts(logUser)
-        if (logUser != null) {
+        homeViewModel.getPosts(userMail)
+        if (userMail != null) {
             homeViewModel.getCategories()
             homeViewModel.getLocations()
         }
     }
 
-    fun refreshHome(user: String?) {
-        logUser = user
-        postsAdapter = PostAdapter(this, logUser)
+    fun refreshHome(user: String?, userName: String?) {
+        userMail = user
+        this.userName = userName
+        postsAdapter = PostAdapter(this, userMail)
         homeBinding.rvPosts.adapter = postsAdapter
-        homeBinding.filterButton.isVisible = logUser != null
-        homeViewModel.getPosts(logUser)
-        if (logUser != null) {
+        homeBinding.filterButton.isVisible = userMail != null
+        homeViewModel.getPosts(userMail)
+        if (userMail != null) {
             homeViewModel.getCategories()
             homeViewModel.getLocations()
         }
@@ -95,7 +99,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
 
     private fun setPostsAdapter(posts: List<PostVO>) {
         if (postsAdapter == null) {
-            postsAdapter = PostAdapter(this, logUser)
+            postsAdapter = PostAdapter(this, userMail)
         }
         with(homeBinding) {
             if (rvPosts.adapter == null) {
@@ -145,11 +149,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     override fun addFavPost(post: PostVO) {
-        homeViewModel.manageFavorite(post, logUser)
+        homeViewModel.manageFavorite(post, userMail)
     }
 
     override fun seeAllPost(post: PostVO) {
-        showSeeAllPostDialog(post, logUser)
+        showSeeAllPostDialog(post, userMail)
     }
 
     override fun sendCommunication(post: PostVO) {
@@ -173,17 +177,22 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
                 dialog.dismiss()
             }
             sendMessage.setOnClickListener {
-                homeViewModel.sendMessage(
-                    MessageVO(
-                        userEmissary = logUser ?: "",
-                        postId = post.id ?: "",
-                        userReceptor = post.user,
-                        message = messageEdit.text.toString(),
-                        post = post.comment
+                if (messageEdit.text.isEmpty()) {
+                    messageEdit.error = getString(R.string.fill_error)
+                } else {
+                    homeViewModel.sendMessage(
+                        MessageVO(
+                            userEmissary = userName ?: "",
+                            userEmissaryEmail = if (checkUserEmail.isChecked) userMail else null,
+                            postId = post.id ?: "",
+                            userReceptor = post.user,
+                            message = messageEdit.text.toString(),
+                            post = post.comment
+                        )
                     )
-                )
-                showToast(getString(R.string.sended_message))
-                dialog.dismiss()
+                    showToast(getString(R.string.sended_message))
+                    dialog.dismiss()
+                }
             }
         }
         dialog.show()
@@ -248,9 +257,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
     }
 
     companion object {
-        fun newInstance(user: String?) = HomeFragment().apply {
+        fun newInstance(userMail: String?, userName: String?) = HomeFragment().apply {
             arguments = Bundle().apply {
-                putString(USER, user)
+                putString(USER, userMail)
+                putString(USER_NAME, userName)
             }
         }
     }

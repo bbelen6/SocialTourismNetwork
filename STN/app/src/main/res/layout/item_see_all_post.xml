@@ -70,15 +70,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="nombre de usuario"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="@dimen/margin_10" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/see_all_user_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/see_all_container_user_emissary"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:textStyle="bold"
+                    tools:text="email"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/message_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/see_all_container_user_emissary"
+                    app:layout_constraintTop_toBottomOf="@id/see_all_user_mail"
                     android:layout_marginTop="@dimen/margin_10"
                     android:layout_marginBottom="@dimen/margin_10"
                     tools:text="Mensaje"

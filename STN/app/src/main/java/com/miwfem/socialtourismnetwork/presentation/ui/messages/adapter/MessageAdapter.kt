@@ -2,6 +2,7 @@ package com.miwfem.socialtourismnetwork.presentation.ui.messages.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.miwfem.socialtourismnetwork.databinding.ItemCommunicationBinding
 import com.miwfem.socialtourismnetwork.presentation.common.interfaces.AddDataSetAdapterLister
@@ -44,6 +45,8 @@ class MessageAdapter(
             with(binding) {
                 communicationMenssage.text = messageVO.message
                 communicationUserName.text = messageVO.userEmissary
+                communicationUserMail.isVisible = !messageVO.userEmissaryEmail.isNullOrBlank()
+                communicationUserMail.text = messageVO.userEmissaryEmail ?: ""
                 communicationDeletePost.setOnClickListener {
                     itemMessageListener.deleteMessage(messageVO)
                 }
