@@ -54,7 +54,7 @@ class PostAdapter(
                 deletePost.isVisible = post.user == logUser
                 favoritePost.isVisible = logUser != null
                 numberFavs.isVisible = logUser != null
-                communication.isVisible = if (logUser == null) false else post.user != logUser
+                communication.isVisible = communicationVisibility(logUser, post.user)
 
                 if (post.isFav) {
                     favoritePost.setImageResource(R.drawable.ic_baseline_favorite_24)
@@ -86,6 +86,10 @@ class PostAdapter(
                 }
             }
         }
+
+        private fun communicationVisibility(logUser: String?, postUser: String): Boolean =
+            if (logUser == null) false else postUser != logUser
+
     }
 
 }

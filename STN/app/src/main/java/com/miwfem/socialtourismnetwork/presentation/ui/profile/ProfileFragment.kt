@@ -142,7 +142,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
     }
 
     override fun sendCommunication(post: PostVO) {
-        //TODO("Not yet implemented")
+        //Empty body. Not send communication from this fragment.
     }
 
     private fun showDeletePostAlert(post: PostVO) {
