@@ -143,6 +143,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
     private fun createPost(post: PostDao): HashMap<*, *> {
         return hashMapOf(
             USER to post.user,
+            USER_NAME to post.userName,
             LOCATION to post.location,
             AREA to post.area,
             CATEGORY to post.category,
