@@ -30,7 +30,10 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
             locationSelector.setTitle(getString(R.string.location))
             locationSelector.setPositiveButton(getString(R.string.close))
             categorySelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    //Empty body
+                }
+
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
@@ -65,18 +68,22 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
                                 comment = addPostEdit.text.toString(),
                             )
                         ).also { result ->
-                            when (result) {
-                                ResultType.SUCCESS -> {
-                                    showToast(getString(R.string.thanks_new_post))
-                                    navigateToHome()
-                                }
-                                ResultType.ERROR -> {
-                                    showToast(getString(R.string.error_new_post))
-                                }
-                            }
+                            resultSavePost(result)
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun resultSavePost(result: ResultType) {
+        when (result) {
+            ResultType.SUCCESS -> {
+                showToast(getString(R.string.thanks_new_post))
+                navigateToHome()
+            }
+            ResultType.ERROR -> {
+                showToast(getString(R.string.error_new_post))
             }
         }
     }

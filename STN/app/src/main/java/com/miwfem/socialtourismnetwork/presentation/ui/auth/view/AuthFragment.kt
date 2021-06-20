@@ -78,7 +78,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
     }
 
     override fun getBundleExtras() {
-        //TODO("Not yet implemented")
+        //Empty body
     }
 
     override fun observeViewModel() {
@@ -122,15 +122,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                     }
                 }
             } else {
-                if (loginCorreoField.text?.isNotEmpty() == false) loginCorreoField.error =
-                    getString(R.string.fill_error)
-                else loginCorreoField.error = null
-                if (loginCodeField.text?.isNotEmpty() == false) loginCodeField.error =
-                    getString(R.string.fill_error)
-                else loginCodeField.error = null
-                if (registerField.text?.isNotEmpty() == false) registerField.error =
-                    getString(R.string.fill_error)
-                else registerField.error = null
+                fillError(true)
             }
         }
     }
@@ -153,12 +145,23 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                     }
                 }
             } else {
-                if (loginCorreoField.text?.isNotEmpty() == false) loginCorreoField.error =
+                fillError(false)
+            }
+        }
+    }
+
+    private fun fillError(register: Boolean) {
+        with(authBinding) {
+            if (loginCorreoField.text?.isNotEmpty() == false) loginCorreoField.error =
+                getString(R.string.fill_error)
+            else loginCorreoField.error = null
+            if (loginCodeField.text?.isNotEmpty() == false) loginCodeField.error =
+                getString(R.string.fill_error)
+            else loginCodeField.error = null
+            if (register) {
+                if (registerField.text?.isNotEmpty() == false) registerField.error =
                     getString(R.string.fill_error)
-                else loginCorreoField.error = null
-                if (loginCodeField.text?.isNotEmpty() == false) loginCodeField.error =
-                    getString(R.string.fill_error)
-                else loginCodeField.error = null
+                else registerField.error = null
             }
         }
     }
