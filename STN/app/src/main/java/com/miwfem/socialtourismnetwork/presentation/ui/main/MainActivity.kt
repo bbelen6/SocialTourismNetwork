@@ -104,15 +104,7 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    if (supportFragmentManager.findFragmentByTag(TAG_HOME) == null)
-                        replaceFragment(
-                            HomeFragment.newInstance(
-                                sharedPreferences.getString(EMAIL, null),
-                                sharedPreferences.getString(USER_NAME, null)
-                            ),
-                            R.id.fragmentComplete,
-                            TAG_HOME
-                        )
+                    navigateToHome()
                 }
                 R.id.nav_add -> {
                     if (supportFragmentManager.findFragmentByTag(TAG_ADD_POST) == null)
@@ -203,7 +195,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton(getString(R.string.accept)) { _, _ ->
                 closeSession()
                 setBottomOptions()
-                navigateToHome()
+                navigateToHome(true)
                 refreshHome()
             }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
@@ -211,7 +203,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun navigateToHome() {
+    fun navigateToHome(forceSelected: Boolean = false) {
         if (supportFragmentManager.findFragmentByTag(TAG_HOME) == null)
             replaceFragment(
                 HomeFragment.newInstance(
@@ -221,6 +213,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragmentComplete,
                 TAG_HOME
             )
-        bottom_navigation.selectedItemId = R.id.nav_home
+        if (forceSelected)
+            bottom_navigation.selectedItemId = R.id.nav_home
     }
 }

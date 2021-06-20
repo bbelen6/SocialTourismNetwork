@@ -119,7 +119,7 @@ class AddPostFragment : BaseFragment(R.layout.fragment_add_post) {
     }
 
     private fun navigateToHome() {
-        (requireActivity() as? MainActivity)?.navigateToHome()
+        (requireActivity() as? MainActivity)?.navigateToHome(true)
     }
 
     companion object {

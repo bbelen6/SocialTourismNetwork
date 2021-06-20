@@ -19,7 +19,6 @@ import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
 import com.miwfem.socialtourismnetwork.presentation.ui.home.adapter.PostAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.home.viewmodel.HomeViewModel
-import com.miwfem.socialtourismnetwork.utils.ResultType
 import com.miwfem.socialtourismnetwork.utils.USER
 import com.miwfem.socialtourismnetwork.utils.USER_NAME
 import kotlinx.android.synthetic.main.item_post.*
@@ -241,14 +240,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             .setMessage(getString(R.string.delete_message_post))
             .setPositiveButton(getString(R.string.accept)) { _, _ ->
                 homeViewModel.deletePost(post).also { result ->
-                    when (result) {
-                        ResultType.SUCCESS -> {
-                            showToast(getString(R.string.delete_post))
-                        }
-                        ResultType.ERROR -> {
-                            showToast(getString(R.string.delete_post_error))
-                        }
-                    }
+                    resultDelete(result)
                 }
             }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }

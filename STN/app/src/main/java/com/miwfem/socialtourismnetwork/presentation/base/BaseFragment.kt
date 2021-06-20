@@ -14,6 +14,7 @@ import com.miwfem.socialtourismnetwork.databinding.ItemSeeAllPostBinding
 import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
 import com.miwfem.socialtourismnetwork.presentation.ui.main.MainActivity
+import com.miwfem.socialtourismnetwork.utils.ResultType
 
 abstract class BaseFragment(@LayoutRes private val layout: Int) : Fragment() {
 
@@ -90,6 +91,17 @@ abstract class BaseFragment(@LayoutRes private val layout: Int) : Fragment() {
         }
         dialog.show()
         dialog.setContentView(dialogBinding.root)
+    }
+
+    fun resultDelete(result: ResultType) {
+        when (result) {
+            ResultType.SUCCESS -> {
+                showToast(getString(R.string.delete_post))
+            }
+            ResultType.ERROR -> {
+                showToast(getString(R.string.delete_post_error))
+            }
+        }
     }
 
     fun showToast(message: String) {

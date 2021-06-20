@@ -51,15 +51,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
             firebaseFirestore.collection(POST)
                 .document(if (post.id.isNullOrEmpty()) UUID.randomUUID().toString() else post.id)
                 .set(
-                    hashMapOf(
-                        USER to post.user,
-                        USER_NAME to post.userName,
-                        LOCATION to post.location,
-                        AREA to post.area,
-                        CATEGORY to post.category,
-                        COMMENT to post.comment,
-                        WITH_FAV to post.withFav
-                    )
+                    createPost(post)
                 )
             ResultType.SUCCESS
         } catch (exception: Exception) {
@@ -130,28 +122,14 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         return try {
             post.id?.let {
                 firebaseFirestore.collection(POST).document(it).set(
-                    hashMapOf(
-                        USER to post.user,
-                        LOCATION to post.location,
-                        AREA to post.area,
-                        CATEGORY to post.category,
-                        COMMENT to post.comment,
-                        WITH_FAV to post.withFav
-                    )
+                    createPost(post)
                 )
                 logUser?.let { logUser ->
                     val dummyMap = HashMap<String, String>()
                     val doc = firebaseFirestore.collection(USER_SETTINGS).document(logUser)
                     doc.set(dummyMap)
                     doc.collection(POSTS_FAV).document(post.id).set(
-                        hashMapOf(
-                            USER to post.user,
-                            LOCATION to post.location,
-                            AREA to post.area,
-                            CATEGORY to post.category,
-                            COMMENT to post.comment,
-                            WITH_FAV to post.withFav
-                        )
+                        createPost(post)
                     )
                 }
 
@@ -160,6 +138,17 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         } catch (exception: Exception) {
             ResultType.ERROR
         }
+    }
+
+    private fun createPost(post: PostDao): HashMap<*, *> {
+        return hashMapOf(
+            USER to post.user,
+            LOCATION to post.location,
+            AREA to post.area,
+            CATEGORY to post.category,
+            COMMENT to post.comment,
+            WITH_FAV to post.withFav
+        )
     }
 
     fun deleteFavoritePost(post: PostDao, logUser: String?): ResultType {

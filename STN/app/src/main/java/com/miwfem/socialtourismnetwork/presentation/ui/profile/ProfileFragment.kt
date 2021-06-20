@@ -151,14 +151,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
             .setMessage(getString(R.string.delete_message_post))
             .setPositiveButton(getString(R.string.accept)) { _, _ ->
                 profileViewModel.deletePost(post).also { result ->
-                    when (result) {
-                        ResultType.SUCCESS -> {
-                            showToast(getString(R.string.delete_post))
-                        }
-                        ResultType.ERROR -> {
-                            showToast(getString(R.string.delete_post_error))
-                        }
-                    }
+                    resultDelete(result)
                 }
             }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
