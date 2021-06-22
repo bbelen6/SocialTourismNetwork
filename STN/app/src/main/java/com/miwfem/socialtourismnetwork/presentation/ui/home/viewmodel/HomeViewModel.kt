@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.*
 import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.model.TiaLocationVO
 import com.miwfem.socialtourismnetwork.presentation.mapper.map
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
@@ -19,7 +20,8 @@ class HomeViewModel(
     private val manageFavoriteUseCase: ManageFavoriteUseCase,
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val getLocationsUseCase: GetLocationsUseCase,
-    private val sendMessageUseCase: SendMessageUseCase
+    private val sendMessageUseCase: SendMessageUseCase,
+    private val getTiaLocationsUseCase: GetTiaLocationsUseCase
 ) : ViewModel() {
 
     private val _posts by lazy { MutableLiveData<List<PostVO>>() }
@@ -33,6 +35,10 @@ class HomeViewModel(
     private val _locations by lazy { MutableLiveData<List<LocationVO>>() }
     val location: LiveData<List<LocationVO>>
         get() = _locations
+
+    private val _tiaLocations by lazy { MutableLiveData<List<TiaLocationVO>>() }
+    val tiaLocation: LiveData<List<TiaLocationVO>>
+        get() = _tiaLocations
 
     fun getPosts(logUser: String?) {
         viewModelScope.launch {
@@ -65,5 +71,11 @@ class HomeViewModel(
 
     fun sendMessage(message: MessageVO) {
         sendMessageUseCase.execute(SendMessageUseCase.Params(message.map()))
+    }
+
+    fun getTiaLocations() {
+        viewModelScope.launch {
+            _tiaLocations.value = getTiaLocationsUseCase.execute().data?.map()
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.miwfem.socialtourismnetwork.presentation.mapper
 import com.miwfem.socialtourismnetwork.businesslogic.model.*
 import com.miwfem.socialtourismnetwork.presentation.common.model.MessageVO
 import com.miwfem.socialtourismnetwork.presentation.common.model.PostVO
+import com.miwfem.socialtourismnetwork.presentation.common.model.TiaLocationVO
 import com.miwfem.socialtourismnetwork.presentation.common.model.UserVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.CategoryVO
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
@@ -37,3 +38,17 @@ fun MessageEntity.map(): MessageVO =
 
 @JvmName("mapMessageEntity")
 fun List<MessageEntity>.map(): List<MessageVO> = map { it.map() }
+
+@JvmName("mapTiaLocationEntity")
+fun List<TiaLocationEntity>.map(): List<TiaLocationVO> = map { it.map() }
+
+fun TiaLocationEntity.map(): TiaLocationVO = TiaLocationVO(
+    activeVerified,
+    totalVerified,
+    verified,
+    date,
+    location,
+    activeAccumulatedRate,
+    accumulatedRateTotal,
+    accumulatedRate
+)

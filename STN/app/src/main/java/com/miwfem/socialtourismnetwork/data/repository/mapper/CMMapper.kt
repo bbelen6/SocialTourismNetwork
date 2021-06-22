@@ -1,8 +1,11 @@
 package com.miwfem.socialtourismnetwork.data.repository.mapper
 
 import com.miwfem.socialtourismnetwork.businesslogic.model.LocationEntity
+import com.miwfem.socialtourismnetwork.businesslogic.model.TiaLocationEntity
 import com.miwfem.socialtourismnetwork.data.datasource.model.LocationDao
 import com.miwfem.socialtourismnetwork.data.datasource.model.LocationsResponseDao
+import com.miwfem.socialtourismnetwork.data.datasource.model.TiaLocationDao
+import com.miwfem.socialtourismnetwork.data.datasource.model.TiaResponseDao
 import com.miwfem.socialtourismnetwork.data.datasource.room.model.LocationEntityLocal
 
 fun LocationsResponseDao.map(): List<LocationEntity> = locations.map {
@@ -28,3 +31,18 @@ fun LocationDao.mapLocal(): LocationEntityLocal =
         areaName = areaName,
         areaKm2 = areaKm2
     )
+
+fun TiaResponseDao.map(): List<TiaLocationEntity> = tiaLocations.map {
+    it.map()
+}
+
+fun TiaLocationDao.map(): TiaLocationEntity = TiaLocationEntity(
+    activeVerified = activeVerified,
+    totalVerified = totalVerified,
+    verified = verified,
+    date = date,
+    location = location,
+    activeAccumulatedRate = activeAccumulatedRate,
+    accumulatedRateTotal = accumulatedRateTotal,
+    accumulatedRate = accumulatedRate
+)

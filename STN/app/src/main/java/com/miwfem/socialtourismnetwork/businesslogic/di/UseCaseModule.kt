@@ -15,4 +15,5 @@ val useCaseModule = module {
     factory { SendMessageUseCase(get()) }
     factory { GetMessagesUseCase(get()) }
     factory { DeleteMessageUseCase(get()) }
+    factory { GetTiaLocationsUseCase(get()) }
 }
