@@ -48,7 +48,7 @@
     <string name="same_name">El nombre de usuario es el mismo</string>
     <string name="reject">Rechazar</string>
     <string name="no_post">En este apartado puede modificar su nombre de perfil y verá sus post añadidos \n ¡Añade tu primer post!</string>
-    <string name="no_messages">En este apartado apareceran los mensajes de los usuario que quieran ponerse en contacto por sus post añadidos</string>
+    <string name="no_messages">En este apartado aparecerán los mensajes de los usuario que quieran ponerse en contacto por sus post añadidos</string>
     <string name="communication">communication</string>
     <string name="add_message">Añadir mensaje</string>
     <string name="send_message">Enviar mensaje</string>
