@@ -17,6 +17,14 @@ class InfoViewModel(
     val tiaLocation: LiveData<List<TiaLocationVO>>
         get() = _tiaLocations
 
+    private val _locationsName by lazy { MutableLiveData<List<String>>() }
+    val locationsName: LiveData<List<String>>
+        get() = _locationsName
+
+    private val _areasName by lazy { MutableLiveData<List<String>>() }
+    val areasName: LiveData<List<String>>
+        get() = _areasName
+
     init {
         getTiaLocations()
     }
@@ -25,5 +33,13 @@ class InfoViewModel(
         viewModelScope.launch {
             _tiaLocations.value = getTiaLocationsNearestDateUseCase.execute().data?.map()
         }
+    }
+
+    fun getLocationsName() {
+        _locationsName.value = _tiaLocations.value?.map { it.location }?.distinct()
+    }
+
+    fun getAreasName() {
+        _areasName.value = _tiaLocations.value?.map { it.area ?: "" }?.distinct()
     }
 }
