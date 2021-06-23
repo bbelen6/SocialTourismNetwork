@@ -9,5 +9,6 @@ data class TiaLocationEntity(
     val location: String,
     val activeAccumulatedRate: Double,
     val accumulatedRateTotal: Double,
-    val accumulatedRate: Double
+    val accumulatedRate: Double,
+    var area: String? = null
 )

@@ -50,5 +50,6 @@ fun TiaLocationEntity.map(): TiaLocationVO = TiaLocationVO(
     location,
     activeAccumulatedRate,
     accumulatedRateTotal,
-    accumulatedRate
+    accumulatedRate,
+    area
 )

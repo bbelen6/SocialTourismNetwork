@@ -5,6 +5,8 @@ import com.miwfem.socialtourismnetwork.businesslogic.model.TiaLocationEntity
 import com.miwfem.socialtourismnetwork.businesslogic.repository.ICMRepository
 import com.miwfem.socialtourismnetwork.presentation.common.parseLongDate
 import com.miwfem.socialtourismnetwork.presentation.common.parseShortDate
+import com.miwfem.socialtourismnetwork.presentation.common.simplifyString
+import com.miwfem.socialtourismnetwork.presentation.ui.addPost.model.LocationVO
 import com.miwfem.socialtourismnetwork.utils.Result
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,12 +31,25 @@ class GetTiaLocationsNearestDateUseCase(private val cmRepository: ICMRepository)
                     }
                 }
             }
-            /*cmRepository.getLocations().apply {
-                result.forEach { tiaLocation ->
-                    val location = this.data?.find { it.name == tiaLocation.location }
-                    location?.areaName
+            cmRepository.getLocations().apply {
+                val locations = mutableListOf<LocationVO>()
+                data?.forEach {
+                    if (it.name.contains(" ("))
+                        locations.add(
+                            LocationVO(it.name.split(" (")[0], it.areaName)
+                        )
+                    else locations.add(LocationVO(it.name, it.areaName))
                 }
-            }*/
+                result.forEach { tiaLocation ->
+                    val tiaLocationSimplify = tiaLocation.location.simplifyString()
+                    val location = locations.find {
+                        it.name.simplifyString() == tiaLocationSimplify || tiaLocationSimplify.contains(
+                            it.name.simplifyString()
+                        )
+                    }
+                    tiaLocation.area = location?.areaName
+                }
+            }
             return Result.success(result)
         }
     }

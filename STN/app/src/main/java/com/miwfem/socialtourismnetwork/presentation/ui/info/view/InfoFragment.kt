@@ -1,4 +1,4 @@
-package com.miwfem.socialtourismnetwork.presentation.ui.info
+package com.miwfem.socialtourismnetwork.presentation.ui.info.view
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,7 @@ import com.miwfem.socialtourismnetwork.R
 import com.miwfem.socialtourismnetwork.databinding.FragmentInfoBinding
 import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.common.model.TiaLocationVO
+import com.miwfem.socialtourismnetwork.presentation.ui.info.adapter.InfoAdapter
 import com.miwfem.socialtourismnetwork.presentation.ui.info.viewmodel.InfoViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -15,6 +16,7 @@ class InfoFragment : BaseFragment(R.layout.fragment_info) {
 
     private lateinit var infoBinding: FragmentInfoBinding
     private val infoViewModel: InfoViewModel by viewModel()
+    private var infoAdapter: InfoAdapter? = null
 
     override fun setUpDataBinding(view: View) {
         infoBinding = FragmentInfoBinding.bind(view)
@@ -29,6 +31,7 @@ class InfoFragment : BaseFragment(R.layout.fragment_info) {
             tiaLocation.observe(viewLifecycleOwner, {
                 showAlert("Los datos que se muestran a continuación son del día ${it[0].date}")
                 getLocations(it)
+                setInfoAdapter(it)
                 hideLoading()
             })
         }
@@ -51,6 +54,14 @@ class InfoFragment : BaseFragment(R.layout.fragment_info) {
         }
         locations.add("Madrid")
         locations.distinct()
+    }
+
+    private fun setInfoAdapter(tiaLocations: List<TiaLocationVO>) {
+        if (infoAdapter == null) infoAdapter = InfoAdapter()
+        with(infoBinding) {
+            if (rvInfo.adapter == null) rvInfo.adapter = infoAdapter
+            infoAdapter?.addDataSet(tiaLocations)
+        }
     }
 
     private fun showLoading() {

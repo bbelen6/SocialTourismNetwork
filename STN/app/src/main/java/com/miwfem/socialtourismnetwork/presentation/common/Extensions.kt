@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,4 +33,15 @@ fun String.parseLongDate(): Date? {
 fun String.parseShortDate(): Date? {
     val format = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
     return format.parse(this)
+}
+
+fun stripAccents(s: String): String {
+    var s = s
+    s = Normalizer.normalize(s, Normalizer.Form.NFD)
+    s = s.replace("[\\p{InCombiningDiacriticalMarks}]".toRegex(), "")
+    return s
+}
+
+fun String.simplifyString(): String {
+    return stripAccents(this.replace(" ", "").toLowerCase(Locale.ROOT))
 }
