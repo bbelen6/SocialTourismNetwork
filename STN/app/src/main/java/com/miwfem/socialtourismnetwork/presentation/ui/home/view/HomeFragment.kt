@@ -53,6 +53,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             }
             filterButton.isVisible = userMail != null
         }
+        showLoading()
     }
 
 
@@ -86,6 +87,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
         with(homeViewModel) {
             posts.observe(viewLifecycleOwner, {
                 setPostsAdapter(it)
+                hideLoading()
             })
             categories.observe(viewLifecycleOwner, {
                 setCategoriesSpinner(it)
@@ -246,6 +248,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun showLoading() {
+        homeBinding.homeLoading.isVisible = true
+    }
+
+    private fun hideLoading() {
+        homeBinding.homeLoading.isVisible = false
     }
 
     companion object {

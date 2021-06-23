@@ -144,11 +144,11 @@ class InfoFragment : BaseFragment(R.layout.fragment_info) {
     }
 
     private fun showLoading() {
-        infoBinding.progressBarCyclic.isVisible = true
+        infoBinding.infoLoading.isVisible = true
     }
 
     private fun hideLoading() {
-        infoBinding.progressBarCyclic.isVisible = false
+        infoBinding.infoLoading.isVisible = false
     }
 
     companion object {

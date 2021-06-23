@@ -81,7 +81,7 @@
             android:layout_marginTop="@dimen/margin_30" />
 
         <ProgressBar
-            android:id="@+id/progressBar_cyclic"
+            android:id="@+id/info_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="40dp"
