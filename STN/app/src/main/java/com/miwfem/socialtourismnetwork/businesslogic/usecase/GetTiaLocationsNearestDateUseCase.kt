@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
 
-class GetTiaLocationsUseCase(private val cmRepository: ICMRepository) {
+class GetTiaLocationsNearestDateUseCase(private val cmRepository: ICMRepository) {
 
     @SuppressLint("SimpleDateFormat")
     suspend fun execute(): Result<List<TiaLocationEntity>> {
@@ -29,6 +29,12 @@ class GetTiaLocationsUseCase(private val cmRepository: ICMRepository) {
                     }
                 }
             }
+            /*cmRepository.getLocations().apply {
+                result.forEach { tiaLocation ->
+                    val location = this.data?.find { it.name == tiaLocation.location }
+                    location?.areaName
+                }
+            }*/
             return Result.success(result)
         }
     }

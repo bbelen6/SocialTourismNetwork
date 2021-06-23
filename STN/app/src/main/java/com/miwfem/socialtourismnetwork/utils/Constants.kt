@@ -7,6 +7,7 @@ const val TAG_HOME = "Home"
 const val TAG_ADD_POST = "add post"
 const val TAG_PROFILE = "profile"
 const val TAG_SETTINGS = "settings"
+const val TAG_INFO = "info"
 const val PREFERENCES_FILE = "PREFERENCES FILE"
 const val COMUNIDAD_MADRID_BASE_URL = "https://datos.comunidad.madrid/"
 const val LOCATIONS =

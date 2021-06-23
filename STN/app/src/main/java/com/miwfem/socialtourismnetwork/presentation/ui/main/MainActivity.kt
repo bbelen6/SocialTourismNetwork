@@ -13,6 +13,7 @@ import com.miwfem.socialtourismnetwork.presentation.base.BaseFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.addPost.view.AddPostFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.auth.view.AuthFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.home.view.HomeFragment
+import com.miwfem.socialtourismnetwork.presentation.ui.info.InfoFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.messages.view.MessagesFragment
 import com.miwfem.socialtourismnetwork.presentation.ui.profile.ProfileFragment
 import com.miwfem.socialtourismnetwork.utils.*
@@ -92,10 +93,12 @@ class MainActivity : AppCompatActivity() {
                 findItem(R.id.nav_communication).isVisible = true
                 findItem(R.id.nav_add).isVisible = true
                 findItem(R.id.nav_profile).isVisible = true
+                findItem(R.id.nav_info).isVisible = true
             } ?: kotlin.run {
                 findItem(R.id.nav_communication).isVisible = false
                 findItem(R.id.nav_add).isVisible = false
                 findItem(R.id.nav_profile).isVisible = false
+                findItem(R.id.nav_info).isVisible = false
             }
         }
     }
@@ -136,6 +139,14 @@ class MainActivity : AppCompatActivity() {
                             ),
                             R.id.fragmentComplete,
                             TAG_SETTINGS
+                        )
+                }
+                R.id.nav_info -> {
+                    if (supportFragmentManager.findFragmentByTag(TAG_INFO) == null)
+                        replaceFragment(
+                            InfoFragment.newInstance(),
+                            R.id.fragmentComplete,
+                            TAG_INFO
                         )
                 }
             }

@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_baseline_comment_bank_24"
         android:title="" />
 
+    <item
+        android:id="@+id/nav_info"
+        android:icon="@drawable/ic_baseline_info_24"
+        android:title="" />
+
 </menu>

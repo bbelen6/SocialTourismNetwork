@@ -2,7 +2,6 @@ package com.miwfem.socialtourismnetwork.presentation.ui.home.view
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
@@ -67,7 +66,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             homeViewModel.getCategories()
             homeViewModel.getLocations()
         }
-        homeViewModel.getTiaLocations()
     }
 
     fun refreshHome(user: String?, userName: String?) {
@@ -94,9 +92,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), ItemPostListener {
             })
             location.observe(viewLifecycleOwner, {
                 setLocationsSpinner(it)
-            })
-            tiaLocation.observe(viewLifecycleOwner, {
-                Log.d("TIA LOCATION", "TIA LOCATION")
             })
         }
     }
