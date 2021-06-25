@@ -63,7 +63,7 @@ class GetTiaLocationsNearestDateUseCase(private val cmRepository: ICMRepository)
         for (i in dates.indices) {
             val date = dates[i]
             val currDiff = date?.time?.minus(targetTS)?.let { abs(it) }
-            if (currDiff != null) {
+            currDiff?.let {
                 if (prevDiff == -1L || currDiff < prevDiff) {
                     prevDiff = currDiff
                     nearestDate = date

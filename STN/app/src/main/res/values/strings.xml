@@ -62,6 +62,4 @@
     <string name="check_message">Quiero mandar mi correo en el mensaje</string>
     <string name="nav_info">Info</string>
     <string name="attention">¡Atención!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

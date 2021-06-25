@@ -42,6 +42,7 @@ class InfoFragment : BaseFragment(R.layout.fragment_info) {
     }
 
     override fun getBundleExtras() {
+        // Empty body
     }
 
     override fun observeViewModel() {
