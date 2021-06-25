@@ -24,5 +24,6 @@
     <dimen name="user_size">12sp</dimen>
     <dimen name="empty_message">20sp</dimen>
     <dimen name="data_size">12sp</dimen>
+    <dimen name="size_link">10sp</dimen>
 
 </resources>

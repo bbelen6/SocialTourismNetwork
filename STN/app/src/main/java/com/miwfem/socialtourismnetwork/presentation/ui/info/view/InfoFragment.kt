@@ -108,6 +108,7 @@ class InfoFragment : BaseFragment(R.layout.fragment_info) {
         with(infoBinding) {
             infoFilterButton.isVisible = !visibility
             infoFilterLayout.isVisible = visibility
+            moreInfo.isVisible = !visibility
             if (!visibility) this@InfoFragment.hideKeyboard()
         }
     }

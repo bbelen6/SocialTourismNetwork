@@ -67,4 +67,5 @@
     <string name="data2">Tasa incidencia acumulada total:</string>
     <string name="data3">Casos confirmados totales:</string>
     <string name="data4">Casos confirmados últimos 14 días:</string>
+    <string name="more_info">Más información sobre estos datos\nhttps://cnecovid.isciii.es/covid19/#documentaci%C3%B3n-y-datos</string>
 </resources>

@@ -92,6 +92,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/more_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/info_filter_button"
+            android:text="@string/more_info"
+            app:layout_constraintTop_toTopOf="parent"
+            android:autoLink="web"
+            android:textStyle="bold"
+            android:textSize="@dimen/size_link"
+            android:layout_marginStart="@dimen/margin_10" />
+
         <ImageButton
             android:id="@+id/info_filter_button"
             android:layout_width="@dimen/icons_dimens_home"
