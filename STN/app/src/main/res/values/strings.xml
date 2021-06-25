@@ -12,6 +12,7 @@
     <string name="sing_up_error">Se ha producido un error al registrar el usuario</string>
     <string name="login_error">Se ha producido un error al iniciar sesión</string>
     <string name="fill_error">Complete todos los campos</string>
+    <string name="error_name">Este nombre ya existe, pruebe con otro</string>
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
     <string name="logout_message">¿Estas seguro que quieres cerrar sesión?</string>

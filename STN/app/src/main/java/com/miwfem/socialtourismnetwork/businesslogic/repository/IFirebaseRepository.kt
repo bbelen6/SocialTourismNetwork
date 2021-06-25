@@ -20,5 +20,6 @@ interface IFirebaseRepository {
     fun sendMessage(messageEntity: MessageEntity): ResultType
     suspend fun getMessages(logUser: String?): Result<List<MessageEntity>>
     fun deleteMessage(messageEntity: MessageEntity): ResultType
+    suspend fun getUserNames(): Result<List<String>>
 
 }

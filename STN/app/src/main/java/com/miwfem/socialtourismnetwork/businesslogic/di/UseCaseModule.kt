@@ -16,4 +16,5 @@ val useCaseModule = module {
     factory { GetMessagesUseCase(get()) }
     factory { DeleteMessageUseCase(get()) }
     factory { GetTiaLocationsNearestDateUseCase(get()) }
+    factory { CheckExistsUserNameUseCase(get()) }
 }

@@ -25,6 +25,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                     USER_NAME to user.name
                 )
             )
+            firebaseFirestore.collection(USER_NAMES).document(user.name).set(dummyMap)
             ResultType.SUCCESS
         } catch (exception: Exception) {
             ResultType.ERROR
@@ -248,6 +249,20 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         }
     }
 
+    suspend fun getUserNames(): Result<List<String>> {
+        lateinit var result: Result<List<String>>
+        val userNames = mutableListOf<String>()
+        firebaseFirestore.collection(USER_NAMES).get().addOnSuccessListener { query ->
+            query.documents.forEach {
+                userNames.add(it.id)
+            }
+            result = Result.success(userNames)
+        }.addOnFailureListener {
+            result = Result.error(Exception(it))
+        }.await()
+        return result
+    }
+
     companion object {
         const val POST = "post"
         const val POSTS_FAV = "postsFav"
@@ -260,7 +275,7 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
         const val WITH_FAV = "withFav"
         const val USER_SETTINGS = "userSettings"
         const val PROFILE = "profile"
-        const val USERS = "users"
+        const val USER_NAMES = "userNames"
         const val MESSAGES = "messages"
         const val POST_ID = "postID"
         const val MESSAGE = "message"

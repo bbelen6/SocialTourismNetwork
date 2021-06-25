@@ -56,7 +56,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
             }
             loginButton.setOnClickListener {
                 if (registerView)
-                    registerUser()
+                    checkUserName()
                 else
                     loginUser()
             }
@@ -86,6 +86,13 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
             userName.observe(viewLifecycleOwner, {
                 authSuccess(authBinding.loginCorreoField.text.toString(), it)
             })
+            existUserName.observe(viewLifecycleOwner, {
+                if (it) {
+                    fillErrorName()
+                } else {
+                    registerUser()
+                }
+            })
         }
     }
 
@@ -95,6 +102,16 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
             loginButton.text = getString(R.string.register)
             noAccount.isVisible = false
             singUpButton.text = getString(R.string.login)
+        }
+    }
+
+    private fun checkUserName() {
+        with(authBinding) {
+            if (loginCorreoField.text?.isNotEmpty() == true && loginCodeField.text?.isNotEmpty() == true && registerField.text?.isNotEmpty() == true) {
+                authViewModel.checkUserName(authBinding.registerField.text.toString())
+            } else {
+                fillError(true)
+            }
         }
     }
 
@@ -164,6 +181,10 @@ class AuthFragment : BaseFragment(R.layout.fragment_auth) {
                 else registerField.error = null
             }
         }
+    }
+
+    private fun fillErrorName() {
+        authBinding.registerField.error = getString(R.string.error_name)
     }
 
     private fun loginUserView() {

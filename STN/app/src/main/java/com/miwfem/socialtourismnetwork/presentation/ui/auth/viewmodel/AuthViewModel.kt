@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.miwfem.socialtourismnetwork.businesslogic.usecase.CheckExistsUserNameUseCase
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.GetUserNameByEmailUseCase
 import com.miwfem.socialtourismnetwork.businesslogic.usecase.SaveUserProfileUseCase
 import com.miwfem.socialtourismnetwork.presentation.common.model.UserVO
@@ -15,12 +16,17 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel(
     private val saveUserProfileUseCase: SaveUserProfileUseCase,
-    private val getUserNameByEmailUseCase: GetUserNameByEmailUseCase
+    private val getUserNameByEmailUseCase: GetUserNameByEmailUseCase,
+    private val checkExistsUserNameUseCase: CheckExistsUserNameUseCase
 ) : ViewModel() {
 
     private val _userName by lazy { MutableLiveData<String>() }
     val userName: LiveData<String>
         get() = _userName
+
+    private val _existUserName by lazy { MutableLiveData<Boolean>() }
+    val existUserName: LiveData<Boolean>
+        get() = _existUserName
 
     fun singUp(email: String, password: String): Task<AuthResult> {
         return FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
@@ -38,6 +44,13 @@ class AuthViewModel(
         viewModelScope.launch {
             _userName.value =
                 getUserNameByEmailUseCase.execute(GetUserNameByEmailUseCase.Params(email)).data
+        }
+    }
+
+    fun checkUserName(name: String) {
+        viewModelScope.launch {
+            _existUserName.value =
+                checkExistsUserNameUseCase.execute(CheckExistsUserNameUseCase.Params(name)).data
         }
     }
 }

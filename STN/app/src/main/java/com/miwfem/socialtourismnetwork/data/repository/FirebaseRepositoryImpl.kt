@@ -100,6 +100,10 @@ class FirebaseRepositoryImpl(
         return firebaseDataSource.deleteMessage(messageEntity.map())
     }
 
+    override suspend fun getUserNames(): Result<List<String>> {
+        return firebaseDataSource.getUserNames()
+    }
+
     private suspend fun getLocalCategories(): List<CategoryEntityLocal> {
         return categoryDaoLocal.getAllCategories()
     }
