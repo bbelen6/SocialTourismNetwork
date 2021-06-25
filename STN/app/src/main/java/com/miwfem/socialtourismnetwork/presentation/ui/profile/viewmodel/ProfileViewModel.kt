@@ -17,20 +17,26 @@ class ProfileViewModel(
     private val deletePostUseCase: DeletePostUseCase,
     private val manageFavoriteUseCase: ManageFavoriteUseCase,
     private val savePostUseCase: SavePostUseCase,
+    private val checkExistsUserNameUseCase: CheckExistsUserNameUseCase
 ) : ViewModel() {
 
     private val _posts by lazy { MutableLiveData<List<PostVO>>() }
     val posts: LiveData<List<PostVO>>
         get() = _posts
 
-    fun saveName(user: String, userName: String): ResultType {
+    private val _existUserName by lazy { MutableLiveData<Boolean>() }
+    val existUserName: LiveData<Boolean>
+        get() = _existUserName
+
+    fun saveName(user: String, userName: String, oldName: String?): ResultType {
         updatePosts(userName)
         return saveUserProfileUseCase.execute(
             SaveUserProfileUseCase.Params(
                 UserEntity(
                     user,
                     userName
-                )
+                ),
+                oldName ?: ""
             )
         )
     }
@@ -66,5 +72,12 @@ class ProfileViewModel(
             )
         }
         _posts.value = posts.value
+    }
+
+    fun checkUserName(name: String) {
+        viewModelScope.launch {
+            _existUserName.value =
+                checkExistsUserNameUseCase.execute(CheckExistsUserNameUseCase.Params(name)).data
+        }
     }
 }

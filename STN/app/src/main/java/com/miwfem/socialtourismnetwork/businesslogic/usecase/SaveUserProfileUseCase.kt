@@ -6,10 +6,12 @@ import com.miwfem.socialtourismnetwork.utils.ResultType
 
 class SaveUserProfileUseCase(private val firebaseRepository: IFirebaseRepository) {
 
-    fun execute(params: Params): ResultType = firebaseRepository.saveUserProfile(params.user)
+    fun execute(params: Params): ResultType =
+        firebaseRepository.saveUserProfile(params.user, params.oldUserName)
 
     data class Params(
-        val user: UserEntity
+        val user: UserEntity,
+        val oldUserName: String? = null
     )
 
 }

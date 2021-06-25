@@ -15,7 +15,7 @@ import kotlin.collections.HashMap
 
 class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
 
-    fun saveUserProfile(user: UserDao): ResultType {
+    fun saveUserProfile(user: UserDao, oldName: String?): ResultType {
         return try {
             val dummyMap = HashMap<String, String>()
             val doc = firebaseFirestore.collection(USER_SETTINGS).document(user.email)
@@ -26,6 +26,9 @@ class FirebaseDataSource(private val firebaseFirestore: FirebaseFirestore) {
                 )
             )
             firebaseFirestore.collection(USER_NAMES).document(user.name).set(dummyMap)
+            oldName?.let {
+                firebaseFirestore.collection(USER_NAMES).document(it).delete()
+            }
             ResultType.SUCCESS
         } catch (exception: Exception) {
             ResultType.ERROR

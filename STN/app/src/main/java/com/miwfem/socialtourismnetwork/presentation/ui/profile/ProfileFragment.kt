@@ -45,7 +45,8 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
                         editProfileName.error = getString(R.string.fill_error)
                     }
                     else -> {
-                        saveProfile(editProfileName.text.toString())
+                        profileViewModel.checkUserName(editProfileName.text.toString())
+                        //saveProfile(editProfileName.text.toString())
                     }
                 }
             }
@@ -78,6 +79,13 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
                 profileBinding.noPosts.isVisible = it.isEmpty()
                 setPostsAdapter(it)
             })
+            existUserName.observe(viewLifecycleOwner, {
+                if (it) {
+                    fillErrorName()
+                } else {
+                    saveProfile(profileBinding.editProfileName.text.toString())
+                }
+            })
         }
     }
 
@@ -104,7 +112,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
 
     private fun saveProfile(newName: String) {
         userMail?.let {
-            profileViewModel.saveName(it, newName).also { result ->
+            profileViewModel.saveName(it, newName, userName).also { result ->
                 when (result) {
                     ResultType.SUCCESS -> {
                         editView(false)
@@ -157,6 +165,10 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun fillErrorName() {
+        profileBinding.editProfileName.error = getString(R.string.error_name)
     }
 
     companion object {

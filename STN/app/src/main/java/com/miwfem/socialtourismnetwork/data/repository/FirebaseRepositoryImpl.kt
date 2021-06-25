@@ -18,8 +18,8 @@ class FirebaseRepositoryImpl(
     private val categoryDaoLocal: CategoryDaoLocal
 ) : IFirebaseRepository {
 
-    override fun saveUserProfile(user: UserEntity): ResultType {
-        return firebaseDataSource.saveUserProfile(user.map())
+    override fun saveUserProfile(user: UserEntity, oldName: String?): ResultType {
+        return firebaseDataSource.saveUserProfile(user.map(), oldName)
     }
 
     override fun savePost(post: PostEntity): ResultType {
