@@ -46,7 +46,6 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile), ItemPostListene
                     }
                     else -> {
                         profileViewModel.checkUserName(editProfileName.text.toString())
-                        //saveProfile(editProfileName.text.toString())
                     }
                 }
             }
