@@ -63,4 +63,8 @@
     <string name="check_message">Quiero mandar mi correo en el mensaje</string>
     <string name="nav_info">Info</string>
     <string name="attention">¡Atención!</string>
+    <string name="data1">Tasa incidencia acumulada últimos 14 días:</string>
+    <string name="data2">Tasa incidencia acumulada total:</string>
+    <string name="data3">Casos confirmados totales:</string>
+    <string name="data4">Casos confirmados últimos 14 días:</string>
 </resources>

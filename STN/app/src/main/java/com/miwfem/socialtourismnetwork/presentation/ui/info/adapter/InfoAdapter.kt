@@ -39,7 +39,10 @@ class InfoAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         fun bindData(info: TiaLocationVO) {
             with(binding) {
                 infoLocation.text = info.location
-                infoDatos.text = info.accumulatedRate.toString()
+                data1.text = info.accumulatedRate.toString()
+                data2.text = info.accumulatedRateTotal.toString()
+                data3.text = info.totalVerified.toString()
+                data4.text = info.verified.toString()
             }
         }
     }

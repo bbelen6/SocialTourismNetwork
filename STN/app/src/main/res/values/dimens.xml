@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_10">10dp</dimen>
     <dimen name="margin_20">20dp</dimen>
@@ -22,5 +23,6 @@
 
     <dimen name="user_size">12sp</dimen>
     <dimen name="empty_message">20sp</dimen>
+    <dimen name="data_size">12sp</dimen>
 
 </resources>

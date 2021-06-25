@@ -42,10 +42,13 @@ class GetTiaLocationsNearestDateUseCase(private val cmRepository: ICMRepository)
                 }
                 result.forEach { tiaLocation ->
                     val tiaLocationSimplify = tiaLocation.location.simplifyString()
-                    val location = locations.find {
-                        it.name.simplifyString() == tiaLocationSimplify || tiaLocationSimplify.contains(
-                            it.name.simplifyString()
-                        )
+                    var location = locations.find {
+                        it.name.simplifyString() == tiaLocationSimplify
+                    }
+                    if (location == null) {
+                        location = locations.find {
+                            tiaLocationSimplify.contains(it.name.simplifyString())
+                        }
                     }
                     tiaLocation.area = location?.areaName
                 }
